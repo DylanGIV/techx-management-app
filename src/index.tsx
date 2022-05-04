@@ -15,7 +15,7 @@ export default function AppContent() {
             <SafeAreaProvider>
                 <NavigationContainer>
                 {/* Container for our navigation */}
-                    <AppStack.Navigator >
+                    <AppStack.Navigator screenOptions={{ headerShown: false }} >
                     {/* Configuring our Stack of screens */}
 
                         <AppStack.Screen name="AuthStack" component={AuthStack} />
