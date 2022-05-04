@@ -2,7 +2,7 @@ import axios from 'axios';
 import configureStore from '../redux/store/index'
 const { store } = configureStore()
 
-const herokuURL = 'http://localhost:5000/'
+const herokuURL = 'https://techx-management-api.herokuapp.com/'
 
 let instance = axios.create({
     baseURL: herokuURL,

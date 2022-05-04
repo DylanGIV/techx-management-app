@@ -25,7 +25,7 @@ export const loginWithEmailAndPassword = (email : string, password : string) => 
         })
         .catch((err : any) => {
             dispatch({ type: AUTH_LOGIN_FAIL, payload: err })
-            alert('Invalid email and password')
+            // alert('Invalid email and password')
         })
     }
 }
@@ -36,15 +36,16 @@ export const registerAccount = (company : string, firstName: string, lastName : 
         postRegister(company, firstName, lastName, email, password, confirmPassword, acceptTerms)
         
         .then((res : any) => {
-            dispatch(loginWithEmailAndPassword(email, password))
+            // postLogin(email, password)
 
-            .then((res : any) => {
-                dispatch(authLoginSuccess(res.jwtToken))
-            })
-            .catch((err : any) => {
-                dispatch({ type: AUTH_LOGIN_FAIL, payload: err })
-                alert('Invalid email and password')
-            })
+            // .then((res : any) => {
+            //     dispatch(authLoginSuccess(res.jwtToken))
+            // })
+            // .catch((err : any) => {
+            //     dispatch({ type: AUTH_LOGIN_FAIL, payload: err })
+            //     alert('Invalid email and password')
+            // })
+            console.log(res)
         })
         .catch((err : any) => {
             dispatch({ type: AUTH_LOGIN_FAIL, payload: err })
