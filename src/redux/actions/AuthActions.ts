@@ -45,7 +45,6 @@ export const registerAccount = (company : string, firstName: string, lastName : 
             //     dispatch({ type: AUTH_LOGIN_FAIL, payload: err })
             //     alert('Invalid email and password')
             // })
-            console.log(res)
         })
         .catch((err : any) => {
             dispatch({ type: AUTH_LOGIN_FAIL, payload: err })
