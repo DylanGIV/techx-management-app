@@ -45,7 +45,7 @@ const RegisterScreen = (props : LoginProps) => {
             return
         }
         acceptTerms = true;
-        dispatch(registerAccount(company, firstName, lastName, email, password, confirmPassword, acceptTerms));
+        dispatch(registerAccount(company, firstName, lastName, email, password, confirmPassword, acceptTerms) as any);
         
     }
 

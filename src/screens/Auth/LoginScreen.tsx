@@ -32,7 +32,7 @@ const LoginScreen = (props : LoginProps) => {
     // const theme = useSelector((state : ThemeState) => state.theme.theme)
 
     const login = () => {
-        dispatch(loginWithEmailAndPassword(email, password));
+        dispatch(loginWithEmailAndPassword(email, password) as any);
     }
 
     // This return may only return one element.
@@ -106,7 +106,7 @@ const LoginScreen = (props : LoginProps) => {
             </View>
 
             <View style={styles.signupContainer}>
-              <Button onPress={() => props.navigation.navigate('Register')}>
+              <Button onPress={() => props.navigation.navigate('Register' as any)}>
                   Register
               </Button>
             </View>
