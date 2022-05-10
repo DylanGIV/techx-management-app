@@ -25,14 +25,14 @@ export const loginWithEmailAndPassword = (email : string, password : string) => 
         })
         .catch((err : any) => {
             dispatch({ type: AUTH_LOGIN_FAIL, payload: err })
-            // alert('Invalid email and password')
+            alert('Invalid email and password');
         })
     }
 }
 
 export const registerAccount = (company : string, firstName: string, lastName : string, email : string, password : string, confirmPassword : string, acceptTerms : Boolean) => {
     return (dispatch : any) => {
-        dispatch({ type: AUTH_LOGIN_STARTED })
+        // dispatch({ type: AUTH_LOGIN_STARTED })
         postRegister(company, firstName, lastName, email, password, confirmPassword, acceptTerms)
         
         .then((res : any) => {
@@ -47,7 +47,7 @@ export const registerAccount = (company : string, firstName: string, lastName : 
             // })
         })
         .catch((err : any) => {
-            dispatch({ type: AUTH_LOGIN_FAIL, payload: err })
+            // dispatch({ type: AUTH_LOGIN_FAIL, payload: err })
             alert(err)
         })
 

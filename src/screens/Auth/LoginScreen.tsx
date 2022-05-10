@@ -1,6 +1,6 @@
 import React, { MutableRefObject, useRef, useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { Text, TextInput, Button } from 'react-native-paper';
+import { Text, TextInput, Button, ActivityIndicator } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthState } from '../../models/redux/AuthState';
@@ -32,7 +32,8 @@ const LoginScreen = (props : LoginProps) => {
     // const theme = useSelector((state : ThemeState) => state.theme.theme)
 
     const login = () => {
-        dispatch(loginWithEmailAndPassword(email, password) as any);
+      Keyboard.dismiss();
+      dispatch(loginWithEmailAndPassword(email, password) as any);
     }
 
     // This return may only return one element.
@@ -112,7 +113,15 @@ const LoginScreen = (props : LoginProps) => {
             </View>
 
           </View>
+
         </TouchableWithoutFeedback>
+
+        {isLoading &&
+          <View style={styles.loadingIndicator}>
+              <ActivityIndicator size='large' />
+          </View>
+        }
+
       </SafeAreaView>
 
     );
@@ -164,7 +173,18 @@ const styles = StyleSheet.create({
     },
     wrapperView: {
       flex: 1,
-    }
+    },
+    loadingIndicator: {
+      position: 'absolute', 
+      justifyContent: 'center', 
+      alignItems: 'center', 
+      backgroundColor: 'black', 
+      opacity: 0.5, 
+      left: 0, 
+      right: 0, 
+      top: 0, 
+      bottom: 0,
+    },
 
   });  
 
