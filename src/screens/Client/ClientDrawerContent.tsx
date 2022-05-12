@@ -20,7 +20,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // import{ AuthContext } from '../components/context';
 
-export function ClientDrawerContent(props) {
+export function ClientDrawerContent(props : any) {
 
     // const paperTheme = useTheme();
 
