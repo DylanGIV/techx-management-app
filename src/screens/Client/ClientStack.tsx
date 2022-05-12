@@ -1,17 +1,17 @@
-import { createStackNavigator } from '@react-navigation/stack';
-import React from 'react';
-import ClientHomeScreen from './ClientHomeScreen';
+// import { createStackNavigator } from '@react-navigation/stack';
+// import React from 'react';
+// import ClientHomeScreen from './ClientHomeScreen';
 
-const Stack = createStackNavigator();
+// const Stack = createStackNavigator();
 
-function ClientStack() {
+// function ClientStack() {
 
-    return (
-        <Stack.Navigator initialRouteName="Login"  >
-            <Stack.Screen name="Home" component={ClientHomeScreen} options={{ headerMode:'float' }}/>
+//     return (
+//         <Stack.Navigator initialRouteName="Login"  >
+//             <Stack.Screen name="Home" component={ClientHomeScreen} options={{ headerMode:'float' }}/>
             
-        </Stack.Navigator>
-    );
-}
+//         </Stack.Navigator>
+//     );
+// }
 
-export default ClientStack;
+// export default ClientStack;
