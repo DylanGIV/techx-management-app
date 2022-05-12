@@ -1,9 +1,11 @@
-import { AUTH_LOGIN_FAIL, AUTH_LOGIN_STARTED, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT } from '../actions/types';
+import { AUTH_LOGIN_FAIL, AUTH_LOGIN_STARTED, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, AUTH_REGISTER_FAIL, AUTH_REGISTER_STARTED, AUTH_RESGISTER_SUCCESS } from '../actions/types';
 
 const INITIAL_STATE = {
     jwt: null,
+    isRegistering: false,
     isLoggingIn: false,
     loginErrorMessage: '',
+    registerErrorMessasge: '',
 }
 
 interface Action {
@@ -21,6 +23,12 @@ export default (state = INITIAL_STATE, action : Action) => {
             return {...state, isLoggingIn: false, loginErrorMessage: action.payload}
         case AUTH_LOGOUT:
             return {...state, jwt: null}
+        case AUTH_REGISTER_STARTED:
+            return {...state, isRegistering: true}
+        case AUTH_REGISTER_FAIL:
+            return {...state, isRegistering: false, registerErrorMessage: action.payload}
+        case AUTH_RESGISTER_SUCCESS:
+            return {...state, isRegistering: false}
         default:
             return state;
     }

@@ -1,4 +1,4 @@
-import { AUTH_LOGIN_SUCCESS, AUTH_LOGIN_STARTED, AUTH_LOGIN_FAIL, AUTH_LOGOUT } from './types';
+import { AUTH_LOGIN_SUCCESS, AUTH_LOGIN_STARTED, AUTH_LOGIN_FAIL, AUTH_LOGOUT, AUTH_REGISTER_STARTED, AUTH_REGISTER_FAIL, AUTH_RESGISTER_SUCCESS } from './types';
 import { postLogin, postRegister } from '../../api/';
 import { AxiosResponse } from 'axios';
 
@@ -32,10 +32,12 @@ export const loginWithEmailAndPassword = (email : string, password : string) => 
 
 export const registerAccount = (company : string, firstName: string, lastName : string, email : string, password : string, confirmPassword : string, acceptTerms : Boolean) => {
     return (dispatch : any) => {
-        // dispatch({ type: AUTH_LOGIN_STARTED })
+        dispatch({ type: AUTH_REGISTER_STARTED })
         postRegister(company, firstName, lastName, email, password, confirmPassword, acceptTerms)
         
         .then((res : any) => {
+            dispatch({ type: AUTH_RESGISTER_SUCCESS })
+            alert("Please check your email for a verification message.")
             // postLogin(email, password)
 
             // .then((res : any) => {
@@ -47,7 +49,7 @@ export const registerAccount = (company : string, firstName: string, lastName : 
             // })
         })
         .catch((err : any) => {
-            // dispatch({ type: AUTH_LOGIN_FAIL, payload: err })
+            dispatch({ type: AUTH_REGISTER_FAIL, payload: err })
             alert(err)
         })
 

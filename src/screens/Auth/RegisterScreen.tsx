@@ -1,6 +1,6 @@
 import React, { MutableRefObject, useRef, useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { Text, TextInput, Button } from 'react-native-paper';
+import { Text, TextInput, Button, ActivityIndicator } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthState } from '../../models/redux/AuthState';
@@ -21,6 +21,7 @@ const RegisterScreen = (props : LoginProps) => {
     const dispatch = useDispatch()
 
     // const theme = useSelector(state => state.theme.theme)
+    const isLoading = useSelector((state : AuthState) => state.auth.isRegistering);
 
     const ref_input2 = useRef<any>();
     const ref_input3 = useRef<any>();
@@ -61,18 +62,21 @@ const RegisterScreen = (props : LoginProps) => {
               
               <View style={styles.inputBorder} />
               
-              <View style={styles.inputCenter}>
+              <View style={styles.wrapperView}>
 
-                <Text 
-                  style={styles.text} 
-                  allowFontScaling
-                  adjustsFontSizeToFit
-                >
-                  Please enter the following information
-                </Text>
+                <View style={styles.infoTextWrapper}>
+
+                  <Text 
+                    style={styles.text} 
+                    allowFontScaling
+                    adjustsFontSizeToFit
+                  >
+                    Please enter the following information
+                  </Text>
+
+                </View>
 
                 <View style={styles.inputContainer} >
-
                   <TextInput
                     style={styles.textInput}
                     label="Company"
@@ -85,42 +89,47 @@ const RegisterScreen = (props : LoginProps) => {
                     autoCapitalize='sentences'
                     autoComplete={false}
                   />
-                  <View style={styles.nameInputContainer}>
 
-                    <View style={styles.individualNameContainer}>
-                      <TextInput
-                        style={styles.textInput}
-                        label="First Name"
-                        value={firstName}
-                        autoCorrect={false}
-                        blurOnSubmit={false}
-                        onChangeText={text => setFirstName(text)}
-                        returnKeyType="next"
-                        onSubmitEditing={() => ref_input3.current.focus()}
-                        ref={ref_input2}
-                        autoCapitalize='words'
-                        autoComplete={false}
-                      />
-                    </View>
+                </View>
 
-                    <View style={styles.individualNameContainer}>
+                <View style={styles.nameInputContainer}>
 
-                      <TextInput
-                        style={styles.textInput}
-                        label="Last Name"
-                        value={lastName}
-                        autoCorrect={false}
-                        blurOnSubmit={false}
-                        onChangeText={text => setLastName(text)}
-                        returnKeyType="next"
-                        onSubmitEditing={() => ref_input4.current.focus()}
-                        ref={ref_input3}
-                        autoCapitalize='words'
-                        autoComplete={false}
-                      />
-
-                    </View>
+                  <View style={styles.individualNameContainer}>
+                    <TextInput
+                      style={styles.textInput}
+                      label="First Name"
+                      value={firstName}
+                      autoCorrect={false}
+                      blurOnSubmit={false}
+                      onChangeText={text => setFirstName(text)}
+                      returnKeyType="next"
+                      onSubmitEditing={() => ref_input3.current.focus()}
+                      ref={ref_input2}
+                      autoCapitalize='words'
+                      autoComplete={false}
+                    />
                   </View>
+
+                  <View style={styles.individualNameContainer}>
+
+                    <TextInput
+                      style={styles.textInput}
+                      label="Last Name"
+                      value={lastName}
+                      autoCorrect={false}
+                      blurOnSubmit={false}
+                      onChangeText={text => setLastName(text)}
+                      returnKeyType="next"
+                      onSubmitEditing={() => ref_input4.current.focus()}
+                      ref={ref_input3}
+                      autoCapitalize='words'
+                      autoComplete={false}
+                    />
+
+                  </View>
+                </View>
+
+                <View style={styles.inputContainer} >
 
                   <TextInput
                     style={styles.textInput}
@@ -135,6 +144,11 @@ const RegisterScreen = (props : LoginProps) => {
                     autoCapitalize='none'
                     autoComplete={false}
                   />
+
+                </View>
+
+                <View style={styles.inputContainer} >
+
                   <TextInput
                     style={styles.textInput}
                     label="Password"
@@ -145,6 +159,10 @@ const RegisterScreen = (props : LoginProps) => {
                     ref={ref_input5}
                     autoComplete={false}
                   />
+                </View>
+
+                <View style={styles.inputContainer} >
+
                   <TextInput
                     style={styles.textInput}
                     label="Confirm Password"
@@ -155,9 +173,8 @@ const RegisterScreen = (props : LoginProps) => {
                     ref={ref_input6}
                     autoComplete={false}
                   />
-
+                    
                 </View>
-
 
                 <View style={styles.registerContainer}>
                   <Button  
@@ -170,12 +187,21 @@ const RegisterScreen = (props : LoginProps) => {
 
               </View>
 
+
+
               <View style={styles.inputBorder} />
 
             </View>
 
           </View>
         </TouchableWithoutFeedback>
+        
+        {isLoading &&
+          <View style={styles.loadingIndicator}>
+              <ActivityIndicator size='large' />
+          </View>
+        }
+
       </SafeAreaView>
 
     );
@@ -195,13 +221,12 @@ const styles = StyleSheet.create({
       marginBottom: 14
     },
     inputLoginContainer: {
-      flex: 0.9,
+      flex: 0.95,
       justifyContent: 'center',
       flexDirection: 'row',
     },
     inputContainer: {
-      flex: 1,
-      justifyContent: 'space-evenly'
+      flex: 0.166,
     },
     inputCenter: {
       flex: 0.8,
@@ -210,8 +235,9 @@ const styles = StyleSheet.create({
       flex: 0.1
     },
     registerContainer: {
-      flex: 0.1,
+      flex: 0.0833,
       justifyContent: 'flex-end',
+      alignItems: 'center'
     },
     touchableContainer: {
       flex: 1,
@@ -220,12 +246,26 @@ const styles = StyleSheet.create({
       flex: 1,
     },
     nameInputContainer: {
-      flex: 1,
+      flex: 0.166,
       flexDirection: 'row',
-      flexGrow: 0.4
+      flexGrow: 0.166
     },
     individualNameContainer: {
       flex: 1,
+    },
+    loadingIndicator: {
+      position: 'absolute', 
+      justifyContent: 'center', 
+      alignItems: 'center', 
+      backgroundColor: 'black', 
+      opacity: 0.5, 
+      left: 0, 
+      right: 0, 
+      top: 0, 
+      bottom: 0,
+    },
+    infoTextWrapper: {
+      flex: 0.166,
     }
 
   });  
