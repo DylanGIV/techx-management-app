@@ -88,7 +88,7 @@ const HomeStackScreen = () => (
     }}
   >
     <HomeStack.Screen
-      name="Home"
+      name="ClientHome"
       component={ClientHomeScreen}
       options={{
         title: "TechX Management",
