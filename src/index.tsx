@@ -16,7 +16,7 @@ export default function AppContent() {
 
 
     const jwt = useSelector((state : AuthState )=> state.auth.jwt)
-    
+
     return (
         <PaperProvider>
             <SafeAreaProvider>

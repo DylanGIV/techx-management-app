@@ -25,7 +25,7 @@ const MainTabScreen = () => {
     <Tab.Navigator initialRouteName="Home" activeColor="#fff">
       <Tab.Screen
         name="Home"
-        component={HomeStackScreen}
+        component={ClientHomeScreen}
         options={{
           tabBarLabel: "Home",
         //   tabBarColor: theme.colors.primary,
@@ -75,51 +75,51 @@ const MainTabScreen = () => {
 
 export default MainTabScreen;
 
-const HomeStackScreen = () => (
-  <HomeStack.Navigator
-    screenOptions={{
-      headerStyle: {
-        backgroundColor: "#009387",
-      },
-      headerTintColor: "#fff",
-      headerTitleStyle: {
-        fontWeight: "bold",
-      },
-    }}
-  >
-    <HomeStack.Screen
-      name="ClientHome"
-      component={ClientHomeScreen}
-      options={{
-        title: "TechX Management",
-        headerTitleAlign: "center",
-        headerShown: false
-      }}
-    />
+// const HomeStackScreen = () => (
+//   <HomeStack.Navigator
+//     screenOptions={{
+//       headerStyle: {
+//         backgroundColor: "#009387",
+//       },
+//       headerTintColor: "#fff",
+//       headerTitleStyle: {
+//         fontWeight: "bold",
+//       },
+//     }}
+//   >
+//     <HomeStack.Screen
+//       name="ClientHome"
+//       component={ClientHomeScreen}
+//       options={{
+//         title: "TechX Management",
+//         headerTitleAlign: "center",
+//         headerShown: false
+//       }}
+//     />
 
-    {/* <HomeStack.Screen
-      name="RestaurantDetails"
-      component={RestaurantDetailsScreen}
-      options={{ headerShown: true, headerStyle: { alignItems: "center" } }}
-      options={({ route }) => ({ title: route.params.name })}
-    /> */}
-    {/* <HomeStack.Screen name="EditProfileScreen" component={EditProfileScreen} /> */}
+//     {/* <HomeStack.Screen
+//       name="RestaurantDetails"
+//       component={RestaurantDetailsScreen}
+//       options={{ headerShown: true, headerStyle: { alignItems: "center" } }}
+//       options={({ route }) => ({ title: route.params.name })}
+//     /> */}
+//     {/* <HomeStack.Screen name="EditProfileScreen" component={EditProfileScreen} /> */}
 
-    {/* <HomeStack.Screen
-      name="Settings"
-      component={SettingsScreen}
-      options={{ headerShown: true, headerStyle: { alignItems: "center" } }}
-      options={({ route }) => ({ title: route.params.name })}
-    /> */}
+//     {/* <HomeStack.Screen
+//       name="Settings"
+//       component={SettingsScreen}
+//       options={{ headerShown: true, headerStyle: { alignItems: "center" } }}
+//       options={({ route }) => ({ title: route.params.name })}
+//     /> */}
 
-    {/* <HomeStack.Screen
-      name="FavoriteRestaurants"
-      component={FavoriteRestaurantsScreen}
-      options={{ headerShown: true }}
-    /> */}
-    {/* why is this not working? not showing the header*/}
-  </HomeStack.Navigator>
-);
+//     {/* <HomeStack.Screen
+//       name="FavoriteRestaurants"
+//       component={FavoriteRestaurantsScreen}
+//       options={{ headerShown: true }}
+//     /> */}
+//     {/* why is this not working? not showing the header*/}
+//   </HomeStack.Navigator>
+// );
 
 const styles = StyleSheet.create({
   container: {

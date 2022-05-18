@@ -4,6 +4,7 @@ import { Text, Button } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch } from 'react-redux';
 import { AUTH_LOGOUT } from '../../redux/actions/types';
+import MyTabs from './HomeTopNav/ClientTopTabNavigator';
 
 const ClientHomeScreen = () => {
 
@@ -15,25 +16,8 @@ const ClientHomeScreen = () => {
 
     return (
       <SafeAreaView style={styles.container}>
-          <View style={styles.wrapperView}>
-            <View style={styles.wrapperView}>
-              <Text>
-                Good morning! Welcome.
-              </Text>
-            </View>
-            
-
-            <View style={styles.logoutContainer}>
-              <Button
-                onPress={logout}
-                mode='contained'
-              >
-                Log out
-              </Button> 
-            </View>
-
-
-          </View>
+        <MyTabs />
+          
       </SafeAreaView>
 
     );
@@ -49,10 +33,7 @@ const styles = StyleSheet.create({
     wrapperView: {
       flex: 1,
     },
-    logoutContainer: {
-      flex: 0.1,
-      alignSelf: 'center',
-    },
+    
 
   });  
 
