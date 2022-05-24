@@ -3,8 +3,8 @@ import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-nati
 import { Text, Button } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch } from 'react-redux';
-import { AUTH_LOGOUT } from '../../redux/actions/types';
-import MyTabs from './HomeTopNav/ClientTopTabNavigator';
+import { AUTH_LOGOUT } from '../../../redux/actions/types';
+import MyTabs from '.././HomeTopNav/ClientTopTabNavigator';
 
 const ClientHomeScreen = () => {
 

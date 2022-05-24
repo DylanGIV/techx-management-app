@@ -5,10 +5,10 @@ import 'react-native-gesture-handler';
 import AuthStack from './screens/Auth/AuthStack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { createStackNavigator } from '@react-navigation/stack';
-import ClientHomeScreen from './screens/Client/ClientHomeScreen';
+import ClientHomeScreen from './screens/Client/ClientBottomTabNav/ClientHomeScreen';
 import { useSelector } from 'react-redux';
 import { AuthState } from './models/redux/AuthState';
-import ClientDrawerStack from './screens/Client/ClientDrawerStack';
+import ClientDrawerStack from './screens/Client/ClientBottomTabNav/ClientDrawerStack';
 
 const AppStack = createStackNavigator();
 
