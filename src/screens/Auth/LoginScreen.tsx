@@ -179,7 +179,7 @@ const makeStyles = (colors: any) => StyleSheet.create({
       alignItems: 'flex-end',
     },
     signupContainerButton: {
-      backgroundColor: colors.neutral,
+      backgroundColor: colors.primary,
     },
     signupContainerText: {
       color: colors.primaryDark,

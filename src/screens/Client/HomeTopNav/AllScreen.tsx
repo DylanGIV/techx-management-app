@@ -34,7 +34,7 @@ const AllScreen = () => {
 
             <View style={styles.logoutContainer}>
               <Button
-                color={colors.primaryDark}
+                color={colors.primary}
                 onPress={logout}
                 mode='contained'
               >
@@ -53,10 +53,11 @@ const AllScreen = () => {
 const makeStyles = (colors : any) => StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.background
   },
   wrapperView: {
     flex: 1,
-    backgroundColor: colors.primary
+    
   },
   logoutContainer: {
       flex: 0.1,

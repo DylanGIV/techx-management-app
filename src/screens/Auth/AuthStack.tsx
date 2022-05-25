@@ -1,8 +1,20 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from './LoginScreen';
 import React from 'react';
+import { Image } from 'react-native';
 import RegisterScreen from './RegisterScreen';
 import { useTheme } from 'react-native-paper';
+
+
+// import HeaderLogo from '../../components/headerLogo';
+function LogoTitle() {
+    return (
+      <Image
+        style={{ width: 100, height: 35 }}
+        source={require('../../global/images/logo.png')}
+      />
+    );
+};
 
 const Stack = createStackNavigator();
 
@@ -12,8 +24,8 @@ const Stack = createStackNavigator();
 function AuthStack() {
 
     return (
-        <Stack.Navigator initialRouteName="Login"  screenOptions={{headerStyle: {backgroundColor: '#1A2433'}, headerTintColor: '#FFFFFF', }}>
-            <Stack.Screen name="Login" component={LoginScreen} options={{ headerMode:'float', }}/>
+        <Stack.Navigator initialRouteName="Login"  screenOptions={defaultOptions}>
+            <Stack.Screen name="Login" component={LoginScreen} options={{ headerMode:'float', headerTitle: (props) => <LogoTitle {...props} />, }}/>
             <Stack.Screen name="Register" component={RegisterScreen}/>
             {/* Add additional screens here, just remember to
                 import your screen using "component={}" and give it a name.
@@ -22,6 +34,14 @@ function AuthStack() {
                 to the name of your screen so that the app starts at your screen.*/}
         </Stack.Navigator>
     );
-}
+};
+
+// Options
+const defaultOptions = {
+    headerStyle: {
+        backgroundColor: '#1A2433'
+    },
+    headerTintColor: '#FFFFFF',
+};
 
 export default AuthStack;

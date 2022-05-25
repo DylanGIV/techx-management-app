@@ -24,11 +24,11 @@ const theme = {
     ...DefaultTheme,
     myOwnProperty: true,
     colors: {
-        primary: '#7ED957',
-        secondary: '#8A95A6',
-        primaryDark: '#0A1321',
-        background: '#1A2433',
-        neutral: '#FFFFFF',
+        primary: '#7ED957',         // green
+        secondary: '#8A95A6',       // grey
+        primaryDark: '#0A1321',     // black
+        background: '#1A2433',      // dark blue
+        neutral: '#FFFFFF',         // white
     }
 }
 
