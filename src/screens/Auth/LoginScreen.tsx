@@ -1,6 +1,6 @@
 import React, { MutableRefObject, useRef, useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { Text, TextInput, Button, ActivityIndicator } from 'react-native-paper';
+import { Text, TextInput, Button, ActivityIndicator, useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthState } from '../../models/redux/AuthState';
@@ -35,6 +35,9 @@ const LoginScreen = (props : LoginProps) => {
       Keyboard.dismiss();
       dispatch(loginWithEmailAndPassword(email, password) as any);
     }
+
+    const { colors } = useTheme();
+    const styles = makeStyles(colors);
 
     // This return may only return one element.
     // By using "View" we are returning only that one view,
@@ -95,7 +98,7 @@ const LoginScreen = (props : LoginProps) => {
 
 
                 <View style={styles.loginContainer}>
-                  <Button  mode='contained' onPress={login}>
+                  <Button  mode='contained' onPress={login} style={styles.loginContainerButton}>
                     Log in
                   </Button>
                 </View>
@@ -107,8 +110,8 @@ const LoginScreen = (props : LoginProps) => {
             </View>
 
             <View style={styles.signupContainer}>
-              <Button onPress={() => props.navigation.navigate('Register' as any)}>
-                  Register
+              <Button onPress={() => props.navigation.navigate('Register' as any)} style={styles.signupContainerButton}>
+                <Text style={styles.signupContainerText}>Register</Text>
               </Button>
             </View>
 
@@ -130,17 +133,20 @@ const LoginScreen = (props : LoginProps) => {
 // A style sheet is used to move styling out of the body of JSX
 // and also if we will be using the same styling on many components.
 
-const styles = StyleSheet.create({
+const makeStyles = (colors: any) => StyleSheet.create({
     container: {
       flex: 1,
+      backgroundColor: colors.background,
     },
     text: {
       fontSize: 24,
-      textAlign: 'center'
+      textAlign: 'center',
+      color: colors.primary,
     },
     textInput: {
       marginHorizontal: 8,
-      marginBottom: 14
+      marginBottom: 14,
+      borderRadius: 10,
     },
     inputLoginContainer: {
       flex: 0.6,
@@ -150,6 +156,7 @@ const styles = StyleSheet.create({
     inputContainer: {
       flex: 1,
       justifyContent: 'flex-end',
+      borderRadius: 25,
     },
     inputCenter: {
       flex: 0.6,
@@ -161,12 +168,21 @@ const styles = StyleSheet.create({
       flex: 0.2,
       justifyContent: 'flex-end',
     },
+    loginContainerButton: {
+      backgroundColor: colors.primary,
+    },
     signupContainer: {
       flex: 0.2, 
       padding: 10, 
       flexDirection: 'row', 
       justifyContent: 'flex-start', 
       alignItems: 'flex-end',
+    },
+    signupContainerButton: {
+      backgroundColor: colors.neutral,
+    },
+    signupContainerText: {
+      color: colors.primaryDark,
     },
     touchableContainer: {
       flex: 1,
@@ -178,7 +194,7 @@ const styles = StyleSheet.create({
       position: 'absolute', 
       justifyContent: 'center', 
       alignItems: 'center', 
-      backgroundColor: 'black', 
+      backgroundColor: colors.primaryDark,
       opacity: 0.5, 
       left: 0, 
       right: 0, 
