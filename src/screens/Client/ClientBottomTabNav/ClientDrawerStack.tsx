@@ -11,8 +11,9 @@ import ClientHomeScreen from "./ClientHomeScreen";
 import ClientInboxScreen from "./ClientInboxScreen";
 import ClientSearchScreen from "./ClientSearchScreen";
 import ClientAccountScreen from "./ClientAccountScreen";
+import CreateProjectScreen from "../CreateProjectScreen";
 
-const HomeStack = createStackNavigator();
+const Stack = createStackNavigator();
 
 const DetailsStack = createStackNavigator();
 
@@ -70,6 +71,7 @@ const MainTabScreen = () => {
         }}
       />
     </Tab.Navigator>
+
   );
 };
 

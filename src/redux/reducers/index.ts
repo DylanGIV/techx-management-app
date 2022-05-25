@@ -1,8 +1,12 @@
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
 import AuthReducer from './AuthReducer';
-import ThemeReducer from "./ThemeReducer";
+import CompanyReducer from './CompanyReducer';
+import ProjectReducer from './ProjectReducer';
+import ThemeReducer from './ThemeReducer';
 
 export default combineReducers({
-    auth: AuthReducer,
-    theme: ThemeReducer,
-})
+  auth: AuthReducer,
+  theme: ThemeReducer,
+  company: CompanyReducer,
+  project: ProjectReducer
+});

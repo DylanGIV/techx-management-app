@@ -1,15 +1,15 @@
 import { DarkTheme, Colors, configureFonts, DefaultTheme } from 'react-native-paper';
 
 declare global {
-    namespace ReactNativePaper {
-        interface ThemeColors {
-        myOwnColor: string;
-        }
-
-        interface Theme {
-            primaryDark: boolean;
-        }
+  namespace ReactNativePaper {
+    interface ThemeColors {
+      myOwnColor: string;
     }
+
+    interface Theme {
+      primaryDark: boolean;
+    }
+  }
 }
 
 // const dark = {
@@ -21,16 +21,16 @@ declare global {
 // }
 
 const theme = {
-    ...DefaultTheme,
-    myOwnProperty: true,
-    colors: {
-        primary: '#7ED957',
-        secondary: '#8A95A6',
-        primaryDark: '#0A1321',
-        background: '#1A2433',
-        neutral: '#FFFFFF',
-    }
-}
+  ...DefaultTheme,
+  myOwnProperty: true,
+  colors: {
+    primary: '#7ED957',
+    secondary: '#8A95A6',
+    primaryDark: '#0A1321',
+    background: '#1A2433',
+    neutral: '#FFFFFF'
+  }
+};
 
 // const darkTheme = {
 //     ...dark
