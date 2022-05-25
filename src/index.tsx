@@ -11,6 +11,7 @@ import { AuthState } from './models/redux/AuthState';
 import ClientDrawerStack from './screens/Client/ClientBottomTabNav/ClientDrawerStack';
 import { Theme } from 'react-native-paper/lib/typescript/types';
 import { theme } from './global';
+import ClientHomeStack from './screens/Client/ClientHomeStack';
 
 const AppStack = createStackNavigator();
 
@@ -28,7 +29,7 @@ export default function AppContent() {
                     {/* Configuring our Stack of screens */}
 
                         {jwt ? (
-                            <AppStack.Screen name="HomeStack" component={ClientDrawerStack} />
+                            <AppStack.Screen name="HomeStack" component={ClientHomeStack} />
                             ) : (
                             <AppStack.Screen name="AuthStack" component={AuthStack} />
                         )}

@@ -8,22 +8,18 @@ import { configureStore, legacy_createStore } from '@reduxjs/toolkit';
 let middleware = [ReduxThunk];
 
 const persistConfig = {
-    key: 'root',
-    storage: AsyncStorage,
-    whitelist: ['auth', 'theme']
-}
+  key: 'root',
+  storage: AsyncStorage,
+  whitelist: ['auth', 'theme']
+};
 
-const persistedReducer = persistReducer(persistConfig, reducers)
+const persistedReducer = persistReducer(persistConfig, reducers);
 
 const composeEnhancers = compose;
 
-const store = legacy_createStore(
-    persistedReducer,
-    {},
-    composeEnhancers(applyMiddleware(...middleware))
-);
+const store = legacy_createStore(persistedReducer, {}, composeEnhancers(applyMiddleware(...middleware)));
 
 export default () => {
-    let persistor = persistStore(store)
-    return { store, persistor }
-}  
+  let persistor = persistStore(store);
+  return { store, persistor };
+};
