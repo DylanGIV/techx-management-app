@@ -27,8 +27,8 @@ const theme = {
         primary: '#7ED957',
         secondary: '#8A95A6',
         primaryDark: '#0A1321',
-        background: '1A2433',
-        neutral: 'FFFFFF',
+        background: '#1A2433',
+        neutral: '#FFFFFF',
     }
 }
 
