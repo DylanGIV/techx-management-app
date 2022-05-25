@@ -26,3 +26,10 @@ export const postRegister = async (company : string, firstName: string, lastName
         .catch((err) => reject(err))
     })
 }
+
+// export const postCreateCompany = async (company : string, firstName: string, lastName : string, email : string, password : string) {
+//     return new Promise((resolve, reject) => {
+//         axios.post('Company')
+//     })
+
+// }

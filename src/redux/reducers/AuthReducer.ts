@@ -1,3 +1,4 @@
+import { Action } from '../../models/redux/Action';
 import { AUTH_LOGIN_FAIL, AUTH_LOGIN_STARTED, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, AUTH_REGISTER_FAIL, AUTH_REGISTER_STARTED, AUTH_RESGISTER_SUCCESS } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -6,11 +7,6 @@ const INITIAL_STATE = {
     isLoggingIn: false,
     loginErrorMessage: '',
     registerErrorMessasge: '',
-}
-
-interface Action {
-    payload: string;
-    type: string;
 }
 
 export default (state = INITIAL_STATE, action : Action) => {

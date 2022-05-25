@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { Text, Button } from 'react-native-paper';
+import { Text, Button, useTheme } from 'react-native-paper';
+import { Theme } from 'react-native-paper/lib/typescript/types';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AUTH_LOGOUT } from '../../../redux/actions/types';
 
 const AllScreen = () => {
-
     const dispatch = useDispatch();
 
-  const logout = () => {
-    dispatch({ type: AUTH_LOGOUT })
-  }
+    const { colors } = useTheme();
+
+    const logout = () => {
+      dispatch({ type: AUTH_LOGOUT })
+    }
 
 
     return (
@@ -31,6 +33,7 @@ const AllScreen = () => {
 
             <View style={styles.logoutContainer}>
               <Button
+                color={colors.primaryDark}
                 onPress={logout}
                 mode='contained'
               >

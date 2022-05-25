@@ -19,17 +19,17 @@ function MyTabs() {
       <Tab.Screen
         name="Feed"
         component={AllScreen}
-        options={{ tabBarLabel: 'Home' }}
+        options={{ tabBarLabel: 'All' }}
       />
       <Tab.Screen
         name="Notifications"
         component={RecentsScreen}
-        options={{ tabBarLabel: 'Updates' }}
+        options={{ tabBarLabel: 'Recents' }}
       />
       <Tab.Screen
         name="Profile"
         component={FavoritesScreen}
-        options={{ tabBarLabel: 'Profile' }}
+        options={{ tabBarLabel: 'Favorites' }}
       />
     </Tab.Navigator>
   );
