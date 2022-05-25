@@ -14,8 +14,9 @@ const AllScreen = () => {
     const logout = () => {
       dispatch({ type: AUTH_LOGOUT })
     }
-
-
+    
+    const styles = makeStyles(colors);
+    
     return (
       <SafeAreaView style={styles.container}>
           <View style={styles.wrapperView}>
@@ -49,18 +50,20 @@ const AllScreen = () => {
     );
 };
 
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
+const makeStyles = (colors : any) => StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  wrapperView: {
+    flex: 1,
+    backgroundColor: colors.primary
+  },
+  logoutContainer: {
+      flex: 0.1,
+      alignSelf: 'center',
     },
-    wrapperView: {
-      flex: 1,
-    },
-    logoutContainer: {
-        flex: 0.1,
-        alignSelf: 'center',
-      },
 
-  });
+});
+
 
 export default AllScreen;
