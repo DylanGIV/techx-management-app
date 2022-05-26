@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import configureStore from './src/redux/store'
 import { Provider } from 'react-redux';
 import AppContent from './src';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const { store, persistor } = configureStore()
 
@@ -10,12 +11,14 @@ const { store, persistor } = configureStore()
 export default function App() {
 
   return (
-    <Provider store={store}>
+    <SafeAreaProvider>
+      <Provider store={store}>
       {/* AppContent is imported from index.tsx in the src folder
           and the current screens are located in src/screens/Auth/Admin
           This will help keep our App.tsx file cleaner */}
-      <AppContent />
-    </Provider>
+        <AppContent />
+      </Provider>
+    </SafeAreaProvider>
   );
 }
 

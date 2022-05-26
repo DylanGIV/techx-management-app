@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   projects: [],
   isFetchingProjects: false,
   isCreatingProject: false,
-  createProjectSuccess: false,
+  createProjectSuccess: '',
   createProjectErrorMessage: '',
   fetchErrorMessage: ''
 };

@@ -14,6 +14,10 @@ export const THEME_SWITCH = 'theme/switch';
 export const COMPANY_FETCH_STARTED = 'company/fetch_started';
 export const COMPANY_FETCH_SUCCESS = 'company/fetch_success';
 export const COMPANY_FETCH_FAIL = 'company/fetch_fail';
+export const COMPANY_CREATE_STARTED = 'company/create_started';
+export const COMPANY_CREATE_SUCCESS = 'company/create_success';
+export const COMPANY_CREATE_FAIL = 'company/create_fail';
+export const COMPANY_SET_COMPANY = 'company/set_company';
 
 export const PROJECT_FETCH_STARTED = 'project/fetch_started';
 export const PROJECT_FETCH_SUCCESS = 'project/fetch_success';

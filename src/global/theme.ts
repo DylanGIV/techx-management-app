@@ -3,11 +3,12 @@ import { DarkTheme, Colors, configureFonts, DefaultTheme } from 'react-native-pa
 declare global {
   namespace ReactNativePaper {
     interface ThemeColors {
-      myOwnColor: string;
+      primaryDark: string;
+      secondary: string;
     }
 
     interface Theme {
-      primaryDark: boolean;
+      myOwnProperty: boolean;
     }
   }
 }

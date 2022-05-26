@@ -3,17 +3,21 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import AllScreen from './AllScreen';
 import RecentsScreen from './RecentsScreen';
 import FavoritesScreen from './FavoritesScreen';
+import { useTheme } from 'react-native-paper';
 
 const Tab = createMaterialTopTabNavigator();
 
 function MyTabs() {
+
+  const { colors } = useTheme();
+
   return (
     <Tab.Navigator
       initialRouteName="Feed"
       screenOptions={{
-        tabBarActiveTintColor: '#e91e63',
+        tabBarActiveTintColor: colors.text,
         tabBarLabelStyle: { fontSize: 12 },
-        tabBarStyle: { backgroundColor: 'powderblue' },
+        tabBarStyle: { backgroundColor: colors.secondary,},
       }}
     >
       <Tab.Screen

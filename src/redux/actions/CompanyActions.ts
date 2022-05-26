@@ -1,5 +1,5 @@
-import { getAllCompanies } from '../../api';
-import { COMPANY_FETCH_FAIL, COMPANY_FETCH_STARTED, COMPANY_FETCH_SUCCESS } from './types';
+import { getAllCompanies, getCompaniesByAccount, postCreateCompany } from '../../api';
+import { COMPANY_CREATE_FAIL, COMPANY_CREATE_STARTED, COMPANY_CREATE_SUCCESS, COMPANY_FETCH_FAIL, COMPANY_FETCH_STARTED, COMPANY_FETCH_SUCCESS } from './types';
 
 export const companiesFetchSuccess = (companies: any) => {
   return {
@@ -11,11 +11,9 @@ export const companiesFetchSuccess = (companies: any) => {
 export const fetchCompanies = () => {
   return (dispatch: any) => {
     dispatch({ type: COMPANY_FETCH_STARTED })
-      // getTransactions(accountId, accessToken)
-      console.log("here")
-      getAllCompanies()
+
+      getCompaniesByAccount()
       .then((res: any) => {
-        console.log(res)
         dispatch(companiesFetchSuccess(res));
       })
       .catch((err: any) => {
@@ -23,3 +21,18 @@ export const fetchCompanies = () => {
       });
   };
 };
+
+export const createCompany = (companyName: string) => {
+  return (dispatch: any) => {
+    dispatch({ type: COMPANY_CREATE_STARTED });
+
+    postCreateCompany(companyName)
+      .then((res: any) => {
+        dispatch({ type: COMPANY_CREATE_SUCCESS, payload: res});
+      })
+      .catch((err: any) => {
+        dispatch({ type: COMPANY_CREATE_FAIL, payload: err });
+      });
+  };
+};
+

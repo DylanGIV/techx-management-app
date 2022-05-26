@@ -29,7 +29,7 @@ export const postRegister = async (company: string, firstName: string, lastName:
   });
 };
 
-export const postCreateCompany = async (companyName: string) => {
+export const postCreateCompany = async (companyName : string) => {
   return new Promise((resolve, reject) => {
     axios
       .post('Company/create', {
@@ -57,6 +57,15 @@ export const getAllCompanies = async () => {
   return new Promise((resolve, reject) => {
     axios
       .get('Company/all')
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
+
+export const getCompaniesByAccount = async () => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get('Company/employee')
       .then((res) => resolve(res.data))
       .catch((err) => reject(err));
   });

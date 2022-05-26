@@ -15,49 +15,49 @@ const AllScreen = (props : LoginProps) => {
     const logout = () => {
       dispatch({ type: AUTH_LOGOUT })
     }
-    const createProject = () => {
-      dispatch
-    }
     
     const styles = makeStyles(colors);
     
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.container} edges={['bottom']}>
+        <View style={styles.wrapperView}>
+
           <View style={styles.wrapperView}>
-            <View style={styles.wrapperView}>
-              <Text>
-                Good morning! All here.
-              </Text>
+            
               <View style={styles.wrapperView}>
-            <View style={styles.wrapperView}>
-              <Text>
-                Good morning! Welcome.
-              </Text>
-            </View>
-            <View style={styles.createProjectContainer} >
-              <Button 
-                onPress={() => props.navigation.navigate('CreateProject' as any)}
-                mode='contained'
-                color={colors.primaryDark}
-              >
-                Create a new Project
-              </Button>
-            </View>
+                {/* <Text>
+                  Good morning! All here.
+                </Text>
+
+                <Text>
+                  Good morning! Welcome.
+                </Text> */}
+              </View>
+
+              <View style={styles.createProjectContainer} >
+                <Button 
+                  onPress={() => props.navigation.navigate('CreateProject' as any)}
+                  mode='contained'
+                  color={colors.primaryDark}
+                >
+                  Create a new Project
+                </Button>
+              </View>
             
 
-            <View style={styles.logoutContainer}>
-              <Button
-                color={colors.primaryDark}
-                onPress={logout}
-                mode='contained'
-              >
-                Log out
-              </Button> 
-            </View>
+              <View style={styles.logoutContainer}>
+                <Button
+                  color={colors.primaryDark}
+                  onPress={logout}
+                  mode='contained'
+                >
+                  Log out
+                </Button> 
+              </View>
 
           </View>
-            </View>
-          </View>
+
+        </View>
       </SafeAreaView>
 
     );
@@ -71,7 +71,6 @@ const makeStyles = (colors : any) => StyleSheet.create({
   wrapperView: {
     flex: 1,
     flexGrow: 1,
-    backgroundColor: colors.primary
   },
   logoutContainer: {
       flex: 0.2,
