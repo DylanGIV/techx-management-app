@@ -1,5 +1,5 @@
-import { AUTH_LOGIN_SUCCESS, AUTH_LOGIN_STARTED, AUTH_LOGIN_FAIL, AUTH_LOGOUT, AUTH_REGISTER_STARTED, AUTH_REGISTER_FAIL, AUTH_RESGISTER_SUCCESS } from './types';
-import { postLogin, postRegister } from '../../api/';
+import { AUTH_LOGIN_SUCCESS, AUTH_LOGIN_STARTED, AUTH_LOGIN_FAIL, AUTH_LOGOUT, AUTH_REGISTER_STARTED, AUTH_REGISTER_FAIL, AUTH_RESGISTER_SUCCESS, AUTH_REFRESH_TOKEN_SUCCESS, AUTH_REFRESH_TOKEN_FAIL, AUTH_REFRESH_TOKEN_STARTED } from './types';
+import { postLogin, postRefreshToken, postRegister } from '../../api/';
 import { AxiosResponse } from 'axios';
 
 export const authLoginSuccess = (token: string) => {
@@ -49,6 +49,21 @@ export const registerAccount = (company: string, firstName: string, lastName: st
       .catch((err: any) => {
         dispatch({ type: AUTH_REGISTER_FAIL, payload: err });
         alert(err);
+      });
+  };
+};
+
+export const refreshTokenAction = () => {
+  return (dispatch: any) => {
+    dispatch({ type: AUTH_REFRESH_TOKEN_STARTED });
+
+    postRefreshToken()
+      .then((res: any) => {
+        dispatch({ type: AUTH_REFRESH_TOKEN_SUCCESS, payload: res.jwtToken });
+      })
+      .catch((err: any) => {
+        dispatch({ type: AUTH_REFRESH_TOKEN_FAIL, payload: err });
+        alert('Invalid email and password');
       });
   };
 };

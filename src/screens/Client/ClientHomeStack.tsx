@@ -11,28 +11,41 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import CreateCompanyScreen from './CreateCompanyScreen';
 import { LoginProps } from '../../models/props/LoginProps';
 import { COMPANY_SET_COMPANY } from '../../redux/actions/types';
+import { refreshTokenAction } from '../../redux/actions/AuthActions';
 
 const Stack = createStackNavigator();
 let companiesSelect : Item[];
 let companyId : number = 0;
 
 function ClientHomeStack(props : LoginProps) {
-    // const [companyId, setCompanyId] = useState(null);
 
     const updateCompanyIdGlobal = (company : any) => {
         dispatch({ type: COMPANY_SET_COMPANY, payload: company });
     }
+    const refreshToken = () => {
+        dispatch(refreshTokenAction() as any);
+    }
 
     const dispatch = useDispatch();
     const createCompanySuccess = useSelector((state: any) => state.company.createCompanySuccess);
+    const isRefreshingToken = useSelector((state : any) => state.auth.isRefreshingToken);
 
     useEffect( () => {
         dispatch(fetchCompanies() as any);
-    }, [createCompanySuccess])
+    }, [createCompanySuccess, isRefreshingToken])
 
+    
     
     const isFetchingCompanies = useSelector((state : any) => state.company.isFetchingCompanies);
     const companies = useSelector((state : any) => state.company.companies);
+
+    // Call refreshToken to get a new JWT, as the old one expires.
+    useEffect( () => {
+        refreshToken();
+    }, [])
+    
+    // this will populate companiesSelect with companies following
+    // object Item as an array.
     
     if (companies) {
         let cs : Item[] = new Array(companies.length);

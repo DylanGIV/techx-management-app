@@ -29,6 +29,15 @@ export const postRegister = async (company: string, firstName: string, lastName:
   });
 };
 
+export const postRefreshToken = async () => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post('Accounts/refresh-token')
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
+
 export const postCreateCompany = async (companyName : string) => {
   return new Promise((resolve, reject) => {
     axios

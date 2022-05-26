@@ -9,6 +9,10 @@ export const AUTH_REGISTER_STARTED = 'auth/register_started';
 export const AUTH_REGISTER_FAIL = 'auth/register_fail';
 export const AUTH_RESGISTER_SUCCESS = 'auth/register_success';
 
+export const AUTH_REFRESH_TOKEN_STARTED = 'auth/refresh_token_started';
+export const AUTH_REFRESH_TOKEN_FAIL = 'auth/refresh_token_fail';
+export const AUTH_REFRESH_TOKEN_SUCCESS = 'auth/refresh_token_success';
+
 export const THEME_SWITCH = 'theme/switch';
 
 export const COMPANY_FETCH_STARTED = 'company/fetch_started';

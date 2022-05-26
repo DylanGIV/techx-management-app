@@ -1,12 +1,14 @@
 import { Action } from '../../models/redux/Action';
-import { AUTH_LOGIN_FAIL, AUTH_LOGIN_STARTED, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, AUTH_REGISTER_FAIL, AUTH_REGISTER_STARTED, AUTH_RESGISTER_SUCCESS } from '../actions/types';
+import { AUTH_LOGIN_FAIL, AUTH_LOGIN_STARTED, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, AUTH_REFRESH_TOKEN_FAIL, AUTH_REFRESH_TOKEN_STARTED, AUTH_REFRESH_TOKEN_SUCCESS, AUTH_REGISTER_FAIL, AUTH_REGISTER_STARTED, AUTH_RESGISTER_SUCCESS } from '../actions/types';
 
 const INITIAL_STATE = {
   jwt: null,
   isRegistering: false,
   isLoggingIn: false,
   loginErrorMessage: '',
-  registerErrorMessasge: ''
+  registerErrorMessasge: '',
+  isRefreshingToken: false,
+  refreshTokenErrorMessage: '',
 };
 
 export default (state = INITIAL_STATE, action: Action) => {
@@ -33,7 +35,13 @@ export default (state = INITIAL_STATE, action: Action) => {
       };
     case AUTH_RESGISTER_SUCCESS:
       return { ...state, isRegistering: false };
-    default:
-      return state;
+      case AUTH_REFRESH_TOKEN_STARTED:
+        return { ...state, isRefreshingToken: true }
+      case AUTH_REFRESH_TOKEN_SUCCESS:
+        return { ...state, isRefreshingToken: true, jwt: action.payload } 
+      case AUTH_REFRESH_TOKEN_FAIL:
+        return { ...state, isRefreshingToken: false, refreshTokenErrorMessage: action.payload }
+      default:
+        return state;
   }
 };

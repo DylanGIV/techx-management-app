@@ -26,7 +26,7 @@ const CreateProjectScreen = () => {
     // const isFetchingCompanies = useSelector((state : any) => state.company.isFetchingCompanies);
     // const companies = useSelector((state : any) => state.company.companies);
     const currentCompany = useSelector((state : any) => state.company.currentCompany);
-    console.log(currentCompany.companyName)
+    console.log(currentCompany.companyName);
 
 
     // let companiesSelect;

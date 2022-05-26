@@ -10,7 +10,7 @@ const ClientAccountScreen = () => {
           <View style={styles.wrapperView}>
             <View style={styles.wrapperView}>
               <Text>
-                Good morning! Inbox here.
+                Good morning! Account here.
               </Text>
             </View>
           </View>
