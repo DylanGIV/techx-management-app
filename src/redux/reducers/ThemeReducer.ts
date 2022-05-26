@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   theme: theme
 };
 
-export default (state = INITIAL_STATE, action: Action) => {
+export default (state = INITIAL_STATE, action: any) => {
   switch (action.type) {
     case THEME_SWITCH:
       return { ...state, theme: action.payload };

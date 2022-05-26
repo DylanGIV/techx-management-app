@@ -10,7 +10,7 @@ const INITIAL_STATE = {
   fetchErrorMessage: ''
 };
 
-export default (state = INITIAL_STATE, action: Action) => {
+export default (state = INITIAL_STATE, action: any) => {
   switch (action.type) {
     case PROJECT_FETCH_STARTED:
       return { ...state, isFetchingProjects: true };

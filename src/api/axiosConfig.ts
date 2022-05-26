@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosInstance, AxiosInterceptorManager, AxiosInterceptorOptions, AxiosRequestConfig } from 'axios';
 import configureStore from '../redux/store/index';
 const { store } = configureStore();
 
@@ -8,7 +8,7 @@ let instance = axios.create({
   baseURL: herokuURL
 });
 
-instance.interceptors.request.use((config) => {
+instance.interceptors.request.use((config : any) => {
   let token : string = store.getState().auth.jwt;
   config.headers.Authorization = 'Bearer ' + token;
 

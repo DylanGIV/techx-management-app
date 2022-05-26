@@ -11,7 +11,7 @@ const INITIAL_STATE = {
   refreshTokenErrorMessage: '',
 };
 
-export default (state = INITIAL_STATE, action: Action) => {
+export default (state = INITIAL_STATE, action: any) => {
   switch (action.type) {
     case AUTH_LOGIN_STARTED:
       return { ...state, isLoggingIn: true };
