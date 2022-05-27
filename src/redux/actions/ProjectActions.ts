@@ -1,4 +1,4 @@
-import { getProjectsByCompanyId, postCreateProject } from '../../api';
+import { getProjectsByAccount, postCreateProject } from '../../api';
 import { PROJECT_FETCH_SUCCESS, PROJECT_FETCH_STARTED, PROJECT_FETCH_FAIL, PROJECT_CREATE_STARTED, PROJECT_CREATE_SUCCESS, PROJECT_CREATE_FAIL } from './types';
 
 export const projectsFetchSuccess = (projects: any) => {
@@ -8,11 +8,11 @@ export const projectsFetchSuccess = (projects: any) => {
   };
 };
 
-export const fetchProjectsByCompany = (companyId: number) => {
+export const fetchProjectsByCompany = () => {
   return (dispatch: any) => {
     dispatch({ type: PROJECT_FETCH_STARTED });
 
-    getProjectsByCompanyId(companyId)
+    getProjectsByAccount()
       .then((res: any) => {
         dispatch(projectsFetchSuccess(res.projects));
       })

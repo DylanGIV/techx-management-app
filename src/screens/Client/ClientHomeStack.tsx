@@ -12,6 +12,7 @@ import CreateCompanyScreen from './CreateCompanyScreen';
 import { LoginProps } from '../../models/props/LoginProps';
 import { COMPANY_SET_COMPANY } from '../../redux/actions/types';
 import { refreshTokenAction } from '../../redux/actions/AuthActions';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Stack = createStackNavigator();
 let companiesSelect : Item[];
@@ -26,9 +27,9 @@ function ClientHomeStack(props : LoginProps) {
     }
 
     // Call refreshToken to get a new JWT, as the old one expires.
-    useEffect( () => {
-        refreshToken();
-    }, [])
+    // useEffect( () => {
+    //     refreshToken();
+    // }, [])
 
     const { colors } = useTheme();
 
@@ -62,7 +63,9 @@ function ClientHomeStack(props : LoginProps) {
     }
 
     return (
-        <Stack.Navigator initialRouteName="ClientHome" >
+        <Stack.Navigator 
+            initialRouteName="ClientHome" 
+        >
             <Stack.Screen 
                 name='ClientHome'
                 component={MainTabScreen}

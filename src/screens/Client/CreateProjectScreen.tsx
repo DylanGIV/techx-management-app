@@ -13,7 +13,7 @@ const CreateProjectScreen = () => {
 
     const { colors } = useTheme();
     const styles = makeStyles(colors);
-    
+
     const ref_input2 = useRef<any>();
 
     const currentCompany = useSelector((state : any) => state.company.currentCompany);

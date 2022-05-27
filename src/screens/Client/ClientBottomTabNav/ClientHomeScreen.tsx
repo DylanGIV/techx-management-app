@@ -15,7 +15,7 @@ const ClientHomeScreen = () => {
   }
 
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.container} edges={['bottom']}>
         <MyTabs />
           
       </SafeAreaView>

@@ -26,13 +26,13 @@ const AllScreen = (props : LoginProps) => {
           <View style={styles.wrapperView}>
             
               <View style={styles.wrapperView}>
-                {/* <Text>
+                <Text>
                   Good morning! All here.
                 </Text>
 
                 <Text>
                   Good morning! Welcome.
-                </Text> */}
+                </Text>
               </View>
 
               <View style={styles.createProjectContainer} >

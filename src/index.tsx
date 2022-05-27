@@ -3,7 +3,7 @@ import { Provider as PaperProvider, useTheme } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 import 'react-native-gesture-handler';
 import AuthStack from './screens/Auth/AuthStack';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { createStackNavigator } from '@react-navigation/stack';
 import ClientHomeScreen from './screens/Client/ClientBottomTabNav/ClientHomeScreen';
 import { useSelector } from 'react-redux';

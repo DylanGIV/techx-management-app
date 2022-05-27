@@ -118,14 +118,10 @@ export const deleteProject = async (projectId: number) => {
   });
 };
 
-export const getProjectsByCompanyId = async (companyId: number) => {
+export const getProjectsByAccount = async () => {
   return new Promise((resolve, reject) => {
     axios
-      .get('Project/companyId', {
-        params: {
-          companyId: companyId
-        }
-      })
+      .get('Project/account')
       .then((res) => resolve(res.data))
       .catch((err) => reject(err));
   });

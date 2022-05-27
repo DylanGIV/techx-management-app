@@ -20,7 +20,7 @@ function MyTabs() {
         tabBarActiveTintColor: colors.text,
         tabBarLabelStyle: { fontSize: 12 },
         tabBarStyle: { backgroundColor: colors.surface, height: 30, borderRadius: 8, borderColor: colors.primaryDark, borderWidth: 0.5},
-        tabBarItemStyle: { flex: 1, justifyContent: 'flex-start', alignItems: 'center', padding: 4.5}
+        tabBarItemStyle: { flex: 1, justifyContent: 'flex-start', alignItems: 'center', padding: 4.5},
       }}
     >
       <Tab.Screen

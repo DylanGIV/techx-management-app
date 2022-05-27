@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 const ClientSearchScreen = () => {
 
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.container} edges={['bottom']}>
           <View style={styles.wrapperView}>
             <View style={styles.wrapperView}>
               <Text>
