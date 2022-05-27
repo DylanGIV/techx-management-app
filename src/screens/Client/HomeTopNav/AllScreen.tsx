@@ -68,21 +68,26 @@ const AllScreen = (props : LoginProps) => {
 const makeStyles = (colors : any) => StyleSheet.create({
   container: {
     flex: 1,
-    flexGrow: 1
+    flexGrow: 1,
+  //  backgroundColor: '#8A95A6',
   },
   wrapperView: {
     flex: 1,
     flexGrow: 1,
+    color: '#8A95A6',
+   // backgroundColor: '#8A95A6',
   },
   logoutContainer: {
       flex: 0.2,
       flexGrow: 0.2,
       alignSelf: 'center',
+      //backgroundColor: '#8A95A6',
     },
   createProjectContainer: {
       flex: 0.2,
       flexGrow: 0.2,
       alignSelf: 'center',
+      //backgroundColor: '#8A95A6',
     },
 
 });

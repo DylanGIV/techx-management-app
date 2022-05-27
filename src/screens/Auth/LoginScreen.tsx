@@ -7,6 +7,7 @@ import { AuthState } from '../../models/redux/AuthState';
 import { loginWithEmailAndPassword } from '../../redux/actions/AuthActions';
 import { StackScreenProps } from '@react-navigation/stack';
 import { LoginProps } from '../../models/props/LoginProps';
+import { white } from 'react-native-paper/lib/typescript/styles/colors';
 
 const LoginScreen = (props : LoginProps) => {
 
@@ -147,16 +148,19 @@ const makeStyles = (colors: any) => StyleSheet.create({
       marginHorizontal: 8,
       marginBottom: 14,
       borderRadius: 10,
+      color: colors.primary,
     },
     inputLoginContainer: {
       flex: 0.6,
       justifyContent: 'center',
       flexDirection: 'row',
+      color: colors.primary,
     },
     inputContainer: {
       flex: 1,
       justifyContent: 'flex-end',
       borderRadius: 25,
+      color: colors.primary,
     },
     inputCenter: {
       flex: 0.6,
@@ -167,6 +171,7 @@ const makeStyles = (colors: any) => StyleSheet.create({
     loginContainer: {
       flex: 0.2,
       justifyContent: 'flex-end',
+      color: colors.primary,
     },
     loginContainerButton: {
       backgroundColor: colors.primary,
