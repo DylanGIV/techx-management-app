@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchCompanies } from '../../redux/actions/CompanyActions';
 import MainTabScreen from './ClientBottomTabNav/ClientDrawerStack';
 import CreateProjectScreen from './CreateProjectScreen';
-import { ActivityIndicator, IconButton, Text } from 'react-native-paper';
+import { ActivityIndicator, IconButton, Text, useTheme } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CreateCompanyScreen from './CreateCompanyScreen';
 import { LoginProps } from '../../models/props/LoginProps';
@@ -15,7 +15,6 @@ import { refreshTokenAction } from '../../redux/actions/AuthActions';
 
 const Stack = createStackNavigator();
 let companiesSelect : Item[];
-let companyId : number = 0;
 
 function ClientHomeStack(props : LoginProps) {
 
@@ -25,6 +24,13 @@ function ClientHomeStack(props : LoginProps) {
     const refreshToken = () => {
         dispatch(refreshTokenAction() as any);
     }
+
+    // Call refreshToken to get a new JWT, as the old one expires.
+    useEffect( () => {
+        refreshToken();
+    }, [])
+
+    const { colors } = useTheme();
 
     const dispatch = useDispatch();
     const createCompanySuccess = useSelector((state: any) => state.company.createCompanySuccess);
@@ -39,14 +45,10 @@ function ClientHomeStack(props : LoginProps) {
     const isFetchingCompanies = useSelector((state : any) => state.company.isFetchingCompanies);
     const companies = useSelector((state : any) => state.company.companies);
 
-    // Call refreshToken to get a new JWT, as the old one expires.
-    useEffect( () => {
-        refreshToken();
-    }, [])
+   
     
     // this will populate companiesSelect with companies following
     // object Item as an array.
-    
     if (companies) {
         let cs : Item[] = new Array(companies.length);
         companies.forEach(function (company : any, index : number) {
@@ -58,8 +60,6 @@ function ClientHomeStack(props : LoginProps) {
         });
         companiesSelect = cs;
     }
-
-
 
     return (
         <Stack.Navigator initialRouteName="ClientHome" >
@@ -76,26 +76,25 @@ function ClientHomeStack(props : LoginProps) {
                         :
                             <RNPickerSelect 
                                 onValueChange={(value) => updateCompanyIdGlobal(value)}
-                                // onClose={updateCompanyIdGlobal(companyId)}
                                 items={companiesSelect}
                                 placeholder={{}}
                                 style={pickerSelectStyles}
                                 Icon={() => {
-                                    return <Ionicons name="chevron-down-outline" size={24} color="gray" />;
+                                    return <Ionicons name="chevron-down-outline" size={24} color={colors.primary} />;
                                 }}
                             />
                     ),
                     headerRight: () => (
                         <IconButton 
                             icon="plus"
-                            color='#007aff'
+                            color={colors.primary}
                             size={28}
                             onPress={() => props.navigation.navigate('CreateCompany' as any)}
                         />
                     ),
                     
                     headerTitle: '', 
-                    headerStyle: { elevation: 0, borderBottomWidth: 0, }, 
+                    headerStyle: { elevation: 0, borderBottomWidth: 0 }, 
                     headerLeftContainerStyle: styles.view,
                 }}
             />

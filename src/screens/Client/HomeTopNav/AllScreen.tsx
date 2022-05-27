@@ -17,6 +17,7 @@ const AllScreen = (props : LoginProps) => {
     }
     
     const styles = makeStyles(colors);
+    const isFetchingCompanies = useSelector((state : any) => state.company.isFetchingCompanies);
     
     return (
       <SafeAreaView style={styles.container} edges={['bottom']}>
@@ -39,6 +40,7 @@ const AllScreen = (props : LoginProps) => {
                   onPress={() => props.navigation.navigate('CreateProject' as any)}
                   mode='contained'
                   color={colors.primaryDark}
+                  disabled={isFetchingCompanies}
                 >
                   Create a new Project
                 </Button>
