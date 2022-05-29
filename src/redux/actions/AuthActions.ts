@@ -63,7 +63,7 @@ export const refreshTokenAction = () => {
       })
       .catch((err: any) => {
         dispatch({ type: AUTH_REFRESH_TOKEN_FAIL, payload: err });
-        alert('Invalid email and password');
+        alert('Could not refresh token');
       });
   };
 };

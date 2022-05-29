@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Text, Button, useTheme } from 'react-native-paper';
-import { Theme } from 'react-native-paper/lib/typescript/types';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
+import ListProjects from '../../../components/projects';
 import { LoginProps } from '../../../models/props/LoginProps';
 import { AUTH_LOGOUT } from '../../../redux/actions/types';
 
@@ -12,9 +12,6 @@ const AllScreen = (props : LoginProps) => {
 
     const { colors } = useTheme();
 
-    const logout = () => {
-      dispatch({ type: AUTH_LOGOUT })
-    }
     
     const styles = makeStyles(colors);
     const isFetchingCompanies = useSelector((state : any) => state.company.isFetchingCompanies);
@@ -35,28 +32,10 @@ const AllScreen = (props : LoginProps) => {
                 </Text>
               </View>
 
-              <View style={styles.createProjectContainer} >
-                <Button 
-                  onPress={() => props.navigation.navigate('CreateProject' as any)}
-                  mode='contained'
-                  color={colors.primaryDark}
-                  disabled={isFetchingCompanies}
-                >
-                  Create a new Project
-                </Button>
+              <View style={styles.projectsListContainer}>
+                <ListProjects />
               </View>
             
-
-              <View style={styles.logoutContainer}>
-                <Button
-                  color={colors.primaryDark}
-                  onPress={logout}
-                  mode='contained'
-                >
-                  Log out
-                </Button> 
-              </View>
-
           </View>
 
         </View>
@@ -65,7 +44,7 @@ const AllScreen = (props : LoginProps) => {
     );
 };
 
-const makeStyles = (colors : any) => StyleSheet.create({
+const makeStyles = (colors : ReactNativePaper.ThemeColors) => StyleSheet.create({
   container: {
     flex: 1,
     flexGrow: 1
@@ -74,16 +53,15 @@ const makeStyles = (colors : any) => StyleSheet.create({
     flex: 1,
     flexGrow: 1,
   },
-  logoutContainer: {
-      flex: 0.2,
-      flexGrow: 0.2,
-      alignSelf: 'center',
-    },
   createProjectContainer: {
       flex: 0.2,
       flexGrow: 0.2,
       alignSelf: 'center',
     },
+  projectsListContainer: {
+    flex: 1,
+    flexGrow: 1
+  }
 
 });
 

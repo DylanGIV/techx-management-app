@@ -8,13 +8,13 @@ export const projectsFetchSuccess = (projects: any) => {
   };
 };
 
-export const fetchProjectsByCompany = () => {
+export const fetchProjectsByAccount = () => {
   return (dispatch: any) => {
     dispatch({ type: PROJECT_FETCH_STARTED });
 
     getProjectsByAccount()
       .then((res: any) => {
-        dispatch(projectsFetchSuccess(res.projects));
+        dispatch(projectsFetchSuccess(res));
       })
       .catch((err: any) => {
         dispatch({ type: PROJECT_FETCH_FAIL, payload: err });
@@ -28,7 +28,6 @@ export const createProject = (companyId: number, projectName : string, projectDe
 
     postCreateProject(companyId, projectName, projectDescription)
       .then((res: any) => {
-        console.log(res);
         dispatch({ type: PROJECT_CREATE_SUCCESS, payload: res});
       })
       .catch((err: any) => {

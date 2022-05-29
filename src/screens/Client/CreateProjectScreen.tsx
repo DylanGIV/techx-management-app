@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Text, Button, TextInput, ActivityIndicator, Menu, useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -11,13 +11,16 @@ const CreateProjectScreen = () => {
     const [projectDescription, setProjectDescription] = useState('');
     const dispatch = useDispatch();
 
+    useEffect(() => {
+      console.log(currentCompany.companyName);
+    }, [])
+
     const { colors } = useTheme();
     const styles = makeStyles(colors);
 
     const ref_input2 = useRef<any>();
 
     const currentCompany = useSelector((state : any) => state.company.currentCompany);
-    console.log(currentCompany.companyName);
 
 
     const create = () => {
@@ -59,7 +62,6 @@ const CreateProjectScreen = () => {
                         style={styles.textInput}
                         label="Description"
                         value={projectDescription}
-                        secureTextEntry
                         onChangeText={text => setProjectDescription(text)}
                         onSubmitEditing={create}
                         ref={ref_input2}

@@ -1,9 +1,19 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { Text, Button } from 'react-native-paper';
+import { Text, Button, useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useDispatch } from 'react-redux';
+import { AUTH_LOGOUT } from '../../../redux/actions/types';
 
 const ClientAccountScreen = () => {
+
+    const dispatch = useDispatch();
+
+    const { colors } = useTheme();
+
+    const logout = () => {
+      dispatch({ type: AUTH_LOGOUT })
+    }
 
     return (
       <SafeAreaView style={styles.container} edges={['bottom']}>
@@ -13,6 +23,15 @@ const ClientAccountScreen = () => {
                 Good morning! Account here.
               </Text>
             </View>
+            <View style={styles.logoutContainer}>
+                <Button
+                  color={colors.primaryDark}
+                  onPress={logout}
+                  mode='contained'
+                >
+                  Log out
+                </Button> 
+              </View>
           </View>
       </SafeAreaView>
 
@@ -28,6 +47,16 @@ const styles = StyleSheet.create({
     },
     wrapperView: {
       flex: 1,
+    },
+    logoutContainer: {
+      flex: 0.2,
+      flexGrow: 0.2,
+      alignSelf: 'center',
+    },
+  createProjectContainer: {
+      flex: 0.2,
+      flexGrow: 0.2,
+      alignSelf: 'center',
     },
 
   });  
