@@ -22,16 +22,20 @@ const ClientHomeScreen = ({ navigation }) => {
         <MyTabs />
         <FAB
                 style={{
-                    alignItems: "center",
-                    justifyContent: "center",
-                    width: 70,
                     position: "absolute",
-                    bottom: 10,
-                    right: 10,
+                    bottom: 0,
+                    right: 0,
+                    margin: 16,
                     backgroundColor: colors.primary,
-                    borderRadius: 100,
+                    shadowColor: colors.primaryDark,
+                    shadowOffset: {
+                      width: 1,
+                      height: 3
+                    },
+                    shadowOpacity: 5,
+                    shadowRadius: 3
                 }}
-                icon="archive-plus"
+                icon="plus"
                 onPress={() => {
                     // randomize();
                     // toggleOverlay();
