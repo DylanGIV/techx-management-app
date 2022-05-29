@@ -12,7 +12,6 @@ import CreateCompanyScreen from './CreateCompanyScreen';
 import { LoginProps } from '../../models/props/LoginProps';
 import { COMPANY_SET_COMPANY } from '../../redux/actions/types';
 import { refreshTokenAction } from '../../redux/actions/AuthActions';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Stack = createStackNavigator();
 let companiesSelect : Item[];

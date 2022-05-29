@@ -41,7 +41,7 @@ const ClientHomeScreen = ({ navigation }) => {
                     // toggleOverlay();
                     navigation.navigate('CreateProject');
                 }}
-                disabled={!isFetchingCompanies || !companies}
+                disabled={isFetchingCompanies && companies}
                 color={colors.background}
                 />
 

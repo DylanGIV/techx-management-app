@@ -17,51 +17,21 @@ const AllScreen = (props : LoginProps) => {
     const isFetchingCompanies = useSelector((state : any) => state.company.isFetchingCompanies);
     
     return (
-      <SafeAreaView style={styles.container} edges={['bottom']}>
-        <View style={styles.wrapperView}>
+        <View style={styles.container}>
 
-          <View style={styles.wrapperView}>
-            
-              <View style={styles.wrapperView}>
-                <Text>
-                  Good morning! All here.
-                </Text>
-
-                <Text>
-                  Good morning! Welcome.
-                </Text>
-              </View>
-
-              <View style={styles.projectsListContainer}>
-                <ListProjects />
-              </View>
-            
-          </View>
+            <ListProjects />
 
         </View>
-      </SafeAreaView>
-
     );
 };
 
 const makeStyles = (colors : ReactNativePaper.ThemeColors) => StyleSheet.create({
   container: {
     flex: 1,
-    flexGrow: 1
   },
   wrapperView: {
     flex: 1,
-    flexGrow: 1,
   },
-  createProjectContainer: {
-      flex: 0.2,
-      flexGrow: 0.2,
-      alignSelf: 'center',
-    },
-  projectsListContainer: {
-    flex: 1,
-    flexGrow: 1
-  }
 
 });
 
