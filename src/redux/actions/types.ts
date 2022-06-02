@@ -9,6 +9,14 @@ export const AUTH_REGISTER_STARTED = 'auth/register_started';
 export const AUTH_REGISTER_FAIL = 'auth/register_fail';
 export const AUTH_RESGISTER_SUCCESS = 'auth/register_success';
 
+export const AUTH_PASSWORD_RESET = 'auth/password_reset';
+export const AUTH_PASSWORD_RESET_FAIL = 'auth/password_reset_fail';
+export const AUTH_PASSWORD_RESET_SUCCESS = 'auth/password_reset_success';
+
+export const AUTH_PASSWORD_FORGET = 'auth/password_forget';
+export const AUTH_PASSWORD_FORGET_FAIL = 'auth/password_forget_fail';
+export const AUTH_PASSWORD_GORGET_SUCCESS = 'auth/password_forget_success';
+ 
 export const AUTH_REFRESH_TOKEN_STARTED = 'auth/refresh_token_started';
 export const AUTH_REFRESH_TOKEN_FAIL = 'auth/refresh_token_fail';
 export const AUTH_REFRESH_TOKEN_SUCCESS = 'auth/refresh_token_success';

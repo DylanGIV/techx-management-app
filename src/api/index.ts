@@ -29,6 +29,32 @@ export const postRegister = async (company: string, firstName: string, lastName:
   });
 };
 
+export const postPasswordReset = async(token: string, password: string, confirmPassword: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+    .post('Accounts/reset-password', {
+      token: token,
+      password: password,
+      confirmPassword: confirmPassword
+    })
+    .then((res) => resolve(res.data))
+    .catch((err) => reject(err));
+  });
+};
+
+export const postForgotPassword = async(email: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+    .post('Accounts/forgot-password', {
+      email: email
+    })
+    .then((res) => resolve(res.data))
+    .catch((err) => reject(err));
+  });
+};
+
+export const postPasswordResetToken = async() => {};
+
 export const postRefreshToken = async () => {
   return new Promise((resolve, reject) => {
     axios
