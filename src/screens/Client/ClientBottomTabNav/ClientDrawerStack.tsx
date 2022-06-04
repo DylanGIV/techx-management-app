@@ -11,6 +11,7 @@ import ClientInboxScreen from "./ClientInboxScreen";
 import ClientSearchScreen from "./ClientSearchScreen";
 import ClientAccountScreen from "./ClientAccountScreen";
 import { useTheme } from "react-native-paper";
+import ClientTaskScreen from "./ClientTaskScreen";
 
 const Stack = createStackNavigator();
 
@@ -34,6 +35,17 @@ const MainTabScreen = () => {
             tabBarColor: colors.primaryDark,
             tabBarIcon: ({ color }) => (
               <Icon name="ios-home" color={color} size={26} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Tasks"
+          component={ClientTaskScreen}
+          options={{
+            tabBarLabel: "Tasks",
+            tabBarColor: colors.primaryDark,
+            tabBarIcon: ({ color }) => (
+              <Icon name="ios-albums-sharp" color={color} size={26} />
             ),
           }}
         />

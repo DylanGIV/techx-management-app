@@ -37,3 +37,10 @@ export const PROJECT_FETCH_FAIL = 'project/fetch_fail';
 export const PROJECT_CREATE_STARTED = 'project/create_started';
 export const PROJECT_CREATE_SUCCESS = 'project/create_success';
 export const PROJECT_CREATE_FAIL = 'project/create_fail';
+
+export const TASK_FETCH_STARTED = 'task/fetch_started';
+export const TASK_FETCH_SUCCESS = 'task/fetch_success';
+export const TASK_FETCH_FAIL = 'task/fetch_fail';
+export const TASK_CREATE_STARTED = 'task/create_started';
+export const TASK_CREATE_SUCCESS = 'task/create_success';
+export const TASK_CREATE_FAIL = 'task/create_fail';
