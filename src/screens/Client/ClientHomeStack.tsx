@@ -12,6 +12,8 @@ import CreateCompanyScreen from './CreateCompanyScreen';
 import { LoginProps } from '../../models/props/LoginProps';
 import { COMPANY_SET_COMPANY } from '../../redux/actions/types';
 import { refreshTokenAction } from '../../redux/actions/AuthActions';
+import CreateTaskScreen from './CreateTaskScreen';
+import ClientTaskDetailsScreen from './ClientTaskDetailsScreen';
 
 const Stack = createStackNavigator();
 let companiesSelect : Item[];
@@ -26,9 +28,9 @@ function ClientHomeStack(props : LoginProps) {
     }
 
     // Call refreshToken to get a new JWT, as the old one expires.
-    // useEffect( () => {
-    //     refreshToken();
-    // }, [])
+    useEffect( () => {
+        refreshToken();
+    }, [])
 
     const { colors } = useTheme();
 
@@ -68,6 +70,7 @@ function ClientHomeStack(props : LoginProps) {
             <Stack.Screen 
                 name='ClientHome'
                 component={MainTabScreen}
+                // options={{headerShown: false}}
                 options={{ 
                     headerShown: true, 
 
@@ -102,6 +105,9 @@ function ClientHomeStack(props : LoginProps) {
             />
             
             <Stack.Screen name="CreateProject" component={CreateProjectScreen} options={{ headerShown: true }}/>
+            <Stack.Screen name="CreateTask" component={CreateTaskScreen} options={{ headerShown: true }}/>
+
+            <Stack.Screen name="TaskDetails" component={ClientTaskDetailsScreen} options={{ headerShown: true }}/>
             
             <Stack.Screen 
                 name="CreateCompany" 
@@ -150,7 +156,7 @@ const pickerSelectStyles = StyleSheet.create({
       fontSize: 20,
       paddingVertical: 12,
       paddingHorizontal: 10,
-      borderWidth: 0.5,
+      borderBottomWidth: 1,
       borderColor: 'gray',
       borderRadius: 4,
       color: 'black',

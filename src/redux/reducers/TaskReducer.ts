@@ -12,21 +12,21 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action: any) => {
   switch (action.type) {
     case TASK_FETCH_STARTED:
-      return { ...state, isFetchingProjects: true };
+      return { ...state, isFetchingTasks: true };
     case TASK_FETCH_SUCCESS:
-      return { ...state, projects: action.payload, isFetchingProjects: false };
+      return { ...state, tasks: action.payload, isFetchingTasks: false };
     case TASK_FETCH_FAIL:
       return {
         ...state,
-        isFetchingProjects: false,
+        isFetchingTasks: false,
         fetchErrorMessage: action.payload
       };
     case TASK_CREATE_STARTED:
-        return { ...state, isCreatingProject: true };
+        return { ...state, isCreatingTask: true };
     case TASK_CREATE_SUCCESS:
-      return { ...state, createProjectSuccess: action.payload, isCreatingProject: false };
+      return { ...state, createTaskSuccess: action.payload, isCreatingTask: false };
     case TASK_CREATE_FAIL:
-      return { ...state, createProjectErrorMessage: '', isCreatingProject: false };
+      return { ...state, createTaskErrorMessage: '', isCreatingTask: false };
     default:
       return state;
   }

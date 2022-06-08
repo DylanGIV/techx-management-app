@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchProjectsByAccount } from '../redux/actions/ProjectActions';
 import { fetchAccountTasks } from '../redux/actions/TaskActions';
 
-const ListTasks = (props : any) => {
+const ListTasks = ({ props } : any) => {
     // const [filteredProjects, setFilteredProjects] = useState('' as any);
     const currentCompany = useSelector((state : any) => state.company.currentCompany);
     const dispatch = useDispatch();
@@ -26,7 +26,6 @@ const ListTasks = (props : any) => {
     const isFetchingTasks = useSelector((state : any) => state.task.isFetchingTasks);
     const tasks = useSelector((state : any) => state.task.tasks);
     const styles = makeStyles(colors);
-    console.log(tasks)
 
     // const filterProjects = () => {
     //   let tempProjects = new Array();
@@ -68,17 +67,17 @@ const ListTasks = (props : any) => {
             <View style={styles.itemWrapperView} >
               <TouchableOpacity
                 onPress={() =>
-                  // props.navigation.navigate("RestaurantDetails")
-                  console.log("Clicked")
+                  props.navigation.navigate("TaskDetails", {task: item})
                 }
               >
                 <View style={{ flex: 1 }}>
                   
                   <Card style={(styles.card, styles.spacing)}>
                     <Card.Title 
-                      title={item.taskName}
-                      subtitle={("Tasks: ") + 0}
-                      left={(props) => <Avatar.Icon {...props} icon="folder" />}
+                      title={item.title}
+                      subtitle={item.description}
+                      subtitleNumberOfLines={1}
+                      left={(props) => <Avatar.Icon {...props} icon="calendar-check" />}
                       // right={(props) => <IconButton {...props} icon="more-vert" onPress={() => {}} />}
                     />
                   </Card>
