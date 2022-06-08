@@ -5,7 +5,7 @@ import { StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCompanies } from '../../redux/actions/CompanyActions';
 import MainTabScreen from './EmployeeBottomTabNav/EmployeeDrawerStack';
-import CreateProjectScreen from './EmployeeProjectScreen';
+import CreateProjectScreen from './CreateProjectScreen';
 import { ActivityIndicator, IconButton, Text, useTheme } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CreateCompanyScreen from './EmployeeCompanyScreen';
@@ -24,14 +24,14 @@ function EmployeeHomeStack(props : LoginProps) {
     const updateCompanyIdGlobal = (company : any) => {
         dispatch({ type: COMPANY_SET_COMPANY, payload: company });
     }
-    const refreshToken = () => {
-        dispatch(refreshTokenAction() as any);
-    }
+    // const refreshToken = () => {
+    //     dispatch(refreshTokenAction() as any);
+    // }
 
-    // Call refreshToken to get a new JWT, as the old one expires.
-    useEffect( () => {
-        refreshToken();
-    }, [])
+    // Call refreshToken to get a new JWT, as the old one expires. NO LONGER NECESSARY
+    // useEffect( () => {
+    //     refreshToken();
+    // }, [])
 
     const { colors } = useTheme();
 

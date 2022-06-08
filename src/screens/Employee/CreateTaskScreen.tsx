@@ -74,17 +74,16 @@ const CreateTaskScreen = () => {
 
                 <View style={styles.wrapperView}>
 
-                    <Text style={styles.text}>
-                        This Task will be under {currentCompany.companyName}
-                    </Text>
-
                   <View style={styles.inputContainer} >
 
                     {(!currentCompany || !projectsSelect) 
                       ? 
                         <ActivityIndicator size='small' color='black' style={{ left: 10}} /> 
                       :
-                        <View>
+                        <View style={{ flex: 1}}>
+                          <Text style={styles.text}>
+                            Employee
+                          </Text>
                           <RNPickerSelect 
                               onValueChange={(value) => setAccount(value)}
                               items={accountsSelect}
@@ -94,6 +93,9 @@ const CreateTaskScreen = () => {
                                   return <Ionicons name="chevron-down-outline" size={24} color={colors.primary} />;
                               }}
                           />
+                          <Text style={styles.text}>
+                            Project
+                          </Text>
                           <RNPickerSelect 
                               onValueChange={(value) => setProject(value)}
                               items={projectsSelect}
@@ -105,28 +107,32 @@ const CreateTaskScreen = () => {
                           />
                         </View>
                     }
+                    <View style={{ flex: 0.4 }}/>
 
-                    <TextInput
-                        style={styles.textInput}
-                        label="Task Title"
-                        value={taskTitle}
-                        autoCorrect={false}
-                        blurOnSubmit={false}
-                        onChangeText={text => setTaskTitle(text)}
-                        returnKeyType="next"
-                        onSubmitEditing={() => ref_input2.current.focus()}
-                        autoCapitalize='none'
-                        autoComplete={false}
-                    />
-                    <TextInput
-                        style={styles.textInput}
-                        label="Description"
-                        value={taskDescription}
-                        onChangeText={text => setTaskDescription(text)}
-                        onSubmitEditing={create}
-                        ref={ref_input2}
-                        autoComplete={false}
-                    />
+                    <View style={{ flex: 1 }}>
+                      <TextInput
+                          style={styles.textInput}
+                          label="Task Title"
+                          value={taskTitle}
+                          autoCorrect={false}
+                          blurOnSubmit={false}
+                          onChangeText={text => setTaskTitle(text)}
+                          returnKeyType="next"
+                          onSubmitEditing={() => ref_input2.current.focus()}
+                          autoCapitalize='none'
+                          autoComplete={false}
+                      />
+                      <TextInput
+                          style={styles.textInput}
+                          label="Description"
+                          value={taskDescription}
+                          onChangeText={text => setTaskDescription(text)}
+                          onSubmitEditing={create}
+                          ref={ref_input2}
+                          autoComplete={false}
+                      />
+                    </View>
+
 
                     </View>
 
@@ -187,7 +193,8 @@ const makeStyles = (colors : ReactNativePaper.ThemeColors) => StyleSheet.create(
     },
       text: {
         fontSize: 24,
-        textAlign: 'center'
+        marginBottom: 14,
+        marginTop: 14
       },
       textInput: {
         marginHorizontal: 8,
@@ -201,8 +208,7 @@ const makeStyles = (colors : ReactNativePaper.ThemeColors) => StyleSheet.create(
       },
       inputContainer: {
         flex: 1,
-        justifyContent: 'flex-end',
-        padding: 10
+        padding: 10,
       },
       inputCenter: {
         flex: 0.6,
