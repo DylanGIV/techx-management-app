@@ -4,21 +4,21 @@ import RNPickerSelect, { Item } from 'react-native-picker-select';
 import { StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCompanies } from '../../redux/actions/CompanyActions';
-import MainTabScreen from './ClientBottomTabNav/ClientDrawerStack';
-import CreateProjectScreen from './CreateProjectScreen';
+import MainTabScreen from './EmployeeBottomTabNav/EmployeeDrawerStack';
+import CreateProjectScreen from './EmployeeProjectScreen';
 import { ActivityIndicator, IconButton, Text, useTheme } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import CreateCompanyScreen from './CreateCompanyScreen';
+import CreateCompanyScreen from './EmployeeCompanyScreen';
 import { LoginProps } from '../../models/props/LoginProps';
 import { COMPANY_SET_COMPANY } from '../../redux/actions/types';
 import { refreshTokenAction } from '../../redux/actions/AuthActions';
-import CreateTaskScreen from './CreateTaskScreen';
-import ClientTaskDetailsScreen from './ClientTaskDetailsScreen';
+import CreateTaskScreen from './EmployeeTaskScreen';
+import EmployeeTaskDetailsScreen from './EmployeeTaskDetailsScreen';
 
 const Stack = createStackNavigator();
 let companiesSelect : Item[];
 
-function ClientHomeStack(props : LoginProps) {
+function EmployeeHomeStack(props : LoginProps) {
 
     const updateCompanyIdGlobal = (company : any) => {
         dispatch({ type: COMPANY_SET_COMPANY, payload: company });
@@ -65,10 +65,10 @@ function ClientHomeStack(props : LoginProps) {
 
     return (
         <Stack.Navigator 
-            initialRouteName="ClientHome" 
+            initialRouteName="EmployeeHome" 
         >
             <Stack.Screen 
-                name='ClientHome'
+                name='EmployeeHome'
                 component={MainTabScreen}
                 // options={{headerShown: false}}
                 options={{ 
@@ -107,7 +107,7 @@ function ClientHomeStack(props : LoginProps) {
             <Stack.Screen name="CreateProject" component={CreateProjectScreen} options={{ headerShown: true }}/>
             <Stack.Screen name="CreateTask" component={CreateTaskScreen} options={{ headerShown: true }}/>
 
-            <Stack.Screen name="TaskDetails" component={ClientTaskDetailsScreen} options={{ headerShown: true }}/>
+            <Stack.Screen name="TaskDetails" component={EmployeeTaskDetailsScreen} options={{ headerShown: true }}/>
             
             <Stack.Screen 
                 name="CreateCompany" 
@@ -197,4 +197,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default ClientHomeStack;
+export default EmployeeHomeStack;

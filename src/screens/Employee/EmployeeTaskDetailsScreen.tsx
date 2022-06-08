@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-nati
 import { Text, Button, Card, Title, Paragraph } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const ClientTaskDetailsScreen = (props : any) => {
+const EmployeeTaskDetailsScreen = (props : any) => {
 
   const { task } = props.route.params;
 
@@ -66,4 +66,4 @@ const styles = StyleSheet.create({
 
   });
     
-export default ClientTaskDetailsScreen;
+export default EmployeeTaskDetailsScreen;

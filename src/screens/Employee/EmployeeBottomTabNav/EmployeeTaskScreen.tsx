@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 import ListTasks from '../../../components/tasks';
 
-const ClientTaskScreen = (props : any) => {
+const EmployeeTaskScreen = (props : any) => {
 
   const { colors } = useTheme();
 
@@ -51,4 +51,4 @@ const styles = StyleSheet.create({
 
   });  
 
-export default ClientTaskScreen;
+export default EmployeeTaskScreen;

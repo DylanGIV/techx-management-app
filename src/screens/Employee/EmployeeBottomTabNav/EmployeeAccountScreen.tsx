@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch } from 'react-redux';
 import { AUTH_LOGOUT } from '../../../redux/actions/types';
 
-const ClientAccountScreen = () => {
+const EmployeeAccountScreen = () => {
 
     const dispatch = useDispatch();
 
@@ -63,4 +63,4 @@ const styles = StyleSheet.create({
 
 // We export this screen to be able to import it in other
 // files, such as index.tsx, to be able to reference this
-export default ClientAccountScreen;
+export default EmployeeAccountScreen;

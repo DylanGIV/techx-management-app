@@ -4,9 +4,9 @@ import { Text, Button, FAB, useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 import { AUTH_LOGOUT } from '../../../redux/actions/types';
-import MyTabs from '.././HomeTopNav/ClientTopTabNavigator';
+import MyTabs from '../HomeTopNav/EmployeeTopTabNavigator';
 
-const ClientHomeScreen = ({ navigation } : any ) => {
+const EmployeeHomeScreen = ({ navigation } : any ) => {
 
   const dispatch = useDispatch();
 
@@ -66,4 +66,4 @@ const styles = StyleSheet.create({
 
 // We export this screen to be able to import it in other
 // files, such as index.tsx, to be able to reference this
-export default ClientHomeScreen;
+export default EmployeeHomeScreen;

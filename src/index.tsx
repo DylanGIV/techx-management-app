@@ -5,13 +5,13 @@ import 'react-native-gesture-handler';
 import AuthStack from './screens/Auth/AuthStack';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { createStackNavigator } from '@react-navigation/stack';
-import ClientHomeScreen from './screens/Client/ClientBottomTabNav/ClientHomeScreen';
+import EmployeeHomeScreen from './screens/Employee/EmployeeBottomTabNav/EmployeeHomeScreen';
 import { useSelector } from 'react-redux';
 import { AuthState } from './models/redux/AuthState';
-import ClientDrawerStack from './screens/Client/ClientBottomTabNav/ClientDrawerStack';
+import EmployeeDrawerStack from './screens/Employee/EmployeeBottomTabNav/EmployeeDrawerStack';
 import { Theme } from 'react-native-paper/lib/typescript/types';
 import { theme } from './global';
-import ClientHomeStack from './screens/Client/ClientHomeStack';
+import EmployeeHomeStack from './screens/Employee/EmployeeHomeStack';
 
 const AppStack = createStackNavigator();
 
@@ -29,7 +29,7 @@ export default function AppContent() {
                     {/* Configuring our Stack of screens */}
 
                         {jwt ? (
-                            <AppStack.Screen name="HomeStack" component={ClientHomeStack} />
+                            <AppStack.Screen name="HomeStack" component={EmployeeHomeStack} />
                             ) : (
                             <AppStack.Screen name="AuthStack" component={AuthStack} />
                         )}
