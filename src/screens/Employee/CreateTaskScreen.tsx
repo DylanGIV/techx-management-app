@@ -6,17 +6,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createProject } from '../../redux/actions/ProjectActions';
 import RNPickerSelect, { Item } from 'react-native-picker-select';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { createTask } from '../../redux/actions/TaskActions';
 
 let projectsSelect : Item[];
+let accountsSelect : Item[];
 
 const CreateTaskScreen = () => {
+  const currentCompany = useSelector((state : any) => state.company.currentCompany);
 
     const [taskTitle, setTaskTitle] = useState('');
     const [taskDescription, setTaskDescription] = useState('');
+    const [account, setAccount] = useState((currentCompany.length > 0 ? currentCompany.owner[0] : '' as any));
+    const [project, setProject] = useState((currentCompany.length > 0 && currentCompany.projects.length > 0 ? currentCompany.projects[0] : '' as any));
     const dispatch = useDispatch();
 
     useEffect(() => {
-      console.log(currentCompany.companyName);
     }, [])
 
     const { colors } = useTheme();
@@ -24,13 +28,9 @@ const CreateTaskScreen = () => {
 
     const ref_input2 = useRef<any>();
 
-    const currentCompany = useSelector((state : any) => state.company.currentCompany);
-    console.log(currentCompany)
-
-
     const create = () => {
       Keyboard.dismiss();
-      dispatch(createProject(currentCompany.id, taskTitle, taskDescription) as any);
+      dispatch(createTask(taskTitle, taskDescription, account.id, project.id) as any);
     }
 
     if (currentCompany) {
@@ -43,6 +43,23 @@ const CreateTaskScreen = () => {
           }
       });
       projectsSelect = ps;
+  }
+
+    if (currentCompany) {
+      let as : Item[] = new Array(currentCompany.employees.length + 1);
+      as[0] = {
+        label: currentCompany.owner.email,
+        value: currentCompany.owner,
+        key: currentCompany.owner.email + currentCompany.owner.id
+      }
+      currentCompany.employees.forEach(function (account : any, index : number) {
+          as[index] = {
+              label: account.email,
+              value: account,
+              key: account.email + account.id
+          }
+      });
+      accountsSelect = as;
   }
 
     return (
@@ -67,15 +84,26 @@ const CreateTaskScreen = () => {
                       ? 
                         <ActivityIndicator size='small' color='black' style={{ left: 10}} /> 
                       :
-                        <RNPickerSelect 
-                            onValueChange={(value) => null}
-                            items={projectsSelect}
-                            placeholder={{}}
-                            style={pickerSelectStyles}
-                            Icon={() => {
-                                return <Ionicons name="chevron-down-outline" size={24} color={colors.primary} />;
-                            }}
-                        />
+                        <View>
+                          <RNPickerSelect 
+                              onValueChange={(value) => setAccount(value)}
+                              items={accountsSelect}
+                              placeholder={{}}
+                              style={pickerSelectStyles}
+                              Icon={() => {
+                                  return <Ionicons name="chevron-down-outline" size={24} color={colors.primary} />;
+                              }}
+                          />
+                          <RNPickerSelect 
+                              onValueChange={(value) => setProject(value)}
+                              items={projectsSelect}
+                              placeholder={{}}
+                              style={pickerSelectStyles}
+                              Icon={() => {
+                                  return <Ionicons name="chevron-down-outline" size={24} color={colors.primary} />;
+                              }}
+                          />
+                        </View>
                     }
 
                     <TextInput
@@ -105,7 +133,7 @@ const CreateTaskScreen = () => {
 
                     <View style={styles.createContainer}>
                         <Button  mode='contained' onPress={create}>
-                            Create Project
+                            Create Task
                         </Button>
                     </View>
 

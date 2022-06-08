@@ -19,7 +19,7 @@ const AllScreen = (props : LoginProps) => {
     return (
         <View style={styles.container}>
 
-            <ListProjects />
+            <ListProjects props={props} />
 
         </View>
     );

@@ -12,8 +12,9 @@ import CreateCompanyScreen from './EmployeeCompanyScreen';
 import { LoginProps } from '../../models/props/LoginProps';
 import { COMPANY_SET_COMPANY } from '../../redux/actions/types';
 import { refreshTokenAction } from '../../redux/actions/AuthActions';
-import CreateTaskScreen from './EmployeeTaskScreen';
+import CreateTaskScreen from './CreateTaskScreen';
 import EmployeeTaskDetailsScreen from './EmployeeTaskDetailsScreen';
+import EmployeeProjectDetailsScreen from './EmployeeProjectDetailsScreen';
 
 const Stack = createStackNavigator();
 let companiesSelect : Item[];
@@ -108,6 +109,7 @@ function EmployeeHomeStack(props : LoginProps) {
             <Stack.Screen name="CreateTask" component={CreateTaskScreen} options={{ headerShown: true }}/>
 
             <Stack.Screen name="TaskDetails" component={EmployeeTaskDetailsScreen} options={{ headerShown: true }}/>
+            <Stack.Screen name="ProjectDetails" component={EmployeeProjectDetailsScreen} options={{ headerShown: true }}/>
             
             <Stack.Screen 
                 name="CreateCompany" 

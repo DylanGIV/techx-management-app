@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProjectsByAccount } from '../redux/actions/ProjectActions';
 
-const ListProjects = (props : any) => {
+const ListProjects = ({props} : any) => {
     const [filteredProjects, setFilteredProjects] = useState('' as any);
     // let filteredProjects;
     const currentCompany = useSelector((state : any) => state.company.currentCompany);
@@ -58,8 +58,6 @@ const ListProjects = (props : any) => {
       ) : (
         <Animated.FlatList
           keyExtractor={(item) => item.id}
-          // style={{ transform: [{ translateY: searchBarAnim }] }}
-          // style={{ transform: [{ translateY: searchBarAnim }] }}
           data={filteredProjects}
           onRefresh={getProjects}
           refreshing={isFetchingProjects}
@@ -67,11 +65,7 @@ const ListProjects = (props : any) => {
             <View style={styles.itemWrapperView} >
               <TouchableOpacity
                 onPress={() =>
-                  // props.navigation.navigate("RestaurantDetails", {
-                  //   name: item.name,
-                  //   restaurant: item,
-                  // })
-                  console.log("Clicked")
+                  props.navigation.navigate('ProjectDetails', { project: item})
                 }
               >
                 <View style={{ flex: 1 }}>
@@ -79,7 +73,7 @@ const ListProjects = (props : any) => {
                   <Card style={(styles.card, styles.spacing)}>
                     <Card.Title 
                       title={item.projectName}
-                      subtitle={("Tasks: ") + 0}
+                      subtitle={("Tasks: ") + (item.accountTasks.length + item.teamTasks.length)}
                       left={(props) => <Avatar.Icon {...props} icon="folder" />}
                       // right={(props) => <IconButton {...props} icon="more-vert" onPress={() => {}} />}
                     />

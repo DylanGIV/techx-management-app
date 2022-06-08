@@ -25,12 +25,14 @@ export const fetchAccountTasks = () => {
 export const createTask = (taskTitle : string, taskDescription : string, accountId : number, projectId : number) => {
   return (dispatch: any) => {
     dispatch({ type: TASK_CREATE_STARTED });
-
+    console.log(accountId)
     postCreateAccountTask(taskTitle, taskDescription, accountId, projectId)
       .then((res: any) => {
+        console.log(res)
         dispatch({ type: TASK_CREATE_SUCCESS, payload: res});
       })
       .catch((err: any) => {
+        console.log(err)
         dispatch({ type: TASK_CREATE_FAIL, payload: err });
       });
   };
