@@ -1,80 +1,83 @@
+
+
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, Animated, TouchableOpacity } from 'react-native';
 import { Text, Button, useTheme, Card, Title, ActivityIndicator, Avatar } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProjectsByAccount } from '../redux/actions/ProjectActions';
+import { fetchAccountTasks } from '../redux/actions/TaskActions';
 
-const ListProjects = ({props} : any) => {
-    const [filteredProjects, setFilteredProjects] = useState('' as any);
-    // let filteredProjects;
+const ListTasks = ({ props } : any) => {
+    // const [filteredProjects, setFilteredProjects] = useState('' as any);
     const currentCompany = useSelector((state : any) => state.company.currentCompany);
     const dispatch = useDispatch();
 
-    const getProjects = () => {
-      dispatch(fetchProjectsByAccount() as any);
+    const getTasks = () => {
+      dispatch(fetchAccountTasks() as any);
     }
     
         
     useEffect(() => {
-      getProjects();
+      getTasks();
     }, [currentCompany])
     
     const { colors } = useTheme();
-    const isFetchingProjects = useSelector((state : any) => state.project.isFetchingProjects);
-    const projects = useSelector((state : any) => state.project.projects);
+    const isFetchingTasks = useSelector((state : any) => state.task.isFetchingTasks);
+    const tasks = useSelector((state : any) => state.task.tasks);
     const styles = makeStyles(colors);
 
-    const filterProjects = () => {
-      let tempProjects = new Array();
-      projects.forEach((p : any) => {
-        if (p.company.id == currentCompany.id) {
-          tempProjects.push(p)
-        }
-      });
-      setFilteredProjects(tempProjects);
-    }
+    // const filterProjects = () => {
+    //   let tempProjects = new Array();
+    //   projects.forEach((p : any) => {
+    //     if (p.company.id == currentCompany.id) {
+    //       tempProjects.push(p)
+    //     }
+    //   });
+    //   setFilteredProjects(tempProjects);
+    // }
 
-    useEffect(() => {
-      if (currentCompany && projects)
-        filterProjects();
-    }, [projects, currentCompany])
+    // useEffect(() => {
+    //   if (currentCompany && projects)
+    //     filterProjects();
+    // }, [projects, currentCompany])
     
     return (
       <View style={styles.wrapperView}>
 
-        {isFetchingProjects || !filteredProjects ? (
+        {isFetchingTasks || !tasks ? (
         <View
           style={styles.loadingIndicator}
         >
           <ActivityIndicator size="large" />
         </View>
-      ) : filteredProjects.length === 0 ? (
+      ) : tasks.length === 0 ? (
         <View style={{ flex: 1 }}>
           <Text style={{ fontSize: 20 }}>
-            No projects
+            No tasks
           </Text>
         </View>
       ) : (
         <Animated.FlatList
           keyExtractor={(item) => item.id}
-          data={filteredProjects}
-          onRefresh={getProjects}
-          refreshing={isFetchingProjects}
+          data={tasks}
+          onRefresh={getTasks}
+          refreshing={isFetchingTasks}
           renderItem={({ item }) => (
             <View style={styles.itemWrapperView} >
               <TouchableOpacity
                 onPress={() =>
-                  props.navigation.navigate('ProjectDetails', { project: item})
+                  props.navigation.navigate("TaskDetails", {task: item})
                 }
               >
                 <View style={{ flex: 1 }}>
                   
                   <Card style={(styles.card, styles.spacing)}>
                     <Card.Title 
-                      title={item.projectName}
-                      subtitle={("Tasks: ") + (item.accountTasks.length + item.teamTasks.length)}
-                      left={(props) => <Avatar.Icon {...props} icon="folder" />}
+                      title={item.title}
+                      subtitle={item.description}
+                      subtitleNumberOfLines={1}
+                      left={(props) => <Avatar.Icon {...props} icon="calendar-check" />}
                       // right={(props) => <IconButton {...props} icon="more-vert" onPress={() => {}} />}
                     />
                   </Card>
@@ -162,4 +165,4 @@ const makeStyles = (colors : ReactNativePaper.ThemeColors) => StyleSheet.create(
     }
   });
     
-export default ListProjects;
+export default ListTasks;

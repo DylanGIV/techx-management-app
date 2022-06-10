@@ -6,11 +6,12 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import { StyleSheet, View } from "react-native";
-import ClientHomeScreen from "./ClientHomeScreen";
-import ClientInboxScreen from "./ClientInboxScreen";
-import ClientSearchScreen from "./ClientSearchScreen";
-import ClientAccountScreen from "./ClientAccountScreen";
+import EmployeeHomeScreen from "./EmployeeHomeScreen";
+import EmployeeInboxScreen from "./EmployeeInboxScreen";
+import EmployeeSearchScreen from "./EmployeeSearchScreen";
+import EmployeeAccountScreen from "./EmployeeAccountScreen";
 import { useTheme } from "react-native-paper";
+import EmployeeTaskScreen from "./EmployeeTaskScreen";
 
 const Stack = createStackNavigator();
 
@@ -28,7 +29,7 @@ const MainTabScreen = () => {
       >
         <Tab.Screen
           name="Home"
-          component={ClientHomeScreen}
+          component={EmployeeHomeScreen}
           options={{
             tabBarLabel: "Home",
             tabBarColor: colors.primaryDark,
@@ -38,8 +39,19 @@ const MainTabScreen = () => {
           }}
         />
         <Tab.Screen
+          name="Tasks"
+          component={EmployeeTaskScreen}
+          options={{
+            tabBarLabel: "Tasks",
+            tabBarColor: colors.primaryDark,
+            tabBarIcon: ({ color }) => (
+              <Icon name="ios-albums-sharp" color={color} size={26} />
+            ),
+          }}
+        />
+        <Tab.Screen
           name="Inbox"
-          component={ClientInboxScreen}
+          component={EmployeeInboxScreen}
           options={{
             tabBarLabel: "Inbox",
             tabBarColor: colors.primaryDark,
@@ -51,7 +63,7 @@ const MainTabScreen = () => {
 
         <Tab.Screen
           name="Search"
-          component={ClientSearchScreen}
+          component={EmployeeSearchScreen}
           options={{
             tabBarLabel: "Search",
             tabBarColor: colors.primaryDark,
@@ -63,7 +75,7 @@ const MainTabScreen = () => {
 
         <Tab.Screen
           name="Account"
-          component={ClientAccountScreen}
+          component={EmployeeAccountScreen}
           options={{
             tabBarLabel: "Account",
             tabBarColor: colors.primaryDark,

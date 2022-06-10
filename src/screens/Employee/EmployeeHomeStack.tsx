@@ -4,28 +4,31 @@ import RNPickerSelect, { Item } from 'react-native-picker-select';
 import { StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCompanies } from '../../redux/actions/CompanyActions';
-import MainTabScreen from './ClientBottomTabNav/ClientDrawerStack';
+import MainTabScreen from './EmployeeBottomTabNav/EmployeeDrawerStack';
 import CreateProjectScreen from './CreateProjectScreen';
 import { ActivityIndicator, IconButton, Text, useTheme } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import CreateCompanyScreen from './CreateCompanyScreen';
+import CreateCompanyScreen from './EmployeeCompanyScreen';
 import { LoginProps } from '../../models/props/LoginProps';
 import { COMPANY_SET_COMPANY } from '../../redux/actions/types';
 import { refreshTokenAction } from '../../redux/actions/AuthActions';
+import CreateTaskScreen from './CreateTaskScreen';
+import EmployeeTaskDetailsScreen from './EmployeeTaskDetailsScreen';
+import EmployeeProjectDetailsScreen from './EmployeeProjectDetailsScreen';
 
 const Stack = createStackNavigator();
 let companiesSelect : Item[];
 
-function ClientHomeStack(props : LoginProps) {
+function EmployeeHomeStack(props : LoginProps) {
 
     const updateCompanyIdGlobal = (company : any) => {
         dispatch({ type: COMPANY_SET_COMPANY, payload: company });
     }
-    const refreshToken = () => {
-        dispatch(refreshTokenAction() as any);
-    }
+    // const refreshToken = () => {
+    //     dispatch(refreshTokenAction() as any);
+    // }
 
-    // Call refreshToken to get a new JWT, as the old one expires.
+    // Call refreshToken to get a new JWT, as the old one expires. NO LONGER NECESSARY
     // useEffect( () => {
     //     refreshToken();
     // }, [])
@@ -63,11 +66,12 @@ function ClientHomeStack(props : LoginProps) {
 
     return (
         <Stack.Navigator 
-            initialRouteName="ClientHome" 
+            initialRouteName="EmployeeHome" 
         >
             <Stack.Screen 
-                name='ClientHome'
+                name='EmployeeHome'
                 component={MainTabScreen}
+                // options={{headerShown: false}}
                 options={{ 
                     headerShown: true, 
 
@@ -102,6 +106,10 @@ function ClientHomeStack(props : LoginProps) {
             />
             
             <Stack.Screen name="CreateProject" component={CreateProjectScreen} options={{ headerShown: true }}/>
+            <Stack.Screen name="CreateTask" component={CreateTaskScreen} options={{ headerShown: true }}/>
+
+            <Stack.Screen name="TaskDetails" component={EmployeeTaskDetailsScreen} options={{ headerShown: true }}/>
+            <Stack.Screen name="ProjectDetails" component={EmployeeProjectDetailsScreen} options={{ headerShown: true }}/>
             
             <Stack.Screen 
                 name="CreateCompany" 
@@ -150,7 +158,7 @@ const pickerSelectStyles = StyleSheet.create({
       fontSize: 20,
       paddingVertical: 12,
       paddingHorizontal: 10,
-      borderWidth: 0.5,
+      borderBottomWidth: 1,
       borderColor: 'gray',
       borderRadius: 4,
       color: 'black',
@@ -191,4 +199,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default ClientHomeStack;
+export default EmployeeHomeStack;

@@ -196,3 +196,26 @@ export const getTeamsByCompanyId = async (companyId: number) => {
       .catch((err) => reject(err));
   });
 };
+
+export const postCreateAccountTask = async (taskTitle : string, taskDescription : string, accountId : number, projectId : number) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post('AccountTask/create', {
+        taskTitle: taskTitle,
+        taskDescription: taskDescription,
+        accountId: accountId,
+        projectId: projectId
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
+
+export const getAccountTasks = async () => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get('AccountTask/all')
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
