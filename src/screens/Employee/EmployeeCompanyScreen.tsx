@@ -28,7 +28,8 @@ const CreateCompanyScreen = () => {
         )
     } else {
         return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.container}
+        >
             <TouchableWithoutFeedback 
                 style={styles.touchableContainer}
                 onPress={() => Keyboard.dismiss()}

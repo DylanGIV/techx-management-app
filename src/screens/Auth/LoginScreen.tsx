@@ -37,6 +37,8 @@ const LoginScreen = (props : LoginProps) => {
       dispatch(loginWithEmailAndPassword(email, password) as any);
     }
 
+
+
     const { colors } = useTheme();
     const styles = makeStyles(colors);
 
@@ -101,6 +103,12 @@ const LoginScreen = (props : LoginProps) => {
                 <View style={styles.loginContainer}>
                   <Button  mode='contained' onPress={login} style={styles.loginContainerButton}>
                     Log in
+                  </Button>
+                </View>
+
+                <View>
+                  <Button onPress={() => props.navigation.navigate('Forgot Password?' as any)}>
+                      Forgot Password?
                   </Button>
                 </View>
 

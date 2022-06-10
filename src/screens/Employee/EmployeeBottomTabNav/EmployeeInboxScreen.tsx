@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-nati
 import { Text, Button } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const ClientInboxScreen = () => {
+const EmployeeInboxScreen = () => {
 
     return (
       <SafeAreaView style={styles.container} edges={['bottom']}>
@@ -34,4 +34,4 @@ const styles = StyleSheet.create({
 
 // We export this screen to be able to import it in other
 // files, such as index.tsx, to be able to reference this
-export default ClientInboxScreen;
+export default EmployeeInboxScreen;

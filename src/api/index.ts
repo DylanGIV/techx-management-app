@@ -29,6 +29,39 @@ export const postRegister = async (company: string, firstName: string, lastName:
   });
 };
 
+export const postPasswordReset = async(token: string, password: string, confirmPassword: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+    .post('Accounts/reset-password', {
+      token: token,
+      password: password,
+      confirmPassword: confirmPassword
+    })
+    .then((res) => resolve(res.data))
+    .catch((err) => reject(err));
+  });
+};
+
+export const postForgotPassword = async(email: string) => {
+  return new Promise((resolve, reject) => {
+    axios
+    .post('Accounts/forgot-password', {
+      email: email
+    })
+    .then((res) => resolve(res.data))
+    .catch((err) => reject(err));
+  });
+};
+
+export const postPasswordResetToken = async() => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post('Accounts/validate-reset-token')
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
+
 export const postRefreshToken = async () => {
   return new Promise((resolve, reject) => {
     axios
@@ -121,7 +154,7 @@ export const deleteProject = async (projectId: number) => {
 export const getProjectsByAccount = async () => {
   return new Promise((resolve, reject) => {
     axios
-      .get('Project/account')
+      .get('Project/companyId')
       .then((res) => resolve(res.data))
       .catch((err) => reject(err));
   });
@@ -159,6 +192,29 @@ export const getTeamsByCompanyId = async (companyId: number) => {
           companyId: companyId
         }
       })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
+
+export const postCreateAccountTask = async (taskTitle : string, taskDescription : string, accountId : number, projectId : number) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post('AccountTask/create', {
+        taskTitle: taskTitle,
+        taskDescription: taskDescription,
+        accountId: accountId,
+        projectId: projectId
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
+
+export const getAccountTasks = async () => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get('AccountTask/all')
       .then((res) => resolve(res.data))
       .catch((err) => reject(err));
   });

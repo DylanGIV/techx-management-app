@@ -5,5 +5,8 @@ export interface AuthState {
     isRegistering: Boolean;
     loginErrorMessage: string;
     registerErrorMessasge: string;
+
+    // add password reset?
+    
   };
 }
