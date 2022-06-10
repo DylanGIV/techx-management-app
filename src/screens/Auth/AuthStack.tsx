@@ -1,9 +1,11 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from './LoginScreen';
+import PasswordForgetScreen from './PasswordForgetScreen';
 import React from 'react';
 import { Image } from 'react-native';
 import RegisterScreen from './RegisterScreen';
 import { useTheme } from 'react-native-paper';
+import PasswordResetScreen from './PasswordResetScreen';
 
 
 // import HeaderLogo from '../../components/headerLogo';
@@ -27,6 +29,8 @@ function AuthStack() {
         <Stack.Navigator initialRouteName="Login"  screenOptions={defaultOptions}>
             <Stack.Screen name="Login" component={LoginScreen} options={{ headerMode:'float', headerTitle: (props) => <LogoTitle {...props} />, }}/>
             <Stack.Screen name="Register" component={RegisterScreen}/>
+            <Stack.Screen name="Forgot Password?" component={PasswordForgetScreen}/>
+            {/* <Stack.Screen name="Reset" component={PasswordResetScreen}/> */}
             {/* Add additional screens here, just remember to
                 import your screen using "component={}" and give it a name.
                  
