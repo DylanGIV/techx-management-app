@@ -51,16 +51,16 @@ const RegisterScreen = (props : LoginProps) => {
     }
 
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <TouchableWithoutFeedback 
           style={styles.touchableContainer}
           onPress={() => Keyboard.dismiss()}
         >
-          <SafeAreaView style={styles.wrapperView}>
+          <View style={styles.wrapperView}>
 
             <View style={styles.inputLoginContainer}>
               
-              <SafeAreaView style={styles.inputBorder} />
+              <View style={styles.inputBorder} />
               
               <View style={styles.wrapperView}>
 
@@ -189,11 +189,11 @@ const RegisterScreen = (props : LoginProps) => {
 
 
 
-              <SafeAreaView style={styles.inputBorder} />
+              <View style={styles.inputBorder} />
 
             </View>
 
-          </SafeAreaView>
+          </View>
         </TouchableWithoutFeedback>
         
         {isLoading &&
@@ -202,7 +202,7 @@ const RegisterScreen = (props : LoginProps) => {
           </View>
         }
 
-      </View>
+      </SafeAreaView>
 
     );
 };
@@ -215,14 +215,11 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 24,
     textAlign: 'center',
-    color: '#7ED957',
-    backgroundColor: '#8A95A6',
-    
+    color: '#7ED957'
   },
   textInput: {
     marginHorizontal: 8,
     marginBottom: 14,
-    //backgroundColor: '#8A95A6',
     backgroundColor: '#FFFFFF',
   },
   inputLoginContainer: {
@@ -234,17 +231,13 @@ const styles = StyleSheet.create({
   inputContainer: {
     flex: 0.166,
     color: '#7ED957',
-    backgroundColor: '#8A95A6',
   },
   inputCenter: {
     flex: 0.8,
     color: '#7ED957',
-    backgroundColor: '#8A95A6',
   },
   inputBorder: {
-    flex: 0.1,
-    color: '#8A95A6',
-    
+    flex: 0.1
   },
   registerContainer: {
     flex: 0.0833,
@@ -265,7 +258,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexGrow: 0.166,
     color: 'black',
-    backgroundColor: '#8A95A6',
   },
   individualNameContainer: {
     flex: 1,
@@ -281,11 +273,9 @@ const styles = StyleSheet.create({
     right: 0, 
     top: 0, 
     bottom: 0,
-    
   },
   infoTextWrapper: {
     flex: 0.166,
-    color: '#8A95A6',
   }
 
 });  
