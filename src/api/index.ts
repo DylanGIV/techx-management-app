@@ -154,7 +154,7 @@ export const deleteProject = async (projectId: number) => {
 export const getProjectsByAccount = async () => {
   return new Promise((resolve, reject) => {
     axios
-      .get('Project/companyId')
+      .get('Project')
       .then((res) => resolve(res.data))
       .catch((err) => reject(err));
   });

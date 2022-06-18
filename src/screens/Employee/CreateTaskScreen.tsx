@@ -13,7 +13,8 @@ let accountsSelect : Item[];
 
 const CreateTaskScreen = () => {
   const currentCompany = useSelector((state : any) => state.company.currentCompany);
-
+  
+    const [date, setDate] = useState(new Date())
     const [taskTitle, setTaskTitle] = useState('');
     const [taskDescription, setTaskDescription] = useState('');
     const [account, setAccount] = useState((currentCompany.length > 0 ? currentCompany.owner[0] : '' as any));
@@ -105,6 +106,9 @@ const CreateTaskScreen = () => {
                                   return <Ionicons name="chevron-down-outline" size={24} color={colors.primary} />;
                               }}
                           />
+                          <Text style={styles.text}>
+                              Date
+                          </Text>
                         </View>
                     }
                     <View style={{ flex: 0.4 }}/>

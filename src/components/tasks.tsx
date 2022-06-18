@@ -5,6 +5,7 @@ import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, Animated, Touchab
 import { Text, Button, useTheme, Card, Title, ActivityIndicator, Avatar } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
+import { Task } from '../models/response/TaskResponse';
 import { fetchProjectsByAccount } from '../redux/actions/ProjectActions';
 import { fetchAccountTasks } from '../redux/actions/TaskActions';
 
@@ -24,7 +25,7 @@ const ListTasks = ({ props } : any) => {
     
     const { colors } = useTheme();
     const isFetchingTasks = useSelector((state : any) => state.task.isFetchingTasks);
-    const tasks = useSelector((state : any) => state.task.tasks);
+    const tasks : Task[] = useSelector((state : any) => state.task.tasks);
     const styles = makeStyles(colors);
 
     // const filterProjects = () => {
@@ -59,7 +60,7 @@ const ListTasks = ({ props } : any) => {
         </View>
       ) : (
         <Animated.FlatList
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.id.toString()}
           data={tasks}
           onRefresh={getTasks}
           refreshing={isFetchingTasks}
@@ -78,7 +79,7 @@ const ListTasks = ({ props } : any) => {
                       subtitle={item.description}
                       subtitleNumberOfLines={1}
                       left={(props) => <Avatar.Icon {...props} icon="calendar-check" />}
-                      // right={(props) => <IconButton {...props} icon="more-vert" onPress={() => {}} />}
+                      right={(props) => <Text>{("Due: ") + item.dueDate }</Text>}
                     />
                   </Card>
 

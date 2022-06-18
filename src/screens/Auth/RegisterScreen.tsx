@@ -51,7 +51,7 @@ const RegisterScreen = (props : LoginProps) => {
     }
 
     return (
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <TouchableWithoutFeedback 
           style={styles.touchableContainer}
           onPress={() => Keyboard.dismiss()}
@@ -202,7 +202,7 @@ const RegisterScreen = (props : LoginProps) => {
           </View>
         }
 
-      </SafeAreaView>
+      </View>
 
     );
 };

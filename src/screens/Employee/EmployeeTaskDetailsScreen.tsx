@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Text, Button, Card, Title, Paragraph } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Task } from '../../models/response/TaskResponse';
 
 const EmployeeTaskDetailsScreen = (props : any) => {
 
-  const { task } = props.route.params;
-
+  const params = props.route.params;
+  var task : Task = params.task;
+  // console.log(task)
+  console.log(task.dueDate);
 
     return (
       <View style={styles.container}>
