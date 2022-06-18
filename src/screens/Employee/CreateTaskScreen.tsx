@@ -1,25 +1,47 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { Text, Button, TextInput, ActivityIndicator, Menu, useTheme } from 'react-native-paper';
+import { Text, Button, TextInput, ActivityIndicator, Menu, useTheme, Portal } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 import { createProject } from '../../redux/actions/ProjectActions';
 import RNPickerSelect, { Item } from 'react-native-picker-select';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createTask } from '../../redux/actions/TaskActions';
+import { DatePickerInput, DatePickerModal, DatePickerModalContent } from 'react-native-paper-dates';
+import { Account } from '../../models/response/AccountResponse';
+import { Project } from '../../models/response/ProjectResponse';
+// import { DatePicker } from 'react-native-woodpicker';
 
 let projectsSelect : Item[];
 let accountsSelect : Item[];
 
-const CreateTaskScreen = () => {
-  const currentCompany = useSelector((state : any) => state.company.currentCompany);
+const CreateTaskScreen = (props : any) => {
+    const currentCompany = useSelector((state : any) => state.company.currentCompany);
+    const isCreatingTask = useSelector((state : any) => state.task.isCreatingTask);
   
-    const [date, setDate] = useState(new Date())
+    
     const [taskTitle, setTaskTitle] = useState('');
     const [taskDescription, setTaskDescription] = useState('');
-    const [account, setAccount] = useState((currentCompany.length > 0 ? currentCompany.owner[0] : '' as any));
-    const [project, setProject] = useState((currentCompany.length > 0 && currentCompany.projects.length > 0 ? currentCompany.projects[0] : '' as any));
+    const [account, setAccount] = useState<Account>((currentCompany.owner ? currentCompany.owner : 'hello' as any));
+    const [project, setProject] = useState<Project>((currentCompany.length > 0 && currentCompany.projects.length > 0 ? currentCompany.projects[0] : '' as any));
     const dispatch = useDispatch();
+
+    const [date, setDate] = React.useState<Date>(undefined as any)
+    const [customOpen, setCustomOpen] = React.useState(false)
+
+    console.log(account.id)
+    console.log(project.id)
+
+    const onDismissCustom = React.useCallback(() => {
+      setCustomOpen(false)
+    }, [setCustomOpen])
+    const onChangeSingle = React.useCallback(
+      (params) => {
+        setCustomOpen(false)
+        setDate(params.date)
+      },
+      [setCustomOpen, setDate]
+    )
 
     useEffect(() => {
     }, [])
@@ -31,7 +53,7 @@ const CreateTaskScreen = () => {
 
     const create = () => {
       Keyboard.dismiss();
-      dispatch(createTask(taskTitle, taskDescription, account.id, project.id) as any);
+      dispatch(createTask(taskTitle, taskDescription, account.id, project.id, date, props) as any);
     }
 
     if (currentCompany) {
@@ -65,6 +87,9 @@ const CreateTaskScreen = () => {
 
     return (
       <SafeAreaView style={styles.container}>
+          
+            
+
           <TouchableWithoutFeedback 
               style={styles.touchableContainer}
               onPress={() => Keyboard.dismiss()}
@@ -81,7 +106,7 @@ const CreateTaskScreen = () => {
                       ? 
                         <ActivityIndicator size='small' color='black' style={{ left: 10}} /> 
                       :
-                        <View style={{ flex: 1}}>
+                        <View style={{ flex: 2}}>
                           <Text style={styles.text}>
                             Employee
                           </Text>
@@ -106,9 +131,16 @@ const CreateTaskScreen = () => {
                                   return <Ionicons name="chevron-down-outline" size={24} color={colors.primary} />;
                               }}
                           />
-                          <Text style={styles.text}>
-                              Date
-                          </Text>
+                          <Button
+                            onPress={() => setCustomOpen(true)}
+                            uppercase={false}
+                            mode="outlined"
+                            style={styles.pickButton}
+                          >
+                            <Text style={{ color: colors.text }}>
+                              {date ? (date.toDateString()) : ("Pick due date")}
+                            </Text>
+                          </Button>
                         </View>
                     }
                     <View style={{ flex: 0.4 }}/>
@@ -147,13 +179,35 @@ const CreateTaskScreen = () => {
                         </Button>
                     </View>
 
+                    {(isCreatingTask) && (
+                      <View style={styles.loadingIndicator} pointerEvents='none'>
+                        <ActivityIndicator size='large' />
+                      </View>
+                    )}
+
                 </View>
 
                 <View style={styles.inputBorder} />
 
               </View>
           </TouchableWithoutFeedback>
+          <Portal>
+            {customOpen ? (
+              <View style={[StyleSheet.absoluteFill, styles.customModal]}>
+                <DatePickerModalContent
+                  locale='en'
+                  mode="single"
+                  onDismiss={onDismissCustom}
+                  onConfirm={onChangeSingle}
+                  
+                />
+              </View>
+            ) : null}
+          </Portal>
+
       </SafeAreaView>
+
+      
 
     );
 };
@@ -206,7 +260,7 @@ const makeStyles = (colors : ReactNativePaper.ThemeColors) => StyleSheet.create(
         backgroundColor: colors.secondary
       },
       inputCreateContainer: {
-        flex: 0.6,
+        flex: 0.7,
         justifyContent: 'center',
         flexDirection: 'row',
       },
@@ -218,7 +272,7 @@ const makeStyles = (colors : ReactNativePaper.ThemeColors) => StyleSheet.create(
         flex: 0.6,
       },
       inputBorder: {
-        flex: 0.2
+        flex: 0.15
       },
       createContainer: {
         flex: 0.2,
@@ -238,12 +292,28 @@ const makeStyles = (colors : ReactNativePaper.ThemeColors) => StyleSheet.create(
         position: 'absolute', 
         justifyContent: 'center', 
         alignItems: 'center', 
-        backgroundColor: 'white', 
-        opacity: 0.5, 
+        backgroundColor: 'transparent', 
+        opacity: 0.2, 
         left: 0, 
         right: 0, 
         top: 0, 
         bottom: 0,
+      },
+      pickButton: { marginTop: 6, },
+      customModal: {
+        // borderTopRightRadius: 20,
+        // borderBottomRightRadius: 20,
+        backgroundColor: '#fff',
+        overflow: 'hidden',
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+    
+        elevation: 5,
       },
   });
     

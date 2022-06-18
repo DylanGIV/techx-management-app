@@ -12,12 +12,17 @@ import EmployeeDrawerStack from './screens/Employee/EmployeeBottomTabNav/Employe
 import { Theme } from 'react-native-paper/lib/typescript/types';
 import { theme } from './global';
 import EmployeeHomeStack from './screens/Employee/EmployeeHomeStack';
+import {
+    en,
+    registerTranslation,
+  } from 'react-native-paper-dates'
 
 const AppStack = createStackNavigator();
 
 export default function AppContent() {
 
 
+    registerTranslation('en', en);
     const jwt = useSelector((state : AuthState )=> state.auth.jwt)
 
     return (

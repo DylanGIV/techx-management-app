@@ -197,14 +197,15 @@ export const getTeamsByCompanyId = async (companyId: number) => {
   });
 };
 
-export const postCreateAccountTask = async (taskTitle : string, taskDescription : string, accountId : number, projectId : number) => {
+export const postCreateAccountTask = async (taskTitle : string, taskDescription : string, accountId : number, projectId : number, date : Date) => {
   return new Promise((resolve, reject) => {
     axios
       .post('AccountTask/create', {
         taskTitle: taskTitle,
         taskDescription: taskDescription,
         accountId: accountId,
-        projectId: projectId
+        projectId: projectId,
+        dueDate: date
       })
       .then((res) => resolve(res.data))
       .catch((err) => reject(err));

@@ -3,7 +3,7 @@ export interface Account {
     created: string;
     email: string;
     firstName: string;
-    id: Number;
+    id: number;
     isVerified: Boolean;
     lastName: string;
     role: string;
