@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
 import RNPickerSelect, { Item } from 'react-native-picker-select';
-import { StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCompanies } from '../../redux/actions/CompanyActions';
 import MainTabScreen from './EmployeeBottomTabNav/EmployeeDrawerStack';
@@ -15,6 +15,7 @@ import { refreshTokenAction } from '../../redux/actions/AuthActions';
 import CreateTaskScreen from './CreateTaskScreen';
 import EmployeeTaskDetailsScreen from './EmployeeTaskDetailsScreen';
 import EmployeeProjectDetailsScreen from './EmployeeProjectDetailsScreen';
+import { deleteCompany } from '../../api';
 
 const Stack = createStackNavigator();
 let companiesSelect : Item[];
@@ -23,6 +24,9 @@ function EmployeeHomeStack(props : LoginProps) {
 
     const updateCompanyIdGlobal = (company : any) => {
         dispatch({ type: COMPANY_SET_COMPANY, payload: company });
+    }
+    const deleteCurrentCompany = () => {
+        deleteCompany(currentCompany.id);
     }
     // const refreshToken = () => {
     //     dispatch(refreshTokenAction() as any);
@@ -38,6 +42,8 @@ function EmployeeHomeStack(props : LoginProps) {
     const dispatch = useDispatch();
     const createCompanySuccess = useSelector((state: any) => state.company.createCompanySuccess);
     const isRefreshingToken = useSelector((state : any) => state.auth.isRefreshingToken);
+    const currentCompany = useSelector((state: any) => state.company.currentCompany);
+
 
     useEffect( () => {
         dispatch(fetchCompanies() as any);
@@ -91,12 +97,34 @@ function EmployeeHomeStack(props : LoginProps) {
                             />
                     ),
                     headerRight: () => (
-                        <IconButton 
-                            icon="plus"
-                            color={colors.primary}
-                            size={28}
-                            onPress={() => props.navigation.navigate('CreateCompany' as any)}
-                        />
+                        <View style={{flex: 1, flexDirection: 'row', bottom: 3}}>
+                            <IconButton 
+                                icon="minus"
+                                color={colors.primary}
+                                size={28}
+                                onPress={() => {
+                                    Alert.alert("Would you like to delete this company?", "", [
+                                        {
+                                          text: "Yes",
+                                          onPress: () => { 
+                                            deleteCurrentCompany();
+                                            dispatch(fetchCompanies() as any);
+                                          },
+                                        },
+                                        {
+                                          text: "No",
+                                        }
+                                      ])
+                                }}
+                            />
+                            <IconButton 
+                                icon="plus"
+                                color={colors.primary}
+                                size={28}
+                                onPress={() => props.navigation.navigate('CreateCompany' as any)}
+                            />
+
+                        </View>
                     ),
                     
                     headerTitle: '', 

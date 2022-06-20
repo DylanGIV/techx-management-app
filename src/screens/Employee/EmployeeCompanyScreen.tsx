@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCompany } from '../../redux/actions/CompanyActions';
 
-const CreateCompanyScreen = () => {
+const CreateCompanyScreen = (props : any) => {
     const [companyName, setCompanyName] = useState('');
 
     const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const CreateCompanyScreen = () => {
 
     const create = () => {
         Keyboard.dismiss();
-        dispatch(createCompany(companyName) as any);
+        dispatch(createCompany(companyName, props) as any);
     }
     
     const isCreatingCompany = useSelector((state : any) => state.company.isCreatingCompany);

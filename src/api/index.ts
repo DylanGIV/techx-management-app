@@ -82,6 +82,19 @@ export const postCreateCompany = async (companyName : string) => {
   });
 };
 
+export const deleteCompany = async (companyId : number) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .delete('Company/delete', {
+        data: {
+          companyId: companyId
+        }
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
+
 // needs to be revised
 export const postAddEmployeeToCompany = async (companyId: number, accountIds: [number]) => {
   return new Promise((resolve, reject) => {
@@ -216,6 +229,18 @@ export const getAccountTasks = async () => {
   return new Promise((resolve, reject) => {
     axios
       .get('AccountTask/all')
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
+
+export const putUpdateAccountTaskStatus = async (taskId: number, status: boolean) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .put('AccountTask/status', {
+        status: status,
+        id: taskId
+      })
       .then((res) => resolve(res.data))
       .catch((err) => reject(err));
   });

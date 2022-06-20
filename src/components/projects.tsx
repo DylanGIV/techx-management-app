@@ -18,10 +18,18 @@ const ListProjects = ({props} : any) => {
         
     useEffect(() => {
       getProjects();
+      const willFocusSubscription = props.navigation.addListener('focus', () => {
+        getProjects();
+      });
+
+      return willFocusSubscription;
+  
     }, [currentCompany])
+
     
     const { colors } = useTheme();
     const isFetchingProjects = useSelector((state : any) => state.project.isFetchingProjects);
+    const isFetchingCompanies = useSelector((state : any) => state.company.isFetchingCompanies);
     const projects = useSelector((state : any) => state.project.projects);
     const styles = makeStyles(colors);
 
@@ -43,7 +51,7 @@ const ListProjects = ({props} : any) => {
     return (
       <View style={styles.wrapperView}>
 
-        {isFetchingProjects || !filteredProjects ? (
+        {isFetchingProjects || !filteredProjects || isFetchingCompanies ? (
         <View
           style={styles.loadingIndicator}
         >

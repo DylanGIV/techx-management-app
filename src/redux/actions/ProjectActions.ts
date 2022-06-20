@@ -1,3 +1,4 @@
+import { Alert } from 'react-native';
 import { getProjectsByAccount, postCreateProject } from '../../api';
 import { PROJECT_FETCH_SUCCESS, PROJECT_FETCH_STARTED, PROJECT_FETCH_FAIL, PROJECT_CREATE_STARTED, PROJECT_CREATE_SUCCESS, PROJECT_CREATE_FAIL } from './types';
 
@@ -22,9 +23,18 @@ export const fetchProjectsByAccount = () => {
   };
 };
 
-export const createProject = (companyId: number, projectName : string, projectDescription : string) => {
+export const createProject = (companyId: number, projectName : string, projectDescription : string, props : any) => {
   return (dispatch: any) => {
     dispatch({ type: PROJECT_CREATE_STARTED });
+
+    Alert.alert("Project created successfully", "", [
+      {
+        text: "Okay",
+        onPress: () => { 
+          props.navigation.goBack(); 
+        },
+      },
+    ])
 
     postCreateProject(companyId, projectName, projectDescription)
       .then((res: any) => {

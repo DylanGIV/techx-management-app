@@ -17,16 +17,23 @@ const ListTasks = ({ props } : any) => {
     const getTasks = () => {
       dispatch(fetchAccountTasks() as any);
     }
-    
-        
+    const projects = useSelector((state : any) => state.project.projects);
+
     useEffect(() => {
       getTasks();
+      const willFocusSubscription = props.navigation.addListener('focus', () => {
+        getTasks();
+      });
+
+      return willFocusSubscription;
+  
     }, [currentCompany])
     
     const { colors } = useTheme();
     const isFetchingTasks = useSelector((state : any) => state.task.isFetchingTasks);
     const tasks : Task[] = useSelector((state : any) => state.task.tasks);
     const styles = makeStyles(colors);
+
 
     // const filterProjects = () => {
     //   let tempProjects = new Array();
@@ -79,7 +86,7 @@ const ListTasks = ({ props } : any) => {
                       subtitle={item.description}
                       subtitleNumberOfLines={1}
                       left={(props) => <Avatar.Icon {...props} icon="calendar-check" />}
-                      right={(props) => <Text>{("Due: ") + item.dueDate }</Text>}
+                      right={(props) => <Text>{("Due: ") + new Date(item.dueDate).toDateString() }</Text>}
                     />
                   </Card>
 

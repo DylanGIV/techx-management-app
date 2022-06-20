@@ -29,9 +29,6 @@ const CreateTaskScreen = (props : any) => {
     const [date, setDate] = React.useState<Date>(undefined as any)
     const [customOpen, setCustomOpen] = React.useState(false)
 
-    console.log(account.id)
-    console.log(project.id)
-
     const onDismissCustom = React.useCallback(() => {
       setCustomOpen(false)
     }, [setCustomOpen])
@@ -53,7 +50,10 @@ const CreateTaskScreen = (props : any) => {
 
     const create = () => {
       Keyboard.dismiss();
-      dispatch(createTask(taskTitle, taskDescription, account.id, project.id, date, props) as any);
+      if (taskTitle && taskDescription && account && project && date && props)
+        dispatch(createTask(taskTitle, taskDescription, account.id, project.id, date, props) as any);
+      else
+        alert("Please fill out all fields.")
     }
 
     if (currentCompany) {
@@ -113,7 +113,7 @@ const CreateTaskScreen = (props : any) => {
                           <RNPickerSelect 
                               onValueChange={(value) => setAccount(value)}
                               items={accountsSelect}
-                              placeholder={{}}
+                              // placeholder={{}}
                               style={pickerSelectStyles}
                               Icon={() => {
                                   return <Ionicons name="chevron-down-outline" size={24} color={colors.primary} />;
@@ -125,7 +125,6 @@ const CreateTaskScreen = (props : any) => {
                           <RNPickerSelect 
                               onValueChange={(value) => setProject(value)}
                               items={projectsSelect}
-                              placeholder={{}}
                               style={pickerSelectStyles}
                               Icon={() => {
                                   return <Ionicons name="chevron-down-outline" size={24} color={colors.primary} />;

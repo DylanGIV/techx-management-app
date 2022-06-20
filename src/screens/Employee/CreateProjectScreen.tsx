@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 import { createProject } from '../../redux/actions/ProjectActions';
 
-const CreateProjectScreen = () => {
+const CreateProjectScreen = (props : any) => {
 
     const [projectName, setProjectName] = useState('');
     const [projectDescription, setProjectDescription] = useState('');
@@ -25,7 +25,7 @@ const CreateProjectScreen = () => {
 
     const create = () => {
       Keyboard.dismiss();
-      dispatch(createProject(currentCompany.id, projectName, projectDescription) as any);
+      dispatch(createProject(currentCompany.id, projectName, projectDescription, props) as any);
     }
 
     return (
