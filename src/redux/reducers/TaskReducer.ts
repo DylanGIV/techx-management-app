@@ -1,4 +1,4 @@
-import { TASK_CREATE_FAIL, TASK_CREATE_STARTED, TASK_CREATE_SUCCESS, TASK_FETCH_FAIL, TASK_FETCH_STARTED, TASK_FETCH_SUCCESS } from '../actions/types';
+import { TASK_CREATE_FAIL, TASK_CREATE_STARTED, TASK_CREATE_SUCCESS, TASK_FETCH_FAIL, TASK_FETCH_STARTED, TASK_FETCH_SUCCESS, TASK_UPDATE_STATUS_FAIL, TASK_UPDATE_STATUS_STARTED, TASK_UPDATE_STATUS_SUCCESS } from '../actions/types';
 
 const INITIAL_STATE = {
   tasks: [],
@@ -6,7 +6,10 @@ const INITIAL_STATE = {
   isCreatingTask: false,
   createTaskSuccess: '',
   createTaskErrorMessage: '',
-  fetchErrorMessage: ''
+  fetchErrorMessage: '',
+  updateTaskSuccess: '',
+  updateTaskErrorMessage: '',
+  isUpdatingTask: false,
 };
 
 export default (state = INITIAL_STATE, action: any) => {
@@ -27,6 +30,12 @@ export default (state = INITIAL_STATE, action: any) => {
       return { ...state, createTaskSuccess: action.payload, isCreatingTask: false };
     case TASK_CREATE_FAIL:
       return { ...state, createTaskErrorMessage: '', isCreatingTask: false };
+    case TASK_UPDATE_STATUS_STARTED:
+        return { ...state, isUpdatingTask: true };
+    case TASK_UPDATE_STATUS_SUCCESS:
+      return { ...state, updateTaskSuccess: action.payload, isUpdatingTask: false };
+    case TASK_UPDATE_STATUS_FAIL:
+      return { ...state, updateTaskErrorMessage: '', isUpdatingTask: false };
     default:
       return state;
   }

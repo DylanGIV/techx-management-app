@@ -10,4 +10,5 @@ export interface Task {
     id: number;
     project: Project;
     title: string;
+    completed: boolean;
 }

@@ -10,15 +10,14 @@ import { fetchProjectsByAccount } from '../redux/actions/ProjectActions';
 import { fetchAccountTasks } from '../redux/actions/TaskActions';
 import { REFRESH_SWITCH } from '../redux/actions/types';
 
-const ListTasks = ({ props } : any) => {
-    // const [filteredProjects, setFilteredProjects] = useState('' as any);
+const ListTasks = (props : any) => {
+    const [filteredTasks, setFilteredTasks] = useState('' as any);
     const currentCompany = useSelector((state : any) => state.company.currentCompany);
     const dispatch = useDispatch();
 
     const getTasks = () => {
       dispatch(fetchAccountTasks() as any);
     }
-    const projects = useSelector((state : any) => state.project.projects);
     const refresh = useSelector((state : any) => state.refresh.refresh);
 
     useEffect(() => {
@@ -35,22 +34,36 @@ const ListTasks = ({ props } : any) => {
     const isFetchingTasks = useSelector((state : any) => state.task.isFetchingTasks);
     const tasks : Task[] = useSelector((state : any) => state.task.tasks);
     const styles = makeStyles(colors);
+    const filter = props.filter
 
+    const filterTasks = () => {
+      let tempTasks = new Array();
+      if (filter == 'all') {
+        tasks.forEach((t : Task) => {
+            tempTasks.push(t)
+        });
+      }
+      else if (filter == 'completed') {
+        tasks.forEach((t : Task) => {
+          if (t.completed == true) {
+            tempTasks.push(t)
+          }
+        });
+      }
+      else if (filter == 'incomplete') {
+        tasks.forEach((t : Task) => {
+          if (t.completed == false) {
+            tempTasks.push(t)
+          }
+        });
+      }
+      setFilteredTasks(tempTasks);
+    }
 
-    // const filterProjects = () => {
-    //   let tempProjects = new Array();
-    //   projects.forEach((p : any) => {
-    //     if (p.company.id == currentCompany.id) {
-    //       tempProjects.push(p)
-    //     }
-    //   });
-    //   setFilteredProjects(tempProjects);
-    // }
-
-    // useEffect(() => {
-    //   if (currentCompany && projects)
-    //     filterProjects();
-    // }, [projects, currentCompany])
+    useEffect(() => {
+      if (currentCompany && tasks)
+        filterTasks();
+    }, [tasks, currentCompany])
     
     return (
       <View style={styles.wrapperView}>
@@ -62,13 +75,13 @@ const ListTasks = ({ props } : any) => {
             </Text>
           </View>
         :
-        isFetchingTasks || !tasks ? (
+        isFetchingTasks || !tasks || !filteredTasks ? (
         <View
           style={styles.loadingIndicator}
         >
           <ActivityIndicator size="large" />
         </View>
-      ) : tasks.length === 0 ? (
+      ) : filteredTasks.length === 0 ? (
         <View style={{ flex: 1 }}>
           <Text style={{ fontSize: 20 }}>
             No tasks
@@ -77,14 +90,14 @@ const ListTasks = ({ props } : any) => {
       ) : (
         <Animated.FlatList
           keyExtractor={(item) => item.id.toString()}
-          data={tasks}
+          data={filteredTasks}
           onRefresh={getTasks}
           refreshing={isFetchingTasks}
           renderItem={({ item }) => (
             <View style={styles.itemWrapperView} >
               <TouchableOpacity
                 onPress={() =>
-                  props.navigation.navigate("TaskDetails", {task: item})
+                  props.props.navigation.navigate("TaskDetails", {task: item})
                 }
               >
                 <View style={{ flex: 1 }}>

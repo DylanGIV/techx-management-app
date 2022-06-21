@@ -4,9 +4,9 @@ import { Text, Button, Card, Title, Paragraph, ActivityIndicator } from 'react-n
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch } from 'react-redux';
 import { Task } from '../../models/response/TaskResponse';
+import { updateTaskStatus } from '../../redux/actions/TaskActions';
 
 const EmployeeTaskDetailsScreen = (props : any) => {
-
   const dispatch = useDispatch();
 
   const params = props.route.params;
@@ -14,8 +14,10 @@ const EmployeeTaskDetailsScreen = (props : any) => {
 
   var dueDate = new Date(task.dueDate);
 
+  const updateStatus = (task.completed) ? false : true;
+
   const markAsComplete = () => {
-    // dispatch({ type: })
+    dispatch(updateTaskStatus(task.id, updateStatus, props) as any)
   }
 
 
@@ -76,7 +78,7 @@ const EmployeeTaskDetailsScreen = (props : any) => {
             </Card.Content>
           </Card>
           <Button onPress={markAsComplete} >
-            Mark as complete.
+            {(task.completed) ? "Mark as incomplete" : "Mark as complete."}
           </Button>
         </View>
         

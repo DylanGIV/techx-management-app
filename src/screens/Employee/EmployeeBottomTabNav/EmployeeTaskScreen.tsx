@@ -4,6 +4,7 @@ import { Text, Button, FAB, useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 import ListTasks from '../../../components/tasks';
+import TasksTopTab from '../TasksTopNav/EmployeeTasksTopTabNavigator';
 
 const EmployeeTaskScreen = (props : any) => {
 
@@ -18,7 +19,7 @@ const EmployeeTaskScreen = (props : any) => {
 
   return (
     <View style={styles.wrapperView}>
-      <ListTasks props={props} />
+      <TasksTopTab />
       <FAB
         style={styles.fabStyle}
         icon="plus"

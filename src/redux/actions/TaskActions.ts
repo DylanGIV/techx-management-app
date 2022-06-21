@@ -1,6 +1,6 @@
 import { Alert } from 'react-native';
-import { getAccountTasks, postCreateAccountTask,  } from '../../api';
-import {TASK_CREATE_STARTED, TASK_CREATE_SUCCESS, TASK_CREATE_FAIL, TASK_FETCH_FAIL, TASK_FETCH_SUCCESS, TASK_FETCH_STARTED, REFRESH_SWITCH } from './types';
+import { getAccountTasks, postCreateAccountTask, putUpdateAccountTaskStatus,  } from '../../api';
+import {TASK_CREATE_STARTED, TASK_CREATE_SUCCESS, TASK_CREATE_FAIL, TASK_FETCH_FAIL, TASK_FETCH_SUCCESS, TASK_FETCH_STARTED, REFRESH_SWITCH, TASK_UPDATE_STATUS_STARTED, TASK_UPDATE_STATUS_SUCCESS, TASK_UPDATE_STATUS_FAIL } from './types';
 
 export const tasksFetchSuccess = (tasks: any) => {
   return {
@@ -42,6 +42,29 @@ export const createTask = (taskTitle : string, taskDescription : string, account
       .catch((err: any) => {
         alert("Task creation failed. Make sure all inputs are filled.")
         dispatch({ type: TASK_CREATE_FAIL, payload: err });
+      });
+  };
+};
+
+export const updateTaskStatus = (taskId : number, status : boolean, props : any) => {
+  return (dispatch: any) => {
+    dispatch({ type: TASK_UPDATE_STATUS_STARTED });
+    putUpdateAccountTaskStatus(taskId, status)
+      .then((res: any) => {
+        Alert.alert("Task status updated successfully", "", [
+          {
+            text: "Okay",
+            onPress: () => { 
+              props.navigation.goBack(); 
+              dispatch({ type: REFRESH_SWITCH, payload: true })
+            },
+          },
+        ])
+        dispatch({ type: TASK_UPDATE_STATUS_SUCCESS, payload: res});
+      })
+      .catch((err: any) => {
+        alert("Task update failed. Please try again.")
+        dispatch({ type: TASK_UPDATE_STATUS_FAIL, payload: err });
       });
   };
 };
