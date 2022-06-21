@@ -4,27 +4,33 @@ import { Text, Button, useTheme, Card, Title, ActivityIndicator, Avatar } from '
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProjectsByAccount } from '../redux/actions/ProjectActions';
+import { REFRESH_SWITCH } from '../redux/actions/types';
 
 const ListProjects = ({props} : any) => {
     const [filteredProjects, setFilteredProjects] = useState('' as any);
     // let filteredProjects;
     const currentCompany = useSelector((state : any) => state.company.currentCompany);
+    const refresh = useSelector((state : any) => state.refresh.refresh);
+
     const dispatch = useDispatch();
 
     const getProjects = () => {
       dispatch(fetchProjectsByAccount() as any);
     }
-    
-        
+
     useEffect(() => {
       getProjects();
-      const willFocusSubscription = props.navigation.addListener('focus', () => {
-        getProjects();
-      });
+      // const willFocusSubscription = props.navigation.addListener('focus', () => {
+      //   getProjects();
+      // });
 
-      return willFocusSubscription;
+      // return willFocusSubscription;
+      if (refresh) {
+        dispatch({ type: REFRESH_SWITCH, payload: false})
+        console.log("to false")
+      }
   
-    }, [currentCompany])
+    }, [currentCompany, refresh])
 
     
     const { colors } = useTheme();

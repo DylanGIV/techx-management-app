@@ -1,6 +1,6 @@
 import { Alert } from 'react-native';
 import { getAccountTasks, postCreateAccountTask,  } from '../../api';
-import {TASK_CREATE_STARTED, TASK_CREATE_SUCCESS, TASK_CREATE_FAIL, TASK_FETCH_FAIL, TASK_FETCH_SUCCESS, TASK_FETCH_STARTED } from './types';
+import {TASK_CREATE_STARTED, TASK_CREATE_SUCCESS, TASK_CREATE_FAIL, TASK_FETCH_FAIL, TASK_FETCH_SUCCESS, TASK_FETCH_STARTED, REFRESH_SWITCH } from './types';
 
 export const tasksFetchSuccess = (tasks: any) => {
   return {
@@ -33,6 +33,7 @@ export const createTask = (taskTitle : string, taskDescription : string, account
             text: "Okay",
             onPress: () => { 
               props.navigation.goBack(); 
+              dispatch({ type: REFRESH_SWITCH, payload: true })
             },
           },
         ])

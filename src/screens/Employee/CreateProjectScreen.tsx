@@ -12,7 +12,7 @@ const CreateProjectScreen = (props : any) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-      console.log(currentCompany.companyName);
+      
     }, [])
 
     const { colors } = useTheme();
@@ -21,7 +21,6 @@ const CreateProjectScreen = (props : any) => {
     const ref_input2 = useRef<any>();
 
     const currentCompany = useSelector((state : any) => state.company.currentCompany);
-
 
     const create = () => {
       Keyboard.dismiss();

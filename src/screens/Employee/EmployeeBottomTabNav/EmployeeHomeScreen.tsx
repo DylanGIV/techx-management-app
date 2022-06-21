@@ -7,9 +7,12 @@ import { AUTH_LOGOUT } from '../../../redux/actions/types';
 import MyTabs from '../HomeTopNav/EmployeeTopTabNavigator';
 
 const EmployeeHomeScreen = ({ navigation } : any ) => {
-
+  const [refresh, setRefresh] = useState(false);
   const dispatch = useDispatch();
 
+  const Refresh = (value : boolean) => {
+    setRefresh(value);
+  }
   const { colors } = useTheme();
   
   const currentCompany = useSelector((state : any) => state.company.currentCompany);

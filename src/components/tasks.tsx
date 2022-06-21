@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Task } from '../models/response/TaskResponse';
 import { fetchProjectsByAccount } from '../redux/actions/ProjectActions';
 import { fetchAccountTasks } from '../redux/actions/TaskActions';
+import { REFRESH_SWITCH } from '../redux/actions/types';
 
 const ListTasks = ({ props } : any) => {
     // const [filteredProjects, setFilteredProjects] = useState('' as any);
@@ -18,16 +19,17 @@ const ListTasks = ({ props } : any) => {
       dispatch(fetchAccountTasks() as any);
     }
     const projects = useSelector((state : any) => state.project.projects);
+    const refresh = useSelector((state : any) => state.refresh.refresh);
 
     useEffect(() => {
       getTasks();
-      const willFocusSubscription = props.navigation.addListener('focus', () => {
-        getTasks();
-      });
 
-      return willFocusSubscription;
+      if (refresh) {
+        dispatch({ type: REFRESH_SWITCH, payload: false})
+        console.log("to false")
+      }
   
-    }, [currentCompany])
+    }, [currentCompany, refresh])
     
     const { colors } = useTheme();
     const isFetchingTasks = useSelector((state : any) => state.task.isFetchingTasks);

@@ -44,3 +44,5 @@ export const TASK_FETCH_FAIL = 'task/fetch_fail';
 export const TASK_CREATE_STARTED = 'task/create_started';
 export const TASK_CREATE_SUCCESS = 'task/create_success';
 export const TASK_CREATE_FAIL = 'task/create_fail';
+
+export const REFRESH_SWITCH = 'refresh/switch'

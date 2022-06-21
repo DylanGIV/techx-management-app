@@ -1,6 +1,6 @@
 import { Alert } from 'react-native';
 import { getProjectsByAccount, postCreateProject } from '../../api';
-import { PROJECT_FETCH_SUCCESS, PROJECT_FETCH_STARTED, PROJECT_FETCH_FAIL, PROJECT_CREATE_STARTED, PROJECT_CREATE_SUCCESS, PROJECT_CREATE_FAIL } from './types';
+import { PROJECT_FETCH_SUCCESS, PROJECT_FETCH_STARTED, PROJECT_FETCH_FAIL, PROJECT_CREATE_STARTED, PROJECT_CREATE_SUCCESS, PROJECT_CREATE_FAIL, REFRESH_SWITCH } from './types';
 
 export const projectsFetchSuccess = (projects: any) => {
   return {
@@ -31,6 +31,7 @@ export const createProject = (companyId: number, projectName : string, projectDe
       {
         text: "Okay",
         onPress: () => { 
+          dispatch({ type: REFRESH_SWITCH, payload: true})
           props.navigation.goBack(); 
         },
       },
