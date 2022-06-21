@@ -9,45 +9,51 @@ const EmployeeTaskScreen = (props : any) => {
 
   const { colors } = useTheme();
 
+  
   const isFetchingCompanies = useSelector((state : any) => state.company.isFetchingCompanies);
   const companies = useSelector((state : any) => state.company.companies);
+  const currentCompany = useSelector((state : any) => state.company.currentCompany);
+  
+  const styles = makeStyles(colors, currentCompany);
 
   return (
     <View style={styles.wrapperView}>
       <ListTasks props={props} />
       <FAB
-        style={{
-            position: "absolute",
-            bottom: 0,
-            right: 0,
-            margin: 16,
-            backgroundColor: colors.primary,
-            shadowColor: colors.primaryDark,
-            shadowOffset: {
-              width: 1,
-              height: 3
-            },
-            shadowOpacity: 5,
-            shadowRadius: 3
-        }}
+        style={styles.fabStyle}
         icon="plus"
         onPress={() => {
             props.navigation.navigate('CreateTask');
         }}
-        disabled={isFetchingCompanies && companies}
+        disabled={isFetchingCompanies || !companies || !currentCompany}
         color={colors.background}
       />
     </View>
   );
 };
 
-const styles = StyleSheet.create({
+const makeStyles = (colors : ReactNativePaper.ThemeColors, currentCompany : any) => StyleSheet.create({
     container: {
       flex: 1,
     },
     wrapperView: {
       flex: 1,
     },
+    fabStyle: {
+      position: "absolute",
+      bottom: 0,
+      right: 0,
+      margin: 16,
+      backgroundColor: colors.primary,
+      shadowColor: colors.primaryDark,
+      shadowOffset: {
+        width: 1,
+        height: 3
+      },
+      shadowOpacity: 5,
+      shadowRadius: 3,
+      opacity: (currentCompany) ? 1 : 0.3
+  }
 
   });  
 

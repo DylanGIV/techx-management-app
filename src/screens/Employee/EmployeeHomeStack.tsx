@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
 import RNPickerSelect, { Item } from 'react-native-picker-select';
-import { Alert, StyleSheet, View } from 'react-native';
+import { Alert, Animated, StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCompanies } from '../../redux/actions/CompanyActions';
 import MainTabScreen from './EmployeeBottomTabNav/EmployeeDrawerStack';
@@ -16,6 +16,7 @@ import CreateTaskScreen from './CreateTaskScreen';
 import EmployeeTaskDetailsScreen from './EmployeeTaskDetailsScreen';
 import EmployeeProjectDetailsScreen from './EmployeeProjectDetailsScreen';
 import { deleteCompany } from '../../api';
+import { FadeInView } from '../../components/FadeInView';
 
 const Stack = createStackNavigator();
 let companiesSelect : Item[];
@@ -53,8 +54,6 @@ function EmployeeHomeStack(props : LoginProps) {
     
     const isFetchingCompanies = useSelector((state : any) => state.company.isFetchingCompanies);
     const companies = useSelector((state : any) => state.company.companies);
-
-   
     
     // this will populate companiesSelect with companies following
     // object Item as an array.
@@ -84,7 +83,16 @@ function EmployeeHomeStack(props : LoginProps) {
                     headerLeft: () => (
                         (!companies || isFetchingCompanies || !companiesSelect) 
                         ? 
-                            <ActivityIndicator size='small' color='black' style={{ left: 10}} /> 
+                            // <ActivityIndicator size='small' color='black' style={{ left: 10}} /> 
+                            null
+                        : 
+                        (companies.length == 0) 
+                        ?
+                            <FadeInView>
+                                <Text style={{ fontSize: 18}}>
+                                    Create a company!
+                                </Text>
+                            </FadeInView>
                         :
                             <RNPickerSelect 
                                 onValueChange={(value) => updateCompanyIdGlobal(value)}
@@ -98,6 +106,8 @@ function EmployeeHomeStack(props : LoginProps) {
                     ),
                     headerRight: () => (
                         <View style={{flex: 1, flexDirection: 'row', bottom: 3}}>
+                            {(companies && companies.length > 0) 
+                            ?
                             <IconButton 
                                 icon="minus"
                                 color={colors.primary}
@@ -117,6 +127,9 @@ function EmployeeHomeStack(props : LoginProps) {
                                       ])
                                 }}
                             />
+                            :
+                                null
+                            }
                             <IconButton 
                                 icon="plus"
                                 color={colors.primary}

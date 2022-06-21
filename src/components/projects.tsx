@@ -42,7 +42,6 @@ const ListProjects = ({props} : any) => {
       });
       setFilteredProjects(tempProjects);
     }
-
     useEffect(() => {
       if (currentCompany && projects)
         filterProjects();
@@ -51,7 +50,14 @@ const ListProjects = ({props} : any) => {
     return (
       <View style={styles.wrapperView}>
 
-        {isFetchingProjects || !filteredProjects || isFetchingCompanies ? (
+        {!currentCompany ?
+          <View style={styles.noCompanyView}>
+            <Text style={styles.noCompanyText}>
+              You must be in a company before creating projects!
+            </Text>
+          </View>
+        :
+        isFetchingProjects || isFetchingCompanies ? (
         <View
           style={styles.loadingIndicator}
         >
@@ -77,8 +83,7 @@ const ListProjects = ({props} : any) => {
                 }
               >
                 <View style={{ flex: 1 }}>
-                  
-                  <Card style={(styles.card, styles.spacing)}>
+                  <Card style={styles.card}>
                     <Card.Title 
                       title={item.projectName}
                       subtitle={("Tasks: ") + (item.accountTasks.length + item.teamTasks.length)}
@@ -105,52 +110,11 @@ const makeStyles = (colors : ReactNativePaper.ThemeColors) => StyleSheet.create(
     container: {
       flex: 1,
     },
-    spacing: {
+    card: {
       marginTop: 20,
       paddingLeft: 0,
       paddingRight: 0,
       paddingBottom: 0,
-    },
-    card: {
-      flexDirection: "row",
-      height: 30,
-      width: 10,
-      borderRadius: 1,
-      alignSelf: "center",
-      marginBottom: 3,
-      marginTop: 3,
-      borderLeftWidth: 5,
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 1,
-        height: 2,
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 3.84,
-      elevation: 5,
-    },
-    appButtonContainer: {
-      elevation: 8,
-      backgroundColor: "white",
-      borderRadius: 30,
-      paddingVertical: 0,
-      paddingHorizontal: 0,
-    },
-    buttonContainer: {
-      borderRadius: 25,
-      paddingTop: 0,
-      paddingBottom: 0,
-      marginRight: 1.8,
-      marginLeft: 1.8,
-      flex: 1,
-    },
-    appButtonText: {
-      fontSize: 14,
-      color: "#FFFFFF",
-      fontWeight: "bold",
-      alignSelf: "center",
-      padding: 0,
-      margin: 0,
     },
     loadingIndicator: {
       position: 'absolute', 
@@ -167,6 +131,14 @@ const makeStyles = (colors : ReactNativePaper.ThemeColors) => StyleSheet.create(
       flex: 1,
       borderBottomWidth: 1,
       marginLeft: 10
+    },
+    noCompanyView: {
+      flex: 1,
+      justifyContent: 'center',
+    },
+    noCompanyText: {
+      textAlign: 'center',
+      fontSize: 26
     }
   });
     

@@ -84,6 +84,9 @@ const LoginScreen = (props : LoginProps) => {
                     onSubmitEditing={() => ref_input2.current.focus()}
                     autoCapitalize='none'
                     autoComplete={false}
+                    // outlineColor='blue'
+                    mode='outlined'
+                    // theme={{ colors: { text: colors.text, placeholder: colors.text } }}
                   />
                   <TextInput
                     style={styles.textInput}
@@ -94,6 +97,7 @@ const LoginScreen = (props : LoginProps) => {
                     onSubmitEditing={login}
                     ref={ref_input2}
                     autoComplete={false}
+                    mode='outlined'
                   />
 
                 </View>
@@ -141,7 +145,7 @@ const LoginScreen = (props : LoginProps) => {
 // A style sheet is used to move styling out of the body of JSX
 // and also if we will be using the same styling on many components.
 
-const makeStyles = (colors: any) => StyleSheet.create({
+const makeStyles = (colors: ReactNativePaper.ThemeColors) => StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: colors.background,
@@ -155,6 +159,7 @@ const makeStyles = (colors: any) => StyleSheet.create({
       marginHorizontal: 8,
       marginBottom: 14,
       borderRadius: 10,
+      backgroundColor: colors.secondary,
     },
     inputLoginContainer: {
       flex: 0.6,

@@ -52,8 +52,15 @@ const ListTasks = ({ props } : any) => {
     
     return (
       <View style={styles.wrapperView}>
-
-        {isFetchingTasks || !tasks ? (
+        
+        {!currentCompany ?
+          <View style={styles.noCompanyView}>
+            <Text style={styles.noCompanyText}>
+              You must be in a company before creating tasks!
+            </Text>
+          </View>
+        :
+        isFetchingTasks || !tasks ? (
         <View
           style={styles.loadingIndicator}
         >
@@ -170,6 +177,14 @@ const makeStyles = (colors : ReactNativePaper.ThemeColors) => StyleSheet.create(
       flex: 1,
       borderBottomWidth: 1,
       marginLeft: 10
+    },
+    noCompanyView: {
+      flex: 1,
+      justifyContent: 'center',
+    },
+    noCompanyText: {
+      textAlign: 'center',
+      fontSize: 26
     }
   });
     

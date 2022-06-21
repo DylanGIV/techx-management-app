@@ -10,12 +10,13 @@ const EmployeeHomeScreen = ({ navigation } : any ) => {
 
   const dispatch = useDispatch();
 
-  const logout = () => {
-    dispatch({ type: AUTH_LOGOUT })
-  }
   const { colors } = useTheme();
+  
+  const currentCompany = useSelector((state : any) => state.company.currentCompany);
   const isFetchingCompanies = useSelector((state : any) => state.company.isFetchingCompanies);
   const companies = useSelector((state : any) => state.company.companies);
+  
+  const styles = makeStyles(colors, (isFetchingCompanies || !companies || !currentCompany));
 
     return (
       <View style={styles.container}>
@@ -23,27 +24,12 @@ const EmployeeHomeScreen = ({ navigation } : any ) => {
         <MyTabs />
         
         <FAB
-          style={{
-              position: "absolute",
-              bottom: 0,
-              right: 0,
-              margin: 16,
-              backgroundColor: colors.primary,
-              shadowColor: colors.primaryDark,
-              shadowOffset: {
-                width: 1,
-                height: 3
-              },
-              shadowOpacity: 5,
-              shadowRadius: 3
-          }}
+          style={styles.fabStyle}
           icon="plus"
           onPress={() => {
-              // randomize();
-              // toggleOverlay();
               navigation.navigate('CreateProject');
           }}
-          disabled={isFetchingCompanies && companies}
+          disabled={isFetchingCompanies || !companies || !currentCompany}
           color={colors.background}
         />
       </View>
@@ -53,16 +39,30 @@ const EmployeeHomeScreen = ({ navigation } : any ) => {
 // A style sheet is used to move styling out of the body of JSX
 // and also if we will be using the same styling on many components.
 
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
+const makeStyles = (colors : ReactNativePaper.ThemeColors, status : boolean) => StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  wrapperView: {
+    flex: 1,
+  },
+  fabStyle: {
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    margin: 16,
+    backgroundColor: colors.primary,
+    shadowColor: colors.primaryDark,
+    shadowOffset: {
+      width: 1,
+      height: 3
     },
-    wrapperView: {
-      flex: 1,
-    },
-    
+    shadowOpacity: 5,
+    shadowRadius: 3,
+    opacity: (!status) ? 1 : 0.3
+}
 
-  });  
+});  
 
 // We export this screen to be able to import it in other
 // files, such as index.tsx, to be able to reference this
