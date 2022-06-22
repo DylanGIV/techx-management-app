@@ -27,7 +27,6 @@ const ListProjects = ({props} : any) => {
       // return willFocusSubscription;
       if (refreshProject) {
         dispatch({ type: REFRESH_PROJECT, payload: false})
-        console.log("to false")
       }
   
     }, [currentCompany, refreshProject])

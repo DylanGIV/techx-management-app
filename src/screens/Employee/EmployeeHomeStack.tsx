@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
 import RNPickerSelect, { Item } from 'react-native-picker-select';
-import { Alert, Animated, StyleSheet, View } from 'react-native';
+import { Alert, Animated, Easing, StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCompanies } from '../../redux/actions/CompanyActions';
 import MainTabScreen from './EmployeeBottomTabNav/EmployeeDrawerStack';
@@ -17,6 +17,7 @@ import EmployeeTaskDetailsScreen from './EmployeeTaskDetailsScreen';
 import EmployeeProjectDetailsScreen from './EmployeeProjectDetailsScreen';
 import { deleteCompany } from '../../api';
 import { FadeInView } from '../../components/FadeInView';
+import BouncingIcon from '../../components/BouncingIcon';
 
 const Stack = createStackNavigator();
 let companiesSelect : Item[];
@@ -55,8 +56,6 @@ function EmployeeHomeStack(props : LoginProps) {
             dispatch({ type: REFRESH_COMPANY, payload: false})
           }
     }, [createCompanySuccess, refreshCompany])
-
-    
     
     const isFetchingCompanies = useSelector((state : any) => state.company.isFetchingCompanies);
     const companies = useSelector((state : any) => state.company.companies);
@@ -134,11 +133,11 @@ function EmployeeHomeStack(props : LoginProps) {
                                 }}
                             />
                             :
-                                null
+                                <BouncingIcon icon='arrow-right' size={27.5} color={colors.text} />
                             }
                             <IconButton 
                                 icon="plus"
-                                color={colors.primary}
+                                color={colors.text}
                                 size={28}
                                 onPress={() => props.navigation.navigate('CreateCompany' as any)}
                             />
@@ -172,7 +171,7 @@ function EmployeeHomeStack(props : LoginProps) {
                     ,
                     headerRight: () => 
                     (<IconButton onPress={() => props.navigation.goBack()} 
-                    icon='chevron-down' color={'#007aff'} size={30} />),
+                    icon='chevron-down' color={colors.text} size={30} />),
                                                                                 
                     gestureDirection: 'vertical',
                                                                                 
@@ -243,7 +242,7 @@ const styles = StyleSheet.create({
     },
     pickerView: {
         flex: 1,
-    }
+    },
 })
 
 export default EmployeeHomeStack;
