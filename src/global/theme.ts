@@ -29,7 +29,8 @@ const theme = {
     secondary: '#8A95A6',
     primaryDark: '#0A1321',
     background: '#1A2433',
-    neutral: '#FFFFFF'
+    neutral: '#FFFFFF',
+    text: 'black'
   }
 };
 

@@ -1,3 +1,4 @@
+import { Alert } from 'react-native';
 import axios from './axiosConfig';
 
 export const postLogin = async (email: string, password: string) => {
@@ -90,8 +91,12 @@ export const deleteCompany = async (companyId : number) => {
           companyId: companyId
         }
       })
-      .then((res) => resolve(res.data))
-      .catch((err) => reject(err));
+      .then((res) => {
+        resolve(res.data)}
+        )
+      .catch((err) => {
+        reject(err)
+      });
   });
 };
 

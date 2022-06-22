@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView } from 'react-native';
 import { Text, Button, TextInput, ActivityIndicator, Menu, useTheme, Portal } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
@@ -89,110 +89,122 @@ const CreateTaskScreen = (props : any) => {
   }
 
     return (
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
           
-            
-
+          
           <TouchableWithoutFeedback 
               style={styles.touchableContainer}
               onPress={() => Keyboard.dismiss()}
           >
-              <View style={styles.inputCreateContainer}>
+            <View style={styles.inputCreateContainer}>
 
-                <View style={styles.inputBorder} />
+              <View style={styles.inputBorder} />
 
-                <View style={styles.wrapperView}>
+              <View style={styles.wrapperView}>
 
-                  <View style={styles.inputContainer} >
+                <View style={styles.inputContainer} >
 
-                    {(!currentCompany || !projectsSelect) 
-                      ? 
-                        <ActivityIndicator size='small' color='black' style={{ left: 10}} /> 
-                      :
-                        <View style={{ flex: 2}}>
-                          <Text style={styles.text}>
-                            Employee
+                  {(!currentCompany || !projectsSelect) 
+                    ? 
+                      <ActivityIndicator size='small' color='black' style={{ left: 10}} /> 
+                    :
+                      <View style={{ flex: 0.4 }}>
+
+                        <Text style={styles.text}>
+                          Employee
+                        </Text>
+
+                        <RNPickerSelect 
+                            onValueChange={(value) => setAccount(value)}
+                            items={accountsSelect}
+                            style={pickerSelectStyles}
+                            Icon={() => {
+                                return <Ionicons name="chevron-down-outline" size={24} color={colors.primary} />;
+                            }}
+                        />
+
+                        <Text style={styles.text}>
+                          Project
+                        </Text>
+
+                        <RNPickerSelect 
+                            onValueChange={(value) => setProject(value)}
+                            items={projectsSelect}
+                            style={pickerSelectStyles}
+                            Icon={() => {
+                                return <Ionicons name="chevron-down-outline" size={24} color={colors.primary} />;
+                            }}
+                        />
+
+                        <Button
+                          onPress={() => setCustomOpen(true)}
+                          uppercase={false}
+                          mode="outlined"
+                          style={styles.pickButton}
+                        >
+                          <Text style={{ color: colors.text }}>
+                            {date ? (date.toDateString()) : ("Pick due date")}
                           </Text>
-                          <RNPickerSelect 
-                              onValueChange={(value) => setAccount(value)}
-                              items={accountsSelect}
-                              // placeholder={{}}
-                              style={pickerSelectStyles}
-                              Icon={() => {
-                                  return <Ionicons name="chevron-down-outline" size={24} color={colors.primary} />;
-                              }}
-                          />
-                          <Text style={styles.text}>
-                            Project
-                          </Text>
-                          <RNPickerSelect 
-                              onValueChange={(value) => setProject(value)}
-                              items={projectsSelect}
-                              style={pickerSelectStyles}
-                              Icon={() => {
-                                  return <Ionicons name="chevron-down-outline" size={24} color={colors.primary} />;
-                              }}
-                          />
-                          <Button
-                            onPress={() => setCustomOpen(true)}
-                            uppercase={false}
-                            mode="outlined"
-                            style={styles.pickButton}
-                          >
-                            <Text style={{ color: colors.text }}>
-                              {date ? (date.toDateString()) : ("Pick due date")}
-                            </Text>
-                          </Button>
-                        </View>
-                    }
-                    <View style={{ flex: 0.4 }}/>
-
-                    <View style={{ flex: 1 }}>
-                      <TextInput
-                          style={styles.textInput}
-                          label="Task Title"
-                          value={taskTitle}
-                          autoCorrect={false}
-                          blurOnSubmit={false}
-                          onChangeText={text => setTaskTitle(text)}
-                          returnKeyType="next"
-                          onSubmitEditing={() => ref_input2.current.focus()}
-                          autoCapitalize='none'
-                          autoComplete={false}
-                      />
-                      <TextInput
-                          style={styles.textInput}
-                          label="Description"
-                          value={taskDescription}
-                          onChangeText={text => setTaskDescription(text)}
-                          onSubmitEditing={create}
-                          ref={ref_input2}
-                          autoComplete={false}
-                      />
-                    </View>
-
-
-                    </View>
-
-
-                    <View style={styles.createContainer}>
-                        <Button  mode='contained' onPress={create}>
-                            Create Task
                         </Button>
-                    </View>
-
-                    {(isCreatingTask) && (
-                      <View style={styles.loadingIndicator} pointerEvents='none'>
-                        <ActivityIndicator size='large' />
+                        
                       </View>
-                    )}
+                  }
+
+                  <View style={{ flex: 0.05 }}/>
+
+                  <View style={{ flex: 0.3 }}>
+
+                    <TextInput
+                        style={styles.textInput}
+                        label="Task Title"
+                        value={taskTitle}
+                        autoCorrect={false}
+                        blurOnSubmit={false}
+                        onChangeText={text => setTaskTitle(text)}
+                        returnKeyType="next"
+                        onSubmitEditing={() => ref_input2.current.focus()}
+                        autoCapitalize='none'
+                        autoComplete={false}
+                        activeOutlineColor={colors.text}
+                        mode='outlined'
+                    />
+                    <TextInput
+                        style={styles.textInput}
+                        label="Description"
+                        value={taskDescription}
+                        onChangeText={text => setTaskDescription(text)}
+                        onSubmitEditing={create}
+                        ref={ref_input2}
+                        autoComplete={false}
+                        mode='outlined'
+                        activeOutlineColor={colors.text}
+                    />
+
+                  </View>
+
+                  <View style={styles.createContainer}>
+                      <Button  mode='contained' onPress={create}>
+                          Create Task
+                      </Button>
+                  </View>
 
                 </View>
 
-                <View style={styles.inputBorder} />
-
               </View>
+                  
+                  {(isCreatingTask) && (
+                    <View style={styles.loadingIndicator} pointerEvents='none'>
+                      <ActivityIndicator size='large' />
+                    </View>
+                  )}
+
+
+              <View style={styles.inputBorder} />
+
+            </View>
+
           </TouchableWithoutFeedback>
+
           <Portal>
             {customOpen ? (
               <View style={[StyleSheet.absoluteFill, styles.customModal]}>
@@ -206,11 +218,8 @@ const CreateTaskScreen = (props : any) => {
               </View>
             ) : null}
           </Portal>
-
-      </SafeAreaView>
-
-      
-
+          
+      </View>
     );
 };
 
@@ -226,7 +235,7 @@ const pickerSelectStyles = StyleSheet.create({
     borderRadius: 4,
     color: 'black',
     paddingRight: 30, // to ensure the text is never behind the icon
-    flex: 1,
+    flex: 0.5
 
   },
   inputAndroid: {
@@ -240,7 +249,7 @@ const pickerSelectStyles = StyleSheet.create({
     borderRadius: 8,
     color: 'black',
     paddingRight: 30, // to ensure the text is never behind the icon
-    flex: 1
+    flex: 0.5
   },
 });
 
@@ -249,7 +258,7 @@ const makeStyles = (colors : ReactNativePaper.ThemeColors) => StyleSheet.create(
       flex: 1,
     },
     wrapperView: {
-      flex: 1,
+      flex: 0.8,
     },
       text: {
         fontSize: 24,
@@ -259,10 +268,10 @@ const makeStyles = (colors : ReactNativePaper.ThemeColors) => StyleSheet.create(
       textInput: {
         marginHorizontal: 8,
         marginBottom: 14,
-        backgroundColor: colors.secondary
+        backgroundColor: 'lightgray'
       },
       inputCreateContainer: {
-        flex: 0.7,
+        flex: 1,
         justifyContent: 'center',
         flexDirection: 'row',
       },
@@ -270,22 +279,12 @@ const makeStyles = (colors : ReactNativePaper.ThemeColors) => StyleSheet.create(
         flex: 1,
         padding: 10,
       },
-      inputCenter: {
-        flex: 0.6,
-      },
       inputBorder: {
-        flex: 0.15
+        flex: 0.1,
       },
       createContainer: {
-        flex: 0.2,
+        flex: 0.15,
         justifyContent: 'flex-end',
-      },
-      signupContainer: {
-        flex: 0.2, 
-        padding: 10, 
-        flexDirection: 'row', 
-        justifyContent: 'flex-start', 
-        alignItems: 'flex-end',
       },
       touchableContainer: {
         flex: 1,

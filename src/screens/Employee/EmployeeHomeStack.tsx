@@ -27,20 +27,13 @@ function EmployeeHomeStack(props : LoginProps) {
     const updateCompanyIdGlobal = (company : any) => {
         dispatch({ type: COMPANY_SET_COMPANY, payload: company });
     }
-    const deleteCurrentCompany = () => {
-        deleteCompany(currentCompany.id);
+    const deleteCurrentCompany = async () => {
+        await deleteCompany(currentCompany.id);
+        //TODO : MOVE TO AN ACTION IN REDUX
         updateCompanyIdGlobal(null);
         dispatch({ type: REFRESH_COMPANY, payload: true })
         dispatch({ type: REFRESH_PROJECT, payload: true })
     }
-    // const refreshToken = () => {
-    //     dispatch(refreshTokenAction() as any);
-    // }
-
-    // Call refreshToken to get a new JWT, as the old one expires. NO LONGER NECESSARY
-    // useEffect( () => {
-    //     refreshToken();
-    // }, [])
 
     const { colors } = useTheme();
 
@@ -105,42 +98,65 @@ function EmployeeHomeStack(props : LoginProps) {
                                 placeholder={{}}
                                 style={pickerSelectStyles}
                                 Icon={() => {
-                                    return <Ionicons name="chevron-down-outline" size={24} color={colors.primary} />;
+                                    return <Ionicons name="chevron-down-outline" size={24} color={colors.text} />;
                                 }}
                             />
                     ),
                     headerRight: () => (
                         <View style={{flex: 1, flexDirection: 'row', bottom: 3}}>
-                            {(companies && companies.length > 0) 
+                            {(!isFetchingCompanies && companies && companies.length > 0) 
                             ?
-                            <IconButton 
-                                icon="minus"
-                                color={colors.primary}
-                                size={28}
-                                onPress={() => {
-                                    Alert.alert("Would you like to delete this company?", "", [
-                                        {
-                                          text: "Yes",
-                                          onPress: () => { 
-                                            deleteCurrentCompany();
-                                            dispatch(fetchCompanies() as any);
-                                          },
-                                        },
-                                        {
-                                          text: "No",
-                                        }
-                                      ])
-                                }}
-                            />
+                            <FadeInView>
+                                <IconButton 
+                                    icon="minus"
+                                    color={colors.text}
+                                    size={28}
+                                    onPress={() => {
+                                        Alert.alert("Would you like to delete this company?", "", [
+                                            {
+                                            text: "Yes",
+                                            onPress: () => { 
+                                                deleteCurrentCompany();
+                                                dispatch(fetchCompanies() as any);
+                                            },
+                                            },
+                                            {
+                                            text: "No",
+                                            }
+                                        ])
+                                    }}
+                                />
+                            </FadeInView>
+
+                            : (!isFetchingCompanies && companies && companies.length == 0) ?
+                                <FadeInView>
+                                    <BouncingIcon icon='arrow-right' size={27.5} color={colors.text} />
+                                </FadeInView>
                             :
-                                <BouncingIcon icon='arrow-right' size={27.5} color={colors.text} />
+                                null
                             }
-                            <IconButton 
-                                icon="plus"
-                                color={colors.text}
-                                size={28}
-                                onPress={() => props.navigation.navigate('CreateCompany' as any)}
-                            />
+                            {(!isFetchingCompanies && companies) ?
+                            <FadeInView>
+                                <IconButton 
+                                    icon="plus"
+                                    color={colors.text}
+                                    size={28}
+                                    onPress={() => props.navigation.navigate('CreateCompany' as any)}
+                                />
+                            </FadeInView>
+                            : (!isFetchingCompanies && companies && companies.length == 0) ?
+                            
+                            <FadeInView>
+                                <IconButton 
+                                    icon="plus"
+                                    color={colors.text}
+                                    size={28}
+                                    onPress={() => props.navigation.navigate('CreateCompany' as any)}
+                                />
+                            </FadeInView>
+                            :
+                                null
+                            }
 
                         </View>
                     ),
@@ -231,7 +247,8 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         alignItems: 'flex-start',
-        padding: 9
+        padding: 9,
+        top: 2
     },
     innerView: {
         flex: 1,
