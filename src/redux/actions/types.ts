@@ -48,4 +48,6 @@ export const TASK_UPDATE_STATUS_STARTED = 'task/update_status_started'
 export const TASK_UPDATE_STATUS_SUCCESS = 'task/update_status_success'
 export const TASK_UPDATE_STATUS_FAIL = 'task/update_status_fail'
 
-export const REFRESH_SWITCH = 'refresh/switch'
+export const REFRESH_COMPANY = 'refresh/company'
+export const REFRESH_PROJECT = 'refresh/project'
+export const REFRESH_TASK = 'refresh/task'

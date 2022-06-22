@@ -23,7 +23,7 @@ function TasksTopTab() {
 
   return (
     <Tab.Navigator
-      initialRouteName="AllTasks"
+      initialRouteName="IncompleteTasks"
       initialLayout={{ width: Dimensions.get('window').width }}
       screenOptions={{
         tabBarActiveTintColor: colors.text,
@@ -34,11 +34,6 @@ function TasksTopTab() {
       // tabBar={(props) => <TopTabBar {...props} />}
     >
       <Tab.Screen
-        name="AllTasks"
-        component={AllTasksScreen}
-        options={{ tabBarLabel: 'All', tabBarActiveTintColor: colors.primary, tabBarInactiveTintColor: colors.secondary, tabBarIndicatorStyle: {backgroundColor: colors.primary} }}
-      />
-      <Tab.Screen
         name="IncompleteTasks"
         component={IncompleteTasksScreen}
         options={{ tabBarLabel: 'Incomplete', tabBarActiveTintColor: colors.primary, tabBarInactiveTintColor: colors.secondary, tabBarIndicatorStyle: {backgroundColor: colors.primary} }}
@@ -47,6 +42,11 @@ function TasksTopTab() {
         name="CompleteTasks"
         component={CompleteTasksScreen}
         options={{ tabBarLabel: 'Completed', tabBarActiveTintColor: colors.primary, tabBarInactiveTintColor: colors.secondary, tabBarIndicatorStyle: {backgroundColor: colors.primary} }}
+      />
+      <Tab.Screen
+        name="AllTasks"
+        component={AllTasksScreen}
+        options={{ tabBarLabel: 'All', tabBarActiveTintColor: colors.primary, tabBarInactiveTintColor: colors.secondary, tabBarIndicatorStyle: {backgroundColor: colors.primary} }}
       />
     </Tab.Navigator>
   );

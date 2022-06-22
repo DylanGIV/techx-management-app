@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Task } from '../models/response/TaskResponse';
 import { fetchProjectsByAccount } from '../redux/actions/ProjectActions';
 import { fetchAccountTasks } from '../redux/actions/TaskActions';
-import { REFRESH_SWITCH } from '../redux/actions/types';
+import { REFRESH_TASK } from '../redux/actions/types';
 
 const ListTasks = (props : any) => {
     const [filteredTasks, setFilteredTasks] = useState('' as any);
@@ -18,17 +18,16 @@ const ListTasks = (props : any) => {
     const getTasks = () => {
       dispatch(fetchAccountTasks() as any);
     }
-    const refresh = useSelector((state : any) => state.refresh.refresh);
+    const refreshTask = useSelector((state : any) => state.refresh.refreshTask);
 
     useEffect(() => {
       getTasks();
 
-      if (refresh) {
-        dispatch({ type: REFRESH_SWITCH, payload: false})
-        console.log("to false")
+      if (refreshTask) {
+        dispatch({ type: REFRESH_TASK, payload: false})
       }
   
-    }, [currentCompany, refresh])
+    }, [currentCompany, refreshTask])
     
     const { colors } = useTheme();
     const isFetchingTasks = useSelector((state : any) => state.task.isFetchingTasks);

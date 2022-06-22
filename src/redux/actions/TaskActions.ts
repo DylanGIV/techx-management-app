@@ -1,6 +1,6 @@
 import { Alert } from 'react-native';
 import { getAccountTasks, postCreateAccountTask, putUpdateAccountTaskStatus,  } from '../../api';
-import {TASK_CREATE_STARTED, TASK_CREATE_SUCCESS, TASK_CREATE_FAIL, TASK_FETCH_FAIL, TASK_FETCH_SUCCESS, TASK_FETCH_STARTED, REFRESH_SWITCH, TASK_UPDATE_STATUS_STARTED, TASK_UPDATE_STATUS_SUCCESS, TASK_UPDATE_STATUS_FAIL } from './types';
+import {TASK_CREATE_STARTED, TASK_CREATE_SUCCESS, TASK_CREATE_FAIL, TASK_FETCH_FAIL, TASK_FETCH_SUCCESS, TASK_FETCH_STARTED, TASK_UPDATE_STATUS_STARTED, TASK_UPDATE_STATUS_SUCCESS, TASK_UPDATE_STATUS_FAIL, REFRESH_TASK } from './types';
 
 export const tasksFetchSuccess = (tasks: any) => {
   return {
@@ -33,7 +33,7 @@ export const createTask = (taskTitle : string, taskDescription : string, account
             text: "Okay",
             onPress: () => { 
               props.navigation.goBack(); 
-              dispatch({ type: REFRESH_SWITCH, payload: true })
+              dispatch({ type: REFRESH_TASK, payload: true })
             },
           },
         ])
@@ -56,7 +56,7 @@ export const updateTaskStatus = (taskId : number, status : boolean, props : any)
             text: "Okay",
             onPress: () => { 
               props.navigation.goBack(); 
-              dispatch({ type: REFRESH_SWITCH, payload: true })
+              dispatch({ type: REFRESH_TASK, payload: true })
             },
           },
         ])

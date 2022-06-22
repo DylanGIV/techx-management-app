@@ -4,13 +4,13 @@ import { Text, Button, useTheme, Card, Title, ActivityIndicator, Avatar } from '
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProjectsByAccount } from '../redux/actions/ProjectActions';
-import { REFRESH_SWITCH } from '../redux/actions/types';
+import { REFRESH_PROJECT } from '../redux/actions/types';
 
 const ListProjects = ({props} : any) => {
     const [filteredProjects, setFilteredProjects] = useState('' as any);
     // let filteredProjects;
     const currentCompany = useSelector((state : any) => state.company.currentCompany);
-    const refresh = useSelector((state : any) => state.refresh.refresh);
+    const refreshProject = useSelector((state : any) => state.refresh.refreshProject);
 
     const dispatch = useDispatch();
 
@@ -25,12 +25,12 @@ const ListProjects = ({props} : any) => {
       // });
 
       // return willFocusSubscription;
-      if (refresh) {
-        dispatch({ type: REFRESH_SWITCH, payload: false})
+      if (refreshProject) {
+        dispatch({ type: REFRESH_PROJECT, payload: false})
         console.log("to false")
       }
   
-    }, [currentCompany, refresh])
+    }, [currentCompany, refreshProject])
 
     
     const { colors } = useTheme();
@@ -52,24 +52,26 @@ const ListProjects = ({props} : any) => {
       if (currentCompany && projects)
         filterProjects();
     }, [projects, currentCompany])
-    
+
     return (
       <View style={styles.wrapperView}>
 
-        {!currentCompany ?
-          <View style={styles.noCompanyView}>
-            <Text style={styles.noCompanyText}>
-              You must be in a company before creating projects!
-            </Text>
-          </View>
-        :
-        isFetchingProjects || isFetchingCompanies ? (
+        {isFetchingProjects || isFetchingCompanies ? (
         <View
           style={styles.loadingIndicator}
-        >
+          >
           <ActivityIndicator size="large" />
         </View>
-      ) : filteredProjects.length === 0 ? (
+        )
+        :
+        (!currentCompany && !isFetchingCompanies) ?
+            <View style={styles.noCompanyView}>
+              <Text style={styles.noCompanyText}>
+                You must be in a company before creating projects!
+              </Text>
+            </View>
+       : 
+       filteredProjects.length === 0 ? (
         <View style={{ flex: 1 }}>
           <Text style={{ fontSize: 20 }}>
             No projects

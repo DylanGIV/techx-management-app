@@ -10,7 +10,7 @@ import { ActivityIndicator, IconButton, Text, useTheme } from 'react-native-pape
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CreateCompanyScreen from './EmployeeCompanyScreen';
 import { LoginProps } from '../../models/props/LoginProps';
-import { COMPANY_SET_COMPANY } from '../../redux/actions/types';
+import { COMPANY_SET_COMPANY, REFRESH_COMPANY, REFRESH_PROJECT } from '../../redux/actions/types';
 import { refreshTokenAction } from '../../redux/actions/AuthActions';
 import CreateTaskScreen from './CreateTaskScreen';
 import EmployeeTaskDetailsScreen from './EmployeeTaskDetailsScreen';
@@ -28,6 +28,9 @@ function EmployeeHomeStack(props : LoginProps) {
     }
     const deleteCurrentCompany = () => {
         deleteCompany(currentCompany.id);
+        updateCompanyIdGlobal(null);
+        dispatch({ type: REFRESH_COMPANY, payload: true })
+        dispatch({ type: REFRESH_PROJECT, payload: true })
     }
     // const refreshToken = () => {
     //     dispatch(refreshTokenAction() as any);
@@ -42,13 +45,16 @@ function EmployeeHomeStack(props : LoginProps) {
 
     const dispatch = useDispatch();
     const createCompanySuccess = useSelector((state: any) => state.company.createCompanySuccess);
-    const isRefreshingToken = useSelector((state : any) => state.auth.isRefreshingToken);
+    const refreshCompany = useSelector((state : any) => state.refresh.refreshCompany);
     const currentCompany = useSelector((state: any) => state.company.currentCompany);
 
 
     useEffect( () => {
         dispatch(fetchCompanies() as any);
-    }, [createCompanySuccess, isRefreshingToken])
+        if (refreshCompany) {
+            dispatch({ type: REFRESH_COMPANY, payload: false})
+          }
+    }, [createCompanySuccess, refreshCompany])
 
     
     

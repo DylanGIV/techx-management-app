@@ -17,6 +17,7 @@ let accountsSelect : Item[];
 
 const CreateTaskScreen = (props : any) => {
     const currentCompany = useSelector((state : any) => state.company.currentCompany);
+    const projects : Project[] = useSelector((state : any) => state.project.projects);
     const isCreatingTask = useSelector((state : any) => state.task.isCreatingTask);
   
     
@@ -57,13 +58,15 @@ const CreateTaskScreen = (props : any) => {
     }
 
     if (currentCompany) {
-      let ps : Item[] = new Array(currentCompany.projects.length);
-      currentCompany.projects.forEach(function (project : any, index : number) {
-          ps[index] = {
-              label: project.projectName,
-              value: project,
-              key: project.projectName + project.id
-          }
+      let ps : Item[] = new Array();
+      projects.forEach(function (p : Project, index : number) {
+        if (p.companyId == currentCompany.id) {
+          ps.push({
+              label: p.projectName,
+              value: p,
+              key: p.projectName + p.id
+          })
+        }
       });
       projectsSelect = ps;
   }
@@ -75,7 +78,7 @@ const CreateTaskScreen = (props : any) => {
         value: currentCompany.owner,
         key: currentCompany.owner.email + currentCompany.owner.id
       }
-      currentCompany.employees.forEach(function (account : any, index : number) {
+      currentCompany.employees.forEach(function (account : Account, index : number) {
           as[index] = {
               label: account.email,
               value: account,
