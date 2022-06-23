@@ -19,6 +19,7 @@ const CreateCompanyScreen = (props : any) => {
     }
     
     const isCreatingCompany = useSelector((state : any) => state.company.isCreatingCompany);
+    const account = useSelector((state : any) => state.auth.account);
 
     if (isCreatingCompany) {
         return (
@@ -42,7 +43,7 @@ const CreateCompanyScreen = (props : any) => {
                         
                         <View style={{flex: 0.3}}>
                             <Text style={styles.text} >
-                                This company will be owned by you
+                                {"This company will be owned by you (" +  ")"}
                             </Text>
                         </View>
 
