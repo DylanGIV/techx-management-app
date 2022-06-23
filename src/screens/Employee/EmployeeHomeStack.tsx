@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import RNPickerSelect, { Item } from 'react-native-picker-select';
 import { Alert, Animated, Easing, StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCompanies } from '../../redux/actions/CompanyActions';
+import { deleteCompanyAction, fetchCompanies, updateCompanyIdGlobalAction } from '../../redux/actions/CompanyActions';
 import MainTabScreen from './EmployeeBottomTabNav/EmployeeDrawerStack';
 import CreateProjectScreen from './CreateProjectScreen';
 import { ActivityIndicator, IconButton, Text, useTheme } from 'react-native-paper';
@@ -25,14 +25,10 @@ let companiesSelect : Item[];
 function EmployeeHomeStack(props : LoginProps) {
 
     const updateCompanyIdGlobal = (company : any) => {
-        dispatch({ type: COMPANY_SET_COMPANY, payload: company });
+        dispatch(updateCompanyIdGlobalAction(company) as any);
     }
-    const deleteCurrentCompany = async () => {
-        await deleteCompany(currentCompany.id);
-        //TODO : MOVE TO AN ACTION IN REDUX
-        updateCompanyIdGlobal(null);
-        dispatch({ type: REFRESH_COMPANY, payload: true })
-        dispatch({ type: REFRESH_PROJECT, payload: true })
+    const deleteCurrentCompany = () => {
+        dispatch(deleteCompanyAction(currentCompany.id) as any)
     }
 
     const { colors } = useTheme();
@@ -51,6 +47,7 @@ function EmployeeHomeStack(props : LoginProps) {
     }, [createCompanySuccess, refreshCompany])
     
     const isFetchingCompanies = useSelector((state : any) => state.company.isFetchingCompanies);
+    const isDeletingCompany = useSelector((state : any) => state.company.isDeletingCompany);
     const companies = useSelector((state : any) => state.company.companies);
     
     // this will populate companiesSelect with companies following
@@ -79,7 +76,7 @@ function EmployeeHomeStack(props : LoginProps) {
                     headerShown: true, 
 
                     headerLeft: () => (
-                        (!companies || isFetchingCompanies || !companiesSelect) 
+                        (!companies || isFetchingCompanies || !companiesSelect || isDeletingCompany) 
                         ? 
                             // <ActivityIndicator size='small' color='black' style={{ left: 10}} /> 
                             null
@@ -104,7 +101,7 @@ function EmployeeHomeStack(props : LoginProps) {
                     ),
                     headerRight: () => (
                         <View style={{flex: 1, flexDirection: 'row', bottom: 3}}>
-                            {(!isFetchingCompanies && companies && companies.length > 0) 
+                            {(!isFetchingCompanies && !isDeletingCompany && companies && companies.length > 0) 
                             ?
                             <FadeInView>
                                 <IconButton 
@@ -117,7 +114,6 @@ function EmployeeHomeStack(props : LoginProps) {
                                             text: "Yes",
                                             onPress: () => { 
                                                 deleteCurrentCompany();
-                                                dispatch(fetchCompanies() as any);
                                             },
                                             },
                                             {
@@ -128,14 +124,14 @@ function EmployeeHomeStack(props : LoginProps) {
                                 />
                             </FadeInView>
 
-                            : (!isFetchingCompanies && companies && companies.length == 0) ?
+                            : (!isFetchingCompanies && !isDeletingCompany && companies && companies.length == 0) ?
                                 <FadeInView>
                                     <BouncingIcon icon='arrow-right' size={27.5} color={colors.text} />
                                 </FadeInView>
                             :
                                 null
                             }
-                            {(!isFetchingCompanies && companies) ?
+                            {(!isFetchingCompanies && companies && !isDeletingCompany) ?
                             <FadeInView>
                                 <IconButton 
                                     icon="plus"
@@ -144,16 +140,16 @@ function EmployeeHomeStack(props : LoginProps) {
                                     onPress={() => props.navigation.navigate('CreateCompany' as any)}
                                 />
                             </FadeInView>
-                            : (!isFetchingCompanies && companies && companies.length == 0) ?
+                            // : (!isFetchingCompanies && companies && companies.length == 0) ?
                             
-                            <FadeInView>
-                                <IconButton 
-                                    icon="plus"
-                                    color={colors.text}
-                                    size={28}
-                                    onPress={() => props.navigation.navigate('CreateCompany' as any)}
-                                />
-                            </FadeInView>
+                            // <FadeInView>
+                            //     <IconButton 
+                            //         icon="plus"
+                            //         color={colors.text}
+                            //         size={28}
+                            //         onPress={() => props.navigation.navigate('CreateCompany' as any)}
+                            //     />
+                            // </FadeInView>
                             :
                                 null
                             }

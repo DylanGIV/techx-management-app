@@ -54,8 +54,10 @@ const CreateProjectScreen = (props : any) => {
                         onChangeText={text => setProjectName(text)}
                         returnKeyType="next"
                         onSubmitEditing={() => ref_input2.current.focus()}
-                        autoCapitalize='none'
+                        autoCapitalize='words'
                         autoComplete={false}
+                        activeOutlineColor={colors.text}
+                        mode='outlined'
                     />
                     <TextInput
                         style={styles.textInput}
@@ -65,13 +67,16 @@ const CreateProjectScreen = (props : any) => {
                         onSubmitEditing={create}
                         ref={ref_input2}
                         autoComplete={false}
+                        mode='outlined'
+                        activeOutlineColor={colors.text}
+
                     />
 
                     </View>
 
 
                     <View style={styles.createContainer}>
-                        <Button  mode='contained' onPress={create}>
+                        <Button  mode='contained' onPress={create} color={colors.button}>
                             Create Project
                         </Button>
                     </View>
@@ -101,7 +106,7 @@ const makeStyles = (colors : ReactNativePaper.ThemeColors) => StyleSheet.create(
       textInput: {
         marginHorizontal: 8,
         marginBottom: 14,
-        backgroundColor: colors.secondary
+        backgroundColor: colors.textInput
       },
       inputCreateContainer: {
         flex: 0.6,

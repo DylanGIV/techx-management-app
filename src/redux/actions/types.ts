@@ -30,6 +30,10 @@ export const COMPANY_CREATE_STARTED = 'company/create_started';
 export const COMPANY_CREATE_SUCCESS = 'company/create_success';
 export const COMPANY_CREATE_FAIL = 'company/create_fail';
 export const COMPANY_SET_COMPANY = 'company/set_company';
+export const COMPANY_DELETE_COMPANY_STARTED = 'company/delete_company_started';
+export const COMPANY_DELETE_COMPANY_SUCCESS = 'company/delete_company_success';
+export const COMPANY_DELETE_COMPANY_FAILED = 'company/delete_company_failed';
+
 
 export const PROJECT_FETCH_STARTED = 'project/fetch_started';
 export const PROJECT_FETCH_SUCCESS = 'project/fetch_success';
@@ -37,6 +41,9 @@ export const PROJECT_FETCH_FAIL = 'project/fetch_fail';
 export const PROJECT_CREATE_STARTED = 'project/create_started';
 export const PROJECT_CREATE_SUCCESS = 'project/create_success';
 export const PROJECT_CREATE_FAIL = 'project/create_fail';
+export const PROJECT_DELETE_STARTED = 'project/create_started';
+export const PROJECT_DELETE_SUCCESS = 'project/create_success';
+export const PROJECT_DELETE_FAILED = 'project/create_failed';
 
 export const TASK_FETCH_STARTED = 'task/fetch_started';
 export const TASK_FETCH_SUCCESS = 'task/fetch_success';

@@ -25,7 +25,7 @@ function MyTabs() {
 
   return (
     <Tab.Navigator
-      initialRouteName="Feed"
+      initialRouteName="AllProjects"
       initialLayout={{ width: Dimensions.get('window').width }}
       screenOptions={{
         tabBarActiveTintColor: colors.text,
@@ -36,19 +36,19 @@ function MyTabs() {
       // tabBar={(props) => <TopTabBar {...props} />}
     >
       <Tab.Screen
-        name="Feed"
+        name="CurrentProjects"
+        component={FavoritesScreen}
+        options={{ tabBarLabel: 'Current', tabBarActiveTintColor: colors.primary, tabBarInactiveTintColor: colors.secondary, tabBarIndicatorStyle: {backgroundColor: colors.primary} }}
+      />
+      {/* <Tab.Screen
+        name="ArchivedProjects"
+        component={RecentsScreen}
+        options={{ tabBarLabel: 'Archived', tabBarActiveTintColor: colors.primary, tabBarInactiveTintColor: colors.secondary, tabBarIndicatorStyle: {backgroundColor: colors.primary} }}
+      /> */}
+      <Tab.Screen
+        name="AllProjects"
         component={AllScreen}
         options={{ tabBarLabel: 'All', tabBarActiveTintColor: colors.primary, tabBarInactiveTintColor: colors.secondary, tabBarIndicatorStyle: {backgroundColor: colors.primary} }}
-      />
-      <Tab.Screen
-        name="Notifications"
-        component={RecentsScreen}
-        options={{ tabBarLabel: 'Recents', tabBarActiveTintColor: colors.primary, tabBarInactiveTintColor: colors.secondary, tabBarIndicatorStyle: {backgroundColor: colors.primary} }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={FavoritesScreen}
-        options={{ tabBarLabel: 'Favorites', tabBarActiveTintColor: colors.primary, tabBarInactiveTintColor: colors.secondary, tabBarIndicatorStyle: {backgroundColor: colors.primary} }}
       />
     </Tab.Navigator>
   );

@@ -1,5 +1,5 @@
 import { Action } from '../../models/redux/Action';
-import { COMPANY_CREATE_FAIL, COMPANY_CREATE_STARTED, COMPANY_CREATE_SUCCESS, COMPANY_FETCH_FAIL, COMPANY_FETCH_STARTED, COMPANY_FETCH_SUCCESS, COMPANY_SET_COMPANY } from '../actions/types';
+import { COMPANY_CREATE_FAIL, COMPANY_CREATE_STARTED, COMPANY_CREATE_SUCCESS, COMPANY_DELETE_COMPANY_FAILED, COMPANY_DELETE_COMPANY_STARTED, COMPANY_DELETE_COMPANY_SUCCESS, COMPANY_FETCH_FAIL, COMPANY_FETCH_STARTED, COMPANY_FETCH_SUCCESS, COMPANY_SET_COMPANY } from '../actions/types';
 
 const INITIAL_STATE = {
   companies: null,
@@ -9,6 +9,7 @@ const INITIAL_STATE = {
   createErrorMessage: '',
   fetchErrorMessage: '',
   currentCompany: null,
+  isDeletingCompany: false,
 };
 
 export default (state = INITIAL_STATE, action: any) => {
@@ -49,6 +50,21 @@ export default (state = INITIAL_STATE, action: any) => {
       return {
         ...state,
         currentCompany: action.payload
+      };
+    case COMPANY_DELETE_COMPANY_STARTED:
+      return {
+        ...state,
+        isDeletingCompany: true
+      };
+    case COMPANY_DELETE_COMPANY_SUCCESS:
+      return {
+        ...state,
+        isDeletingCompany: false
+      };
+    case COMPANY_DELETE_COMPANY_FAILED:
+      return {
+        ...state,
+        isDeletingCompany: false
       };
     default:
       return state;

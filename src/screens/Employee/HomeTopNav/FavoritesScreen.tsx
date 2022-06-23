@@ -1,32 +1,37 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { Text, Button } from 'react-native-paper';
+import { Text, Button, useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useDispatch, useSelector } from 'react-redux';
+import ListProjects from '../../../components/projects';
 
-const FavoritesScreen = () => {
+const FavoritesScreen = (props : any) => {
 
-    return (
-      <SafeAreaView style={styles.container} edges={['bottom']}>
-          <View style={styles.wrapperView}>
-            <View style={styles.wrapperView}>
-              <Text>
-                Good morning! Favorites here.
-              </Text>
-            </View>
-          </View>
-      </SafeAreaView>
+  const dispatch = useDispatch();
 
-    );
+  const { colors } = useTheme();
+
+  
+  const styles = makeStyles(colors);
+  const isFetchingCompanies = useSelector((state : any) => state.company.isFetchingCompanies);
+  
+  return (
+      <View style={styles.container}>
+
+          <ListProjects props={props} />
+
+      </View>
+  );
 };
 
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-    },
-    wrapperView: {
-      flex: 1,
-    },
+const makeStyles = (colors : ReactNativePaper.ThemeColors) => StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  wrapperView: {
+    flex: 1,
+  },
 
-  });
+});
     
 export default FavoritesScreen;

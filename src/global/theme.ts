@@ -5,6 +5,8 @@ declare global {
     interface ThemeColors {
       primaryDark: string;
       secondary: string;
+      textInput: string;
+      button: string;
     }
 
     interface Theme {
@@ -30,7 +32,9 @@ const theme = {
     primaryDark: '#0A1321',
     background: '#1A2433',
     neutral: '#FFFFFF',
-    text: 'black'
+    text: 'black',
+    textInput: 'lightgray',
+    button: 'black',
   }
 };
 

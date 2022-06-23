@@ -183,7 +183,7 @@ const CreateTaskScreen = (props : any) => {
                   </View>
 
                   <View style={styles.createContainer}>
-                      <Button  mode='contained' onPress={create}>
+                      <Button  mode='contained' onPress={create} color={colors.button}>
                           Create Task
                       </Button>
                   </View>

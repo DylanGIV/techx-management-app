@@ -1,5 +1,5 @@
 import { Action } from '../../models/redux/Action';
-import { PROJECT_CREATE_FAIL, PROJECT_CREATE_STARTED, PROJECT_CREATE_SUCCESS, PROJECT_FETCH_FAIL, PROJECT_FETCH_STARTED, PROJECT_FETCH_SUCCESS } from '../actions/types';
+import { PROJECT_CREATE_FAIL, PROJECT_CREATE_STARTED, PROJECT_CREATE_SUCCESS, PROJECT_DELETE_FAILED, PROJECT_DELETE_STARTED, PROJECT_DELETE_SUCCESS, PROJECT_FETCH_FAIL, PROJECT_FETCH_STARTED, PROJECT_FETCH_SUCCESS } from '../actions/types';
 
 const INITIAL_STATE = {
   projects: [],
@@ -7,7 +7,8 @@ const INITIAL_STATE = {
   isCreatingProject: false,
   createProjectSuccess: '',
   createProjectErrorMessage: '',
-  fetchErrorMessage: ''
+  fetchErrorMessage: '',
+  isDeletingProject: false,
 };
 
 export default (state = INITIAL_STATE, action: any) => {
@@ -28,6 +29,12 @@ export default (state = INITIAL_STATE, action: any) => {
       return { ...state, createProjectSuccess: action.payload, isCreatingProject: false };
     case PROJECT_CREATE_FAIL:
       return { ...state, createProjectErrorMessage: '', isCreatingProject: false };
+    case PROJECT_DELETE_STARTED:
+        return { ...state, isDeletingProject: true };
+    case PROJECT_DELETE_SUCCESS:
+      return { ...state, isDeletingProject: false };
+    case PROJECT_DELETE_FAILED:
+      return { ...state, isDeletingProject: false };
     default:
       return state;
   }
