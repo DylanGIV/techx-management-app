@@ -20,7 +20,7 @@ export const loginWithEmailAndPassword = (email: string, password: string) => {
 
     postLogin(email, password)
       .then((res: any) => {
-        dispatch(authLoginSuccess(res.jwtToken));
+        dispatch(authLoginSuccess(res));
       })
       .catch((err: any) => {
         dispatch({ type: AUTH_LOGIN_FAIL, payload: err });

@@ -8,5 +8,6 @@ export interface Account {
     lastName: string;
     role: string;
     updated: string;
+    jwtToken: string;
   }
   

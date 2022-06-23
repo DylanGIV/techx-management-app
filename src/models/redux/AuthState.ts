@@ -1,3 +1,5 @@
+import { Account } from "../response/AccountResponse";
+
 export interface AuthState {
   auth: {
     isLoggingIn: Boolean;
@@ -5,6 +7,8 @@ export interface AuthState {
     isRegistering: Boolean;
     loginErrorMessage: string;
     registerErrorMessasge: string;
+    role: string;
+    account: Account;
 
     // add password reset?
     

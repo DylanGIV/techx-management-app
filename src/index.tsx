@@ -16,6 +16,7 @@ import {
     en,
     registerTranslation,
   } from 'react-native-paper-dates'
+import ClientHomeStack from './screens/Client/ClientHomeStack';
 
 const AppStack = createStackNavigator();
 
@@ -23,7 +24,15 @@ export default function AppContent() {
 
 
     registerTranslation('en', en);
-    const jwt = useSelector((state : AuthState )=> state.auth.jwt)
+    const account = useSelector((state : AuthState )=> state.auth.account)
+    if (account)
+    {
+        
+    }
+    // const jwt = account.jwtToken;
+    // const role = account.role;
+    // console.log(role)
+    // console.log("role")
 
     return (
         <PaperProvider theme={theme as any}>
@@ -33,8 +42,15 @@ export default function AppContent() {
                     <AppStack.Navigator screenOptions={{ headerShown: false }} >
                     {/* Configuring our Stack of screens */}
 
-                        {jwt ? (
+                        {account.jwtToken ? (
+
+                            (account.role == 'Admin') ?
                             <AppStack.Screen name="HomeStack" component={EmployeeHomeStack} />
+                            :
+                            (account.role == 'User') ?
+                            <AppStack.Screen name="ClientHomeStack" component={ClientHomeStack}/>
+                            :
+                                null
                             ) : (
                             <AppStack.Screen name="AuthStack" component={AuthStack} />
                         )}

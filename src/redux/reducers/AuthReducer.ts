@@ -3,6 +3,8 @@ import { AUTH_LOGIN_FAIL, AUTH_LOGIN_STARTED, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, A
 
 const INITIAL_STATE = {
   jwt: null,
+  role: '',
+  account: null,
   isRegistering: false,
   isLoggingIn: false,
   loginErrorMessage: '',
@@ -16,7 +18,7 @@ export default (state = INITIAL_STATE, action: any) => {
     case AUTH_LOGIN_STARTED:
       return { ...state, isLoggingIn: true };
     case AUTH_LOGIN_SUCCESS:
-      return { ...state, jwt: action.payload, isLoggingIn: false };
+      return { ...state, jwt: action.payload.jwtToken, isLoggingIn: false, role: action.payload.role, account: action.payload };
     case AUTH_LOGIN_FAIL:
       return {
         ...state,
@@ -24,7 +26,7 @@ export default (state = INITIAL_STATE, action: any) => {
         loginErrorMessage: action.payload
       };
     case AUTH_LOGOUT:
-      return { ...state, jwt: null };
+      return { ...state, jwt: null, account: null, role: null };
     case AUTH_REGISTER_STARTED:
       return { ...state, isRegistering: true };
     case AUTH_REGISTER_FAIL:
