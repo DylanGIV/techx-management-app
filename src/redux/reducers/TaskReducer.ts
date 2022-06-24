@@ -1,7 +1,8 @@
-import { TASK_CREATE_FAIL, TASK_CREATE_STARTED, TASK_CREATE_SUCCESS, TASK_FETCH_FAIL, TASK_FETCH_STARTED, TASK_FETCH_SUCCESS, TASK_UPDATE_STATUS_FAIL, TASK_UPDATE_STATUS_STARTED, TASK_UPDATE_STATUS_SUCCESS } from '../actions/types';
+import { TASK_CREATE_FAIL, TASK_CREATE_STARTED, TASK_CREATE_SUCCESS, TASK_FETCH_FAIL, TASK_FETCH_STARTED, TASK_FETCH_SUCCESS, TASK_PROJECT_FETCH_SUCCESS, TASK_UPDATE_STATUS_FAIL, TASK_UPDATE_STATUS_STARTED, TASK_UPDATE_STATUS_SUCCESS } from '../actions/types';
 
 const INITIAL_STATE = {
   tasks: [],
+  projectTasks: [],
   isFetchingTasks: false,
   isCreatingTask: false,
   createTaskSuccess: '',
@@ -18,6 +19,8 @@ export default (state = INITIAL_STATE, action: any) => {
       return { ...state, isFetchingTasks: true };
     case TASK_FETCH_SUCCESS:
       return { ...state, tasks: action.payload, isFetchingTasks: false };
+    case TASK_PROJECT_FETCH_SUCCESS:
+      return { ...state, projectTasks: action.payload, isFetchingTasks: false };
     case TASK_FETCH_FAIL:
       return {
         ...state,

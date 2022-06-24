@@ -1,6 +1,6 @@
 import { Alert } from 'react-native';
-import { getAccountTasks, postCreateAccountTask, putUpdateAccountTaskStatus,  } from '../../api';
-import {TASK_CREATE_STARTED, TASK_CREATE_SUCCESS, TASK_CREATE_FAIL, TASK_FETCH_FAIL, TASK_FETCH_SUCCESS, TASK_FETCH_STARTED, TASK_UPDATE_STATUS_STARTED, TASK_UPDATE_STATUS_SUCCESS, TASK_UPDATE_STATUS_FAIL, REFRESH_TASK } from './types';
+import { getAccountTasks, getProjectAccountTasks, postCreateAccountTask, putUpdateAccountTaskStatus,  } from '../../api';
+import {TASK_CREATE_STARTED, TASK_CREATE_SUCCESS, TASK_CREATE_FAIL, TASK_FETCH_FAIL, TASK_FETCH_SUCCESS, TASK_FETCH_STARTED, TASK_UPDATE_STATUS_STARTED, TASK_UPDATE_STATUS_SUCCESS, TASK_UPDATE_STATUS_FAIL, REFRESH_TASK, TASK_PROJECT_FETCH_SUCCESS } from './types';
 
 export const tasksFetchSuccess = (tasks: any) => {
   return {
@@ -16,6 +16,19 @@ export const fetchAccountTasks = () => {
     getAccountTasks()
       .then((res: any) => {
         dispatch(tasksFetchSuccess(res));
+      })
+      .catch((err: any) => {
+        dispatch({ type: TASK_FETCH_FAIL, payload: err });
+      });
+  };
+};
+export const fetchProjectAccountTasks = (projectId : number) => {
+  return (dispatch: any) => {
+    dispatch({ type: TASK_FETCH_STARTED });
+
+    getProjectAccountTasks(projectId)
+      .then((res: any) => {
+        dispatch({ type: TASK_PROJECT_FETCH_SUCCESS, payload: res });
       })
       .catch((err: any) => {
         dispatch({ type: TASK_FETCH_FAIL, payload: err });

@@ -85,7 +85,7 @@ function EmployeeHomeStack(props : LoginProps) {
                         ?
                             <FadeInView>
                                 <Text style={{ fontSize: 18}}>
-                                    Create a company!
+                                    Add a company!
                                 </Text>
                             </FadeInView>
                         :

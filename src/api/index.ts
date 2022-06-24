@@ -238,6 +238,18 @@ export const getAccountTasks = async () => {
       .catch((err) => reject(err));
   });
 };
+export const getProjectAccountTasks = async (projectId : number) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get('AccountTask/project', {
+        params: {
+          projectId: projectId
+        }
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
 
 export const putUpdateAccountTaskStatus = async (taskId: number, status: boolean) => {
   return new Promise((resolve, reject) => {

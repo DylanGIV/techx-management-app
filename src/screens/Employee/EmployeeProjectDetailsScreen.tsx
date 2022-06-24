@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import { Text, Button, Card, Title, Paragraph } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Project } from '../../models/response/ProjectResponse';
+import { Task } from '../../models/response/TaskResponse';
 import { deleteProjectAction } from '../../redux/actions/ProjectActions';
+import { fetchProjectAccountTasks } from '../../redux/actions/TaskActions';
 
 const EmployeeProjectDetailsScreen = (props : any) => {
   const dispatch = useDispatch();
@@ -12,6 +14,16 @@ const EmployeeProjectDetailsScreen = (props : any) => {
   const deleteCurrentProject = (projectId : number) => {
     dispatch(deleteProjectAction(projectId, props) as any)
   }
+  const getProjectTasks = (projectId : number) => {
+    dispatch(fetchProjectAccountTasks(projectId) as any)
+  }
+
+  useEffect(() => {
+    getProjectTasks(project.id);
+  }, [])
+  const projectTasks : Task[] = useSelector((state : any) => state.task.projectTasks);
+  
+  console.log(projectTasks)
 
 
     return (
