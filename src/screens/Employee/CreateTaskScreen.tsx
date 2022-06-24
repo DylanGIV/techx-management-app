@@ -96,63 +96,18 @@ const CreateTaskScreen = (props : any) => {
               style={styles.touchableContainer}
               onPress={() => Keyboard.dismiss()}
           >
-            <View style={styles.inputCreateContainer}>
+            <View style={styles.wrapperView}>
 
-              <View style={styles.inputBorder} />
+              <View style={styles.topBorder}/>
+              <View style={styles.inputCreateContainer}>
 
-              <View style={styles.wrapperView}>
+                <View style={styles.inputBorder} />
 
-                <View style={styles.inputContainer} >
+                <View style={styles.wrapperView}>
 
-                  {(!currentCompany || !projectsSelect) 
-                    ? 
-                      <ActivityIndicator size='small' color='black' style={{ left: 10}} /> 
-                    :
-                      <View style={{ flex: 0.4 }}>
+                  <View style={styles.inputContainer} >
 
-                        <Text style={styles.text}>
-                          Employee
-                        </Text>
-
-                        <RNPickerSelect 
-                            onValueChange={(value) => setAccount(value)}
-                            items={accountsSelect}
-                            style={pickerSelectStyles}
-                            Icon={() => {
-                                return <Ionicons name="chevron-down-outline" size={24} color={colors.primary} />;
-                            }}
-                        />
-
-                        <Text style={styles.text}>
-                          Project
-                        </Text>
-
-                        <RNPickerSelect 
-                            onValueChange={(value) => setProject(value)}
-                            items={projectsSelect}
-                            style={pickerSelectStyles}
-                            Icon={() => {
-                                return <Ionicons name="chevron-down-outline" size={24} color={colors.primary} />;
-                            }}
-                        />
-
-                        <Button
-                          onPress={() => setCustomOpen(true)}
-                          uppercase={false}
-                          mode="outlined"
-                          style={styles.pickButton}
-                        >
-                          <Text style={{ color: colors.text }}>
-                            {date ? (date.toDateString()) : ("Pick due date")}
-                          </Text>
-                        </Button>
-                        
-                      </View>
-                  }
-
-                  <View style={{ flex: 0.05 }}/>
-
-                  <View style={{ flex: 0.3 }}>
+                    <View style={{ flex: 0.16 }}>
 
                     <TextInput
                         style={styles.textInput}
@@ -167,6 +122,7 @@ const CreateTaskScreen = (props : any) => {
                         autoComplete={false}
                         activeOutlineColor={colors.text}
                         mode='outlined'
+                        dense
                     />
                     <TextInput
                         style={styles.textInput}
@@ -180,29 +136,83 @@ const CreateTaskScreen = (props : any) => {
                         activeOutlineColor={colors.text}
                     />
 
-                  </View>
+                    </View>
 
-                  <View style={styles.createContainer}>
-                      <Button  mode='contained' onPress={create} color={colors.button}>
-                          Create Task
-                      </Button>
+                    <View style={{ flex: 0.05 }}/>
+
+                    {(!currentCompany || !projectsSelect) 
+                      ? 
+                        <ActivityIndicator size='small' color='black' style={{ left: 10}} /> 
+                      :
+                      <View style={styles.selectContainer}>
+
+                        <View style={styles.dualViewContainer}>
+                          <View style={styles.individualViewContainer}>
+                            <Text style={styles.text}>
+                              Employee
+                            </Text>
+
+                          <RNPickerSelect 
+                              onValueChange={(value) => setAccount(value)}
+                              items={accountsSelect}
+                              style={pickerSelectStyles}
+                              Icon={() => {
+                                return <Ionicons name="chevron-down-outline" size={24} color={colors.primary} />;
+                              }}
+                              />
+                          </View>
+                          
+                          <View style={styles.individualViewContainer}>
+                            <Text style={styles.text}>
+                              Project
+                            </Text>
+
+                            <RNPickerSelect 
+                                onValueChange={(value) => setProject(value)}
+                                items={projectsSelect}
+                                style={pickerSelectStyles}
+                                Icon={() => {
+                                    return <Ionicons name="chevron-down-outline" size={24} color={colors.primary} />;
+                                }}
+                            />
+                          </View>
+
+                        </View>
+                        
+                        <Button
+                          onPress={() => setCustomOpen(true)}
+                          uppercase={false}
+                          mode="outlined"
+                          style={styles.pickButton}
+                        >
+                          <Text style={{ color: colors.text }}>
+                            {date ? (date.toDateString()) : ("Pick due date")}
+                          </Text>
+                        </Button>
+                      </View>
+                    }
+
+                    <View style={styles.createContainer}>
+                        <Button  mode='contained' onPress={create} color={colors.button}>
+                            Create Task
+                        </Button>
+                    </View>
+
                   </View>
 
                 </View>
+                    
+                    {(isCreatingTask) && (
+                      <View style={styles.loadingIndicator} pointerEvents='none'>
+                        <ActivityIndicator size='large' />
+                      </View>
+                    )}
+
+
+                <View style={styles.inputBorder} />
 
               </View>
-                  
-                  {(isCreatingTask) && (
-                    <View style={styles.loadingIndicator} pointerEvents='none'>
-                      <ActivityIndicator size='large' />
-                    </View>
-                  )}
-
-
-              <View style={styles.inputBorder} />
-
             </View>
-
           </TouchableWithoutFeedback>
 
           <Portal>
@@ -225,7 +235,7 @@ const CreateTaskScreen = (props : any) => {
 
 const pickerSelectStyles = StyleSheet.create({
   inputIOS: {
-    fontSize: 20,
+    fontSize: 16,
     paddingVertical: 12,
     paddingHorizontal: 10,
     borderBottomWidth: 1,
@@ -258,17 +268,17 @@ const makeStyles = (colors : ReactNativePaper.ThemeColors) => StyleSheet.create(
       flex: 1,
     },
     wrapperView: {
-      flex: 0.8,
+      flex: 1,
     },
       text: {
-        fontSize: 24,
+        fontSize: 20,
         marginBottom: 14,
         marginTop: 14
       },
       textInput: {
         marginHorizontal: 8,
         marginBottom: 14,
-        backgroundColor: 'lightgray'
+        backgroundColor: colors.textInput
       },
       inputCreateContainer: {
         flex: 1,
@@ -283,8 +293,9 @@ const makeStyles = (colors : ReactNativePaper.ThemeColors) => StyleSheet.create(
         flex: 0.1,
       },
       createContainer: {
-        flex: 0.15,
-        justifyContent: 'flex-end',
+        flex: 0.1,
+        justifyContent: 'flex-start',
+        top: 14
       },
       touchableContainer: {
         flex: 1,
@@ -316,6 +327,19 @@ const makeStyles = (colors : ReactNativePaper.ThemeColors) => StyleSheet.create(
     
         elevation: 5,
       },
+      dualViewContainer: {
+        flex: 1,
+        flexDirection: 'row',
+      },
+      individualViewContainer: {
+        flex: 1,
+      },
+      topBorder: {
+        flex: 0.1
+      },
+      selectContainer: {
+        flex: 0.22
+      }
   });
     
 export default CreateTaskScreen;

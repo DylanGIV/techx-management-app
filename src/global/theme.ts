@@ -33,7 +33,7 @@ const theme = {
     background: '#1A2433',
     neutral: '#FFFFFF',
     text: 'black',
-    textInput: 'lightgray',
+    textInput: '#f3f2f3',
     button: 'black',
   }
 };

@@ -3,6 +3,7 @@ import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-nati
 import { Text, Button, ActivityIndicator, TextInput, useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
+import { Account } from '../../models/response/AccountResponse';
 import { createCompany } from '../../redux/actions/CompanyActions';
 
 const CreateCompanyScreen = (props : any) => {
@@ -19,7 +20,7 @@ const CreateCompanyScreen = (props : any) => {
     }
     
     const isCreatingCompany = useSelector((state : any) => state.company.isCreatingCompany);
-    const account = useSelector((state : any) => state.auth.account);
+    const account : Account = useSelector((state : any) => state.auth.account);
 
     if (isCreatingCompany) {
         return (
@@ -43,13 +44,11 @@ const CreateCompanyScreen = (props : any) => {
                         
                         <View style={{flex: 0.3}}>
                             <Text style={styles.text} >
-                                {"This company will be owned by you (" +  ")"}
+                                {"This company will be owned by you, " + account.firstName}
                             </Text>
                         </View>
 
                         <View style={styles.inputContainer} >
-
-                            
 
                             <TextInput
                                 style={styles.textInput}
@@ -93,7 +92,7 @@ const makeStyles = (colors : ReactNativePaper.ThemeColors) => StyleSheet.create(
       flex: 1,
     },
       text: {
-        fontSize: 18,
+        fontSize: 22,
         textAlign: 'center',
       },
       textInput: {

@@ -39,9 +39,11 @@ const CreateProjectScreen = (props : any) => {
 
                 <View style={styles.wrapperView}>
 
+                  <View style={{flex: 0.3}}>
                     <Text style={styles.text}>
                         This Project will be under {currentCompany.companyName}
                     </Text>
+                  </View>
 
                   <View style={styles.inputContainer} >
 
@@ -58,6 +60,7 @@ const CreateProjectScreen = (props : any) => {
                         autoComplete={false}
                         activeOutlineColor={colors.text}
                         mode='outlined'
+                        dense
                     />
                     <TextInput
                         style={styles.textInput}
@@ -81,6 +84,8 @@ const CreateProjectScreen = (props : any) => {
                         </Button>
                     </View>
 
+                    <View style={styles.bottomBorder}/>
+
                 </View>
 
                 <View style={styles.inputBorder} />
@@ -101,7 +106,7 @@ const makeStyles = (colors : ReactNativePaper.ThemeColors) => StyleSheet.create(
     },
       text: {
         fontSize: 24,
-        textAlign: 'center'
+        textAlign: 'center',
       },
       textInput: {
         marginHorizontal: 8,
@@ -149,6 +154,9 @@ const makeStyles = (colors : ReactNativePaper.ThemeColors) => StyleSheet.create(
         top: 0, 
         bottom: 0,
       },
+      bottomBorder: {
+        flex: 0.4,
+      }
   });
     
 export default CreateProjectScreen;
