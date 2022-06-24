@@ -7,7 +7,6 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 import { StyleSheet, View } from "react-native";
 import EmployeeHomeScreen from "./EmployeeHomeScreen";
-import EmployeeInboxScreen from "./EmployeeInboxScreen";
 import EmployeeSearchScreen from "./EmployeeSearchScreen";
 import EmployeeAccountScreen from "./EmployeeAccountScreen";
 import { useTheme } from "react-native-paper";
@@ -49,18 +48,6 @@ const MainTabScreen = () => {
             ),
           }}
         />
-        <Tab.Screen
-          name="Inbox"
-          component={EmployeeInboxScreen}
-          options={{
-            tabBarLabel: "Inbox",
-            tabBarColor: colors.primaryDark,
-            tabBarIcon: ({ color }) => (
-              <Icon name="ios-mail" color={color} size={26} />
-            ),
-          }}
-        />
-
         <Tab.Screen
           name="Search"
           component={EmployeeSearchScreen}

@@ -13,17 +13,17 @@ export const postLogin = async (email: string, password: string) => {
   });
 };
 
-export const postRegister = async (company: string, firstName: string, lastName: string, email: string, password: string, confirmPassword: string, acceptTerms: Boolean) => {
+export const postRegister = async (firstName: string, lastName: string, email: string, password: string, confirmPassword: string, acceptTerms: Boolean, role : number) => {
   return new Promise((resolve, reject) => {
     axios
       .post('Accounts/register', {
-        company: company,
         firstName: firstName,
         lastName: lastName,
         email: email,
         password: password,
         confirmPassword: confirmPassword,
-        acceptTerms: acceptTerms
+        acceptTerms: acceptTerms,
+        role: role,
       })
       .then((res) => resolve(res.data))
       .catch((err) => reject(err));

@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Button, Text, useTheme } from 'react-native-paper';
+import { useDispatch } from 'react-redux';
+import { AUTH_LOGOUT } from '../../redux/actions/types';
 
 const ClientHomeScreen = (props : any) => {
 
+  const dispatch = useDispatch();
+
+    const { colors } = useTheme();
+
+    const logout = () => {
+      dispatch({ type: AUTH_LOGOUT })
+    }
 
 
     
@@ -13,6 +22,13 @@ const ClientHomeScreen = (props : any) => {
             <Text>
                 In Client side
             </Text>
+            <Button
+                  color={colors.primaryDark}
+                  onPress={logout}
+                  mode='contained'
+                >
+                  Log out
+                </Button> 
         </View>
 
     );

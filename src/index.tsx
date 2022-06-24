@@ -42,7 +42,7 @@ export default function AppContent() {
                     <AppStack.Navigator screenOptions={{ headerShown: false }} >
                     {/* Configuring our Stack of screens */}
 
-                        {account.jwtToken ? (
+                        {account && account.jwtToken ? (
 
                             (account.role == 'Admin') ?
                             <AppStack.Screen name="HomeStack" component={EmployeeHomeStack} />

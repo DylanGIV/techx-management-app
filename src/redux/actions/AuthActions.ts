@@ -29,13 +29,14 @@ export const loginWithEmailAndPassword = (email: string, password: string) => {
   };
 };
 
-export const registerAccount = (company: string, firstName: string, lastName: string, email: string, password: string, confirmPassword: string, acceptTerms: Boolean) => {
+export const registerAccount = (firstName: string, lastName: string, email: string, password: string, confirmPassword: string, acceptTerms: Boolean, role : number, props : any) => {
   return (dispatch: any) => {
     dispatch({ type: AUTH_REGISTER_STARTED });
-    postRegister(company, firstName, lastName, email, password, confirmPassword, acceptTerms)
+    postRegister(firstName, lastName, email, password, confirmPassword, acceptTerms, role)
       .then((res: any) => {
         dispatch({ type: AUTH_RESGISTER_SUCCESS });
         alert('Please check your email for a verification message.');
+        props.navigation.goBack();
         // postLogin(email, password)
 
         // .then((res : any) => {
