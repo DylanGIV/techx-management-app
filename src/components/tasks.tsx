@@ -3,11 +3,10 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, Animated, TouchableOpacity } from 'react-native';
 import { Text, Button, useTheme, Card, Title, ActivityIndicator, Avatar } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 import { Task } from '../models/response/TaskResponse';
 import { fetchProjectsByAccount } from '../redux/actions/ProjectActions';
-import { fetchAccountTasks } from '../redux/actions/TaskActions';
+import { fetchAccountTasks, fetchProjectAccountTasks } from '../redux/actions/TaskActions';
 import { REFRESH_TASK } from '../redux/actions/types';
 
 const ListTasks = (props : any) => {
@@ -19,21 +18,33 @@ const ListTasks = (props : any) => {
       dispatch(fetchAccountTasks() as any);
     }
     const refreshTask = useSelector((state : any) => state.refresh.refreshTask);
+    const routeName = props.props.routeName;
+    const projectId = props.props.projectId;
+    const { colors } = useTheme();
+    const filter = props.filter
+    const styles = makeStyles(colors);
+    const isFetchingTasks = useSelector((state : any) => state.task.isFetchingTasks);
 
+    const getProjectTasks = (projectId : number) => {
+      dispatch(fetchProjectAccountTasks(projectId) as any)
+    }
+  
     useEffect(() => {
-      getTasks();
+      if (projectId == -1) {
+        getTasks();
+      } else {
+        getProjectTasks(projectId);
+      }
 
       if (refreshTask) {
         dispatch({ type: REFRESH_TASK, payload: false})
       }
   
     }, [currentCompany, refreshTask])
-    
-    const { colors } = useTheme();
-    const isFetchingTasks = useSelector((state : any) => state.task.isFetchingTasks);
-    const tasks : Task[] = useSelector((state : any) => state.task.tasks);
-    const styles = makeStyles(colors);
-    const filter = props.filter
+
+    const tasks : Task[] = (projectId == -1) 
+      ? useSelector((state : any) => state.task.tasks) 
+      : useSelector((state : any) => state.task.projectTasks);
 
     const filterTasks = () => {
       let tempTasks = new Array();
@@ -96,7 +107,7 @@ const ListTasks = (props : any) => {
             <View style={styles.itemWrapperView} >
               <TouchableOpacity
                 onPress={() =>
-                  props.props.navigation.navigate("TaskDetails", {task: item})
+                  props.props.props.navigation.navigate("TaskDetails", {task: item})
                 }
               >
                 <View style={{ flex: 1 }}>

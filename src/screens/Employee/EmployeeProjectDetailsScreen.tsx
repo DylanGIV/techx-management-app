@@ -7,6 +7,7 @@ import { Project } from '../../models/response/ProjectResponse';
 import { Task } from '../../models/response/TaskResponse';
 import { deleteProjectAction } from '../../redux/actions/ProjectActions';
 import { fetchProjectAccountTasks } from '../../redux/actions/TaskActions';
+import TasksTopTab from './TasksTopNav/EmployeeTasksTopTabNavigator';
 
 const EmployeeProjectDetailsScreen = (props : any) => {
   const dispatch = useDispatch();
@@ -14,80 +15,71 @@ const EmployeeProjectDetailsScreen = (props : any) => {
   const deleteCurrentProject = (projectId : number) => {
     dispatch(deleteProjectAction(projectId, props) as any)
   }
-  const getProjectTasks = (projectId : number) => {
-    dispatch(fetchProjectAccountTasks(projectId) as any)
-  }
 
-  useEffect(() => {
-    getProjectTasks(project.id);
-  }, [])
-  const projectTasks : Task[] = useSelector((state : any) => state.task.projectTasks);
-  
-  console.log(projectTasks)
+  const topTabProps = { 
+    projectId: project.id
+  }
 
 
     return (
       <View style={styles.container}>
 
-        <View style={styles.titleDeleteProjectView}>
-
-          <View style={styles.titleView}>
-            <Text style={styles.titleText}>
-              {project.projectName}
-            </Text> 
-          </View>
-
-          <View style={styles.buttonView}>
-
-            <Button
-              color='red'
-              onPress={() => {
-                Alert.alert("Would you like to delete this project?", "", [
-                  {
-                  text: "Yes",
-                  onPress: () => { 
-                      deleteCurrentProject(project.id);
-                  },
-                  },
-                  {
-                  text: "No",
-                  }
-              ])
-              }}
-            >
-              <Text style={{ fontSize: 17, color: 'red' }}>
-                Delete
-              </Text>
-            </Button>
-          </View>
-        </View>
-        
-          {/* <Text style={styles.assignedText}>
-            Assigned to {project.assig}
-          </Text> */}
-        <View style={styles.wrapperView}>
           <Card >
-            <Card.Content>
-              <Card.Title 
-                title='Description'
-              />
-              <Paragraph>
-                {project.projectDescription}
-              </Paragraph>
-            </Card.Content>
-          </Card>
-        </View>
+            <Card.Title 
+              title={project.projectName}
+              subtitle={project.projectDescription}
+              right={() => 
+                <View style={{ flex: 1, justifyContent: 'space-between', padding: 5}}>
+                  <Button
+                    color='red'
+                    onPress={() => {
+                      Alert.alert("Would you like to delete this project and all of its tasks?", "", [
+                        {
+                        text: "Yes",
+                        onPress: () => { 
+                            deleteCurrentProject(project.id);
+                        },
+                        },
+                        {
+                        text: "No",
+                        }
+                      ])
+                    }}
+                  >
+                    <Text style={{ fontSize: 12, color: 'red' }}>
+                      Delete
+                    </Text>
+                  </Button>
 
-          {/* <Card >
-            <Card.Content>
-              <Card.Title 
-                title='Project'
-              />
-              <Paragraph>
-                {project.project.projectName}
-              </Paragraph>
-            </Card.Content>
-          </Card> */}
+                  <Button
+                    color='red'
+                    // onPress={() => {
+                    //   Alert.alert("Mark this project as complete?", "", [
+                    //     {
+                    //     text: "Yes",
+                    //     onPress: () => { 
+                    //         deleteCurrentProject(project.id);
+                    //     },
+                    //     },
+                    //     {
+                    //     text: "No",
+                    //     }
+                    //   ])
+                    // }}
+                    >
+
+                    <Text style={{ fontSize: 12, color: 'green' }}>
+                      Mark as Complete
+                    </Text>
+                  </Button>
+                </View>
+              }
+            />
+          </Card>
+
+        <View style={styles.wrapperView}>
+          <TasksTopTab {...topTabProps}/>
+        </View>
 
       </View>
     );
@@ -96,31 +88,10 @@ const EmployeeProjectDetailsScreen = (props : any) => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      padding: 10,
     },
     wrapperView: {
       flex: 1,
     },
-    titleText: {
-      fontSize: 30
-    },
-    assignedText: {
-      fontSize: 18
-    },
-    descriptionText: {
-      fontSize: 18
-    },
-    titleDeleteProjectView: {
-      flex: 0.1,
-      flexDirection: 'row'
-    },
-    titleView: {
-      flex: 1
-    },
-    buttonView: {
-      flex: 1,
-      alignItems: 'flex-end',
-    }
 
   });
     

@@ -6,9 +6,15 @@ import ListTasks from '../../../components/tasks';
 
 const IncompleteTasksScreen = (props : any) => {
 
+  const taskProps = {
+    props: {...props},
+    projectId: props.route.params.projectId,
+    routeName: props.route.params.routeName
+  }
+
     return (
         <View style={styles.wrapperView}>
-            <ListTasks props={props} filter='incomplete'/>
+            <ListTasks props={taskProps} filter='incomplete'/>
         
         </View>
 

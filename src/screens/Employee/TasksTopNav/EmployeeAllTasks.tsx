@@ -6,11 +6,17 @@ import ListTasks from '../../../components/tasks';
 
 const AllTasksScreen = (props : any) => {
 
+    const taskProps = {
+      props: {...props},
+      projectId: props.route.params.projectId,
+      routeName: props.route.params.routeName
+    }
+
     return (
     
         
         <View style={styles.wrapperView}>
-            <ListTasks props={props} filter='all'/>
+            <ListTasks props={taskProps} filter='all'/>
             
         </View>
 

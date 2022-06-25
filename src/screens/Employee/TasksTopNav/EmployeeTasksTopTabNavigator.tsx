@@ -9,16 +9,23 @@ import TopTabBar from '../../../components/topTabBar';
 import AllTasksScreen from './EmployeeAllTasks';
 import IncompleteTasksScreen from './EmployeeIncompleteTasks';
 import CompleteTasksScreen from './EmployeeCompletedTasks';
+import { Task } from '../../../models/response/TaskResponse';
+import { useRoute } from '@react-navigation/native';
 
 const Tab = createMaterialTopTabNavigator();
 
-function TasksTopTab() {
+function TasksTopTab(props : any) {
   const dispatch = useDispatch();
   const { colors } = useTheme();
+
+  const projectId : Task[] = (props.projectId) ? props.projectId : -1;
+  
 
   useEffect(() => {
 
   }, [])
+
+  const route = useRoute();
 
 
   return (
@@ -37,16 +44,28 @@ function TasksTopTab() {
         name="IncompleteTasks"
         component={IncompleteTasksScreen}
         options={{ tabBarLabel: 'Incomplete', tabBarActiveTintColor: colors.primary, tabBarInactiveTintColor: colors.secondary, tabBarIndicatorStyle: {backgroundColor: colors.primary} }}
+        initialParams={{ 
+          projectId: projectId,
+          routeName: route.name
+         }}
       />
       <Tab.Screen
         name="CompleteTasks"
         component={CompleteTasksScreen}
         options={{ tabBarLabel: 'Completed', tabBarActiveTintColor: colors.primary, tabBarInactiveTintColor: colors.secondary, tabBarIndicatorStyle: {backgroundColor: colors.primary} }}
+        initialParams={{ 
+          projectId: projectId,
+          routeName: route.name
+         }}
       />
       <Tab.Screen
         name="AllTasks"
         component={AllTasksScreen}
         options={{ tabBarLabel: 'All', tabBarActiveTintColor: colors.primary, tabBarInactiveTintColor: colors.secondary, tabBarIndicatorStyle: {backgroundColor: colors.primary} }}
+        initialParams={{ 
+          projectId: projectId,
+          routeName: route.name
+         }}
       />
     </Tab.Navigator>
   );
