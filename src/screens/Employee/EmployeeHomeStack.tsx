@@ -105,7 +105,7 @@ function EmployeeHomeStack(props : LoginProps) {
                             ?
                             <FadeInView>
                                 <IconButton 
-                                    icon="minus"
+                                    icon="delete-outline"
                                     color={colors.text}
                                     size={28}
                                     onPress={() => {
@@ -134,7 +134,7 @@ function EmployeeHomeStack(props : LoginProps) {
                             {(!isFetchingCompanies && companies && !isDeletingCompany) ?
                             <FadeInView>
                                 <IconButton 
-                                    icon="plus"
+                                    icon="domain-plus"
                                     color={colors.text}
                                     size={28}
                                     onPress={() => props.navigation.navigate('CreateCompany' as any)}
