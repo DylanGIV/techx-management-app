@@ -155,6 +155,17 @@ export const PutUpdateProjectTeam = async (projectId: number, teamId: number) =>
       .catch((err) => reject(err));
   });
 };
+export const PutUpdateProjectStatus = async (projectId: number, status: boolean) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .put('Project/status', {
+        projectId: projectId,
+        status: status
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
 
 export const deleteProject = async (projectId: number) => {
   return new Promise((resolve, reject) => {

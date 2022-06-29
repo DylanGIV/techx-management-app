@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 import { Project } from '../../models/response/ProjectResponse';
 import { Task } from '../../models/response/TaskResponse';
-import { deleteProjectAction } from '../../redux/actions/ProjectActions';
+import { deleteProjectAction, updateProjectStatus } from '../../redux/actions/ProjectActions';
 import { fetchProjectAccountTasks } from '../../redux/actions/TaskActions';
 import TasksTopTab from './TasksTopNav/EmployeeTasksTopTabNavigator';
 
@@ -13,13 +13,15 @@ const EmployeeProjectDetailsScreen = (props : any) => {
   const dispatch = useDispatch();
   const project : Project = props.route.params.project;
   const deleteCurrentProject = (projectId : number) => {
-    dispatch(deleteProjectAction(projectId, props) as any)
+    dispatch(deleteProjectAction(projectId, props) as any);
   }
-
+  const updateCurrentProjectStatus = (projectId : number, projectStatus : boolean) => {
+    dispatch(updateProjectStatus(projectId, projectStatus, props) as any);
+  }
+  console.log(project.completed)
   const topTabProps = { 
     projectId: project.id
   }
-
 
     return (
       <View style={styles.container}>
@@ -53,23 +55,36 @@ const EmployeeProjectDetailsScreen = (props : any) => {
 
                   <Button
                     color='red'
-                    // onPress={() => {
-                    //   Alert.alert("Mark this project as complete?", "", [
-                    //     {
-                    //     text: "Yes",
-                    //     onPress: () => { 
-                    //         deleteCurrentProject(project.id);
-                    //     },
-                    //     },
-                    //     {
-                    //     text: "No",
-                    //     }
-                    //   ])
-                    // }}
+                    onPress={() => {
+                      (project.completed) ?
+                        Alert.alert("Mark this project as incomplete?", "", [
+                          {
+                          text: "Yes",
+                          onPress: () => { 
+                              updateCurrentProjectStatus(project.id, false);
+                          },
+                          },
+                          {
+                          text: "No",
+                          }
+                        ])
+                      :
+                        Alert.alert("Mark this project as complete?", "", [
+                          {
+                          text: "Yes",
+                          onPress: () => { 
+                              updateCurrentProjectStatus(project.id, true);
+                          },
+                          },
+                          {
+                          text: "No",
+                          }
+                        ])
+                      }}
                     >
 
                     <Text style={{ fontSize: 12, color: 'green' }}>
-                      Mark as Complete
+                      {(project.completed) ? "Incomplete" : "Mark as Complete"}
                     </Text>
                   </Button>
                 </View>

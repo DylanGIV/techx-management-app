@@ -3,14 +3,16 @@ import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, Animated, Touchab
 import { Text, Button, useTheme, Card, Title, ActivityIndicator, Avatar } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
+import { Project } from '../models/response/ProjectResponse';
 import { fetchProjectsByAccount } from '../redux/actions/ProjectActions';
 import { REFRESH_PROJECT } from '../redux/actions/types';
 
-const ListProjects = ({props} : any) => {
+const ListProjects = (props : any) => {
     const [filteredProjects, setFilteredProjects] = useState('' as any);
     // let filteredProjects;
     const currentCompany = useSelector((state : any) => state.company.currentCompany);
     const refreshProject = useSelector((state : any) => state.refresh.refreshProject);
+    const filter = props.filter
 
     const dispatch = useDispatch();
 
@@ -40,11 +42,23 @@ const ListProjects = ({props} : any) => {
 
     const filterProjects = () => {
       let tempProjects = new Array();
-      projects.forEach((p : any) => {
-        if (p.company.id == currentCompany.id) {
-          tempProjects.push(p)
-        }
-      });
+
+      if (filter == 'all') {
+        projects.forEach((p : Project) => {
+          if (p.company.id == currentCompany.id) {
+            tempProjects.push(p)
+          }
+        });
+      }
+      if (filter == 'incomplete') {
+        projects.forEach((p : Project) => {
+          if (p.company.id == currentCompany.id && !p.completed) {
+            tempProjects.push(p)
+          }
+        });
+      }
+      
+
       setFilteredProjects(tempProjects);
     }
     useEffect(() => {
@@ -86,7 +100,7 @@ const ListProjects = ({props} : any) => {
             <View style={styles.itemWrapperView} >
               <TouchableOpacity
                 onPress={() =>
-                  props.navigation.navigate('ProjectDetails', { project: item})
+                  props.props.navigation.navigate('ProjectDetails', { project: item})
                 }
               >
                 <View style={{ flex: 1 }}>

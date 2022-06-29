@@ -25,7 +25,7 @@ function MyTabs() {
 
   return (
     <Tab.Navigator
-      initialRouteName="AllProjects"
+      initialRouteName="CurrentProjects"
       initialLayout={{ width: Dimensions.get('window').width }}
       screenOptions={{
         tabBarActiveTintColor: colors.text,

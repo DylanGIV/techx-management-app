@@ -44,6 +44,9 @@ export const PROJECT_CREATE_FAIL = 'project/create_fail';
 export const PROJECT_DELETE_STARTED = 'project/create_started';
 export const PROJECT_DELETE_SUCCESS = 'project/create_success';
 export const PROJECT_DELETE_FAILED = 'project/create_failed';
+export const PROJECT_UPDATE_STARTED = 'project/update_started';
+export const PROJECT_UPDATE_SUCCESS = 'project/update_success';
+export const PROJECT_UPDATE_FAILED = 'project/update_failed';
 
 export const TASK_FETCH_STARTED = 'task/fetch_started';
 export const TASK_FETCH_SUCCESS = 'task/fetch_success';

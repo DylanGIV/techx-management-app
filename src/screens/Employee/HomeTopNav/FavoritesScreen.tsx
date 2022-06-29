@@ -18,7 +18,7 @@ const FavoritesScreen = (props : any) => {
   return (
       <View style={styles.container}>
 
-          <ListProjects props={props} />
+          <ListProjects props={props} filter='incomplete'/>
 
       </View>
   );

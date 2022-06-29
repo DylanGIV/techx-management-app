@@ -3,4 +3,6 @@ export interface Project {
     companyId: number;
     projectDescription: string;
     projectName: string;
+    completed: boolean;
+    company: any;
 }
