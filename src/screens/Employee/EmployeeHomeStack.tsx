@@ -61,7 +61,7 @@ function EmployeeHomeStack(props : LoginProps) {
         if (refreshCompany) {
             dispatch({ type: REFRESH_COMPANY, payload: false})
           }
-    }, [createCompanySuccess, refreshCompany])
+    }, [createCompanySuccess, refreshCompany, currentProject])
     
     const isFetchingCompanies = useSelector((state : any) => state.company.isFetchingCompanies);
     const isDeletingCompany = useSelector((state : any) => state.company.isDeletingCompany);
@@ -240,7 +240,7 @@ function EmployeeHomeStack(props : LoginProps) {
                     headerRight: () => (
                         <View style={{ flexDirection: 'row' }}>
                             <IconButton
-                                icon={currentProject.completed ? ('refresh') : ('check') }
+                                icon={currentProject?.completed ? ('refresh') : ('check') }
                                 color={colors.text}
                                 size={28}
                                 onPress={() => {
