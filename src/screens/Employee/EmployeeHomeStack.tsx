@@ -110,6 +110,7 @@ function EmployeeHomeStack(props : LoginProps) {
                                 onValueChange={(value) => updateCompanyIdGlobal(value)}
                                 items={companiesSelect}
                                 placeholder={{}}
+                                value={currentCompany}
                                 style={pickerSelectStyles}
                                 Icon={() => {
                                     return <Ionicons name="chevron-down-outline" size={24} color={colors.text} />;

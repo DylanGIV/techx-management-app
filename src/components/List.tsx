@@ -7,12 +7,16 @@ import {
   SafeAreaView,
   SectionList,
   Keyboard,
+  Alert,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useDispatch } from "react-redux";
 import { Project } from "../models/response/ProjectResponse";
 import { Task } from "../models/response/TaskResponse";
 import { Data } from "../models/search/DataInterface";
 import { SectionData } from "../models/search/SectionData";
+import { updateCompanyIdGlobalAction } from "../redux/actions/CompanyActions";
+import { REFRESH_COMPANY } from "../redux/actions/types";
 
 interface ItemFilter {
     name: string;
@@ -28,55 +32,60 @@ const Item = ({ name, details } : ItemFilter) => (
 
 // the filter
 const List = (props : any) => {
-
+    const dispatch = useDispatch();
     const sectionData : SectionData[] = props.data;
-
-
 
     const renderItem = (data : any) => {
         const item = data.item;
         const type = data.section.title;
 
         if (type == 'Companies') {
-
-        //     // when no input, show all
-        //     if (props.searchPhrase === "") {
-                return <Item name={item.companyName} details='' />;
+                return (
+                    <TouchableOpacity
+                        onPress={() => {
+                            Alert.alert("Would you like to switch companies?", "", [
+                                {
+                                text: "Yes",
+                                onPress: () => { 
+                                    dispatch(updateCompanyIdGlobalAction(item) as any);
+                                    dispatch({ type: REFRESH_COMPANY });
+                                    props.props.navigation.jumpTo('Home');
+                                },
+                                },
+                                {
+                                text: "No",
+                                }
+                            ])
+                        }}
+                    >
+                        <Item name={item.companyName} details='' />
+                    </TouchableOpacity>
+                );
             }
-        //     // filter of the name
-        //     if (item.companyName.toUpperCase().includes(props.searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
-        //         return <Item name={item.companyName} details='' />;
-        //     }
-        // }
-            
+
         else if (type == 'Projects') {
-
-        //     if (props.searchPhrase === "") {
-                return <Item name={item.projectName} details={item.projectDescription} />;
+                return (
+                    <TouchableOpacity
+                        onPress={() => {
+                            props.props.navigation.navigate('ProjectDetails', { project: item})
+                        }}
+                    >
+                        <Item name={item.projectName} details={item.projectDescription} />
+                    </TouchableOpacity>
+                );
             }
-        //     // filter of the name
-        //     if (item.projectName.toUpperCase().includes(props.searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
-        //         return <Item name={item.projectName} details={item.projectDescription} />;
-        //     }
-        //     // filter of the description
-        //     if (item.projectDescription.toUpperCase().includes(props.searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
-        //         return <Item name={item.projectName} details={item.projectDescription} />;
-        //     }
-        // }
 
         else if (type == 'Tasks') {
-            // if (props.searchPhrase === "") {
-                return <Item name={item.title} details={item.description} />;
+                return (
+                    <TouchableOpacity
+                        onPress={() => {
+                            props.props.navigation.navigate("TaskDetails", {task: item})
+                        }}
+                    >
+                        <Item name={item.title} details={item.description} />
+                    </TouchableOpacity>
+                );
             }
-        //         // filter of the name
-        //     if (item.title.toUpperCase().includes(props.searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
-        //         return <Item name={item.title} details={item.description} />;
-        //     }
-        //         // filter of the description
-        //     if (item.description.toUpperCase().includes(props.searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
-        //         return <Item name={item.title} details={item.description} />;
-        //     }
-        // }
 
         return null;
     }

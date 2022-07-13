@@ -9,7 +9,7 @@ import { fetchCompanies } from '../../../redux/actions/CompanyActions';
 import { fetchProjectsByAccount } from '../../../redux/actions/ProjectActions';
 import { fetchAccountTasks } from '../../../redux/actions/TaskActions';
 
-const EmployeeSearchScreen = () => {
+const EmployeeSearchScreen = (props : any) => {
 
   const dispatch = useDispatch();
 
@@ -19,7 +19,7 @@ const EmployeeSearchScreen = () => {
     dispatch(fetchAccountTasks() as any);
   }
 
-  const [data, setData] = useState({} as SectionData[]);
+  const [data, setData] = useState([] as SectionData[]);
   const [searchPhrase, setSearchPhrase] = useState("");
   const [clicked, setClicked] = useState(false);
   const [startRefresh, setStartRefresh] = useState(false);
@@ -176,6 +176,7 @@ const EmployeeSearchScreen = () => {
           setClicked={setClicked}
           refresh={setStartRefresh}
           refreshing={isFetching}
+          props={props}
         />
         
       )}
