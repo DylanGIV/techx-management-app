@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Text, Button, ActivityIndicator, useTheme } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 import List from '../../../components/List';
 import SearchBar from '../../../components/SearchBar';
-import { Project } from '../../../models/response/ProjectResponse';
-import { Task } from '../../../models/response/TaskResponse';
-import { Data } from '../../../models/search/DataInterface';
+import { SectionData } from '../../../models/search/SectionData';
 import { fetchCompanies } from '../../../redux/actions/CompanyActions';
 import { fetchProjectsByAccount } from '../../../redux/actions/ProjectActions';
 import { fetchAccountTasks } from '../../../redux/actions/TaskActions';
@@ -22,7 +19,7 @@ const EmployeeSearchScreen = () => {
     dispatch(fetchAccountTasks() as any);
   }
 
-  const [data, setData] = useState({} as Data);
+  const [data, setData] = useState({} as SectionData[]);
   const [searchPhrase, setSearchPhrase] = useState("");
   const [clicked, setClicked] = useState(false);
   const [startRefresh, setStartRefresh] = useState(false);
@@ -55,15 +52,107 @@ const EmployeeSearchScreen = () => {
       organizeData();
     }
 
-  }, [isFetching, projects, companies, tasks])
+  }, [isFetching, projects, companies, tasks, searchPhrase])
 
   const organizeData = () => {
     if (!isFetching && projects && companies && tasks) {
-
-      // let tempData = {companies : companies, projects : projects, tasks : tasks} as Data
-      
-      setData( {companies : companies, projects : projects, tasks : tasks} as Data );
+      filterData( [
+        {
+          title : 'Companies',
+          data : companies, 
+        },
+        {
+          title : 'Projects',
+          data : projects, 
+        },
+        {
+          title : 'Tasks',
+          data : tasks
+        }
+      ] as SectionData[] );
     }
+  }
+
+  const filterData = (data : SectionData[] ) => {
+    let tempData = new Array<SectionData>();
+
+    tempData = [
+      {
+        title: 'Companies',
+        data: [] as any
+      },
+      {
+        title: 'Projects',
+        data: [] as any
+      },
+      {
+        title: 'Tasks',
+        data: [] as any
+      }
+    ]
+
+    data.forEach(item => {
+
+      item.data.forEach(itemData => {
+        if (item.title == 'Companies') {
+    
+          // when no input, show all
+          if (searchPhrase === "") {
+              tempData[0].data.push(itemData);
+              return;
+          }
+          // filter of the name
+          if (itemData.companyName.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
+              tempData[0].data.push(itemData);
+              return;
+          }
+        }
+            
+        else if (item.title == 'Projects') {
+    
+            if (searchPhrase === "") {
+              tempData[1].data.push(itemData);
+              return;
+            }
+            // filter of the name
+            if (itemData.projectName.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
+              tempData[1].data.push(itemData);
+              return;
+            }
+            // filter of the description
+            if (itemData.projectDescription.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
+              tempData[1].data.push(itemData);
+              return;
+            }
+        }
+    
+        else if (item.title == 'Tasks') {
+            if (searchPhrase === "") {
+              tempData[2].data.push(itemData);
+              return;            
+            }
+                // filter of the name
+            if (itemData.title.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
+              tempData[2].data.push(itemData);
+              return;           
+            }
+                // filter of the description
+            if (itemData.description.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
+              tempData[2].data.push(itemData);
+              return;           
+            }
+        }
+      });
+      
+    });
+
+    for (let i = 2; i >= 0; i--) {
+      if (tempData[i].data.length == 0) {
+        tempData.splice(i, 1)
+      }
+    }
+
+    setData(tempData);
   }
 
   return (
