@@ -1,19 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
-  FlatList,
-  SafeAreaView,
   SectionList,
   Keyboard,
   Alert,
+  Pressable,
 } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity, TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { useDispatch } from "react-redux";
-import { Project } from "../models/response/ProjectResponse";
-import { Task } from "../models/response/TaskResponse";
-import { Data } from "../models/search/DataInterface";
 import { SectionData } from "../models/search/SectionData";
 import { updateCompanyIdGlobalAction } from "../redux/actions/CompanyActions";
 import { REFRESH_COMPANY } from "../redux/actions/types";
@@ -32,6 +28,28 @@ const Item = ({ name, details } : ItemFilter) => (
 
 // the filter
 const List = (props : any) => {
+    const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+    useEffect(() => {
+        const keyboardDidShowListener = Keyboard.addListener(
+        'keyboardDidShow',
+        () => {
+            setKeyboardVisible(true); // or some other action
+        }
+        );
+        const keyboardDidHideListener = Keyboard.addListener(
+        'keyboardDidHide',
+        () => {
+            setKeyboardVisible(false); // or some other action
+        }
+        );
+
+        return () => {
+        keyboardDidHideListener.remove();
+        keyboardDidShowListener.remove();
+        };
+    }, []);
+    
     const dispatch = useDispatch();
     const sectionData : SectionData[] = props.data;
 
@@ -57,6 +75,7 @@ const List = (props : any) => {
                                 }
                             ])
                         }}
+                        disabled={isKeyboardVisible}
                     >
                         <Item name={item.companyName} details='' />
                     </TouchableOpacity>
@@ -69,6 +88,7 @@ const List = (props : any) => {
                         onPress={() => {
                             props.props.navigation.navigate('ProjectDetails', { project: item})
                         }}
+                        disabled={isKeyboardVisible}
                     >
                         <Item name={item.projectName} details={item.projectDescription} />
                     </TouchableOpacity>
@@ -81,6 +101,7 @@ const List = (props : any) => {
                         onPress={() => {
                             props.props.navigation.navigate("TaskDetails", {task: item})
                         }}
+                        disabled={isKeyboardVisible}
                     >
                         <Item name={item.title} details={item.description} />
                     </TouchableOpacity>
@@ -93,7 +114,7 @@ const List = (props : any) => {
         <View
             style={styles.list__container}
         >
-            <TouchableOpacity
+            <TouchableWithoutFeedback
                 onPress={props.setClicked(false)}
             >
 
@@ -105,15 +126,17 @@ const List = (props : any) => {
         /> */}
             { (sectionData) &&
                 <SectionList
-                sections={sectionData}
-                keyExtractor={(item, index) => item + index}
-                renderItem={renderItem}
-                renderSectionHeader={({ section: { title } }) => (
-                    <Text style={styles.header}>{title}</Text>
-                )}
+                    sections={sectionData}
+                    keyExtractor={(item, index) => item + index}
+                    renderItem={renderItem}
+                    renderSectionHeader={({ section: { title } }) => (
+                        <Text style={styles.header}>{title}</Text>
+                    )}
+                    onRefresh={() => props.setStartRefresh(true)}
+                    refreshing={props.refreshing}
                 />
                 }
-            </TouchableOpacity>
+            </TouchableWithoutFeedback>
         </View>
     );
 };

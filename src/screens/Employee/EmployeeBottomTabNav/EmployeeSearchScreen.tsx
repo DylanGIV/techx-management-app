@@ -38,7 +38,7 @@ const EmployeeSearchScreen = (props : any) => {
 
   useEffect(() => {
     fetchAll();
-    
+    setStartRefresh(false);
   }, [refreshCompany, refreshProject, refreshTask, startRefresh])
 
   
@@ -174,7 +174,7 @@ const EmployeeSearchScreen = (props : any) => {
           searchPhrase={searchPhrase}
           data={data}
           setClicked={setClicked}
-          refresh={setStartRefresh}
+          setStartRefresh={setStartRefresh}
           refreshing={isFetching}
           props={props}
         />
