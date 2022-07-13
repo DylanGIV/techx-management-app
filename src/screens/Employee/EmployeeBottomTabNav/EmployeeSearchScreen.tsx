@@ -1,26 +1,101 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { Text, Button } from 'react-native-paper';
+import { Text, Button, ActivityIndicator, useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useDispatch, useSelector } from 'react-redux';
+import List from '../../../components/List';
+import SearchBar from '../../../components/SearchBar';
+import { Project } from '../../../models/response/ProjectResponse';
+import { Task } from '../../../models/response/TaskResponse';
+import { Data } from '../../../models/search/DataInterface';
+import { fetchCompanies } from '../../../redux/actions/CompanyActions';
+import { fetchProjectsByAccount } from '../../../redux/actions/ProjectActions';
+import { fetchAccountTasks } from '../../../redux/actions/TaskActions';
 
 const EmployeeSearchScreen = () => {
 
-    return (
-      <SafeAreaView style={styles.container} edges={['bottom']}>
-          <View style={styles.wrapperView}>
-            <View style={styles.wrapperView}>
-              <Text>
-                Good morning! Search here.
-              </Text>
-            </View>
-          </View>
-      </SafeAreaView>
+  const dispatch = useDispatch();
 
-    );
+  const fetchAll = () => {
+    // dispatch(fetchCompanies() as any);
+    dispatch(fetchProjectsByAccount() as any);
+    dispatch(fetchAccountTasks() as any);
+  }
+
+  const [data, setData] = useState({} as Data);
+  const [searchPhrase, setSearchPhrase] = useState("");
+  const [clicked, setClicked] = useState(false);
+  const [startRefresh, setStartRefresh] = useState(false);
+
+  const colors = useTheme().colors;
+
+  const isFetchingCompanies = useSelector((state : any) => state.company.isFetchingCompanies);
+  const isFetchingProjects = useSelector((state : any) => state.project.isFetchingProjects);
+  const isFetchingTasks = useSelector((state : any) => state.task.isFetchingTasks);
+  
+  const refreshTask = useSelector((state : any) => state.refresh.refreshTask);
+  const refreshProject = useSelector((state : any) => state.refresh.refreshProject);
+  const refreshCompany = useSelector((state : any) => state.refresh.refreshCompany);
+
+  const isFetching = (isFetchingCompanies || isFetchingProjects || isFetchingTasks);
+
+  useEffect(() => {
+    fetchAll();
+    
+  }, [refreshCompany, refreshProject, refreshTask, startRefresh])
+
+  
+  
+  const projects = useSelector((state : any) => state.project.projects);
+  const companies = useSelector((state : any) => state.company.companies);
+  const tasks = useSelector((state : any) => state.task.tasks);
+
+  useEffect(() => {
+    if (!isFetching && projects && companies && tasks) {
+      organizeData();
+    }
+
+  }, [isFetching, projects, companies, tasks])
+
+  const organizeData = () => {
+    if (!isFetching && projects && companies && tasks) {
+
+      // let tempData = {companies : companies, projects : projects, tasks : tasks} as Data
+      
+      setData( {companies : companies, projects : projects, tasks : tasks} as Data );
+    }
+  }
+
+  return (
+    <View style={styles.wrapperView}>
+      <View style={styles.wrapperView}>
+
+      <SearchBar
+        searchPhrase={searchPhrase}
+        setSearchPhrase={setSearchPhrase}
+        clicked={clicked}
+        setClicked={setClicked}
+      />
+
+      {isFetching || !data ? (
+        <ActivityIndicator size="large" color={colors.text} />
+      ) : (
+        
+        <List
+          searchPhrase={searchPhrase}
+          data={data}
+          setClicked={setClicked}
+          refresh={setStartRefresh}
+          refreshing={isFetching}
+        />
+        
+      )}
+
+      </View>
+    </View>
+
+  );
 };
-
-// A style sheet is used to move styling out of the body of JSX
-// and also if we will be using the same styling on many components.
 
 const styles = StyleSheet.create({
     container: {
@@ -32,6 +107,4 @@ const styles = StyleSheet.create({
 
   });  
 
-// We export this screen to be able to import it in other
-// files, such as index.tsx, to be able to reference this
 export default EmployeeSearchScreen;

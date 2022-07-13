@@ -10,6 +10,11 @@ const { store, persistor } = configureStore()
 
 export default function App() {
 
+  if (typeof Intl === 'undefined') {
+    require('intl')  
+    require('intl/locale-data/jsonp/en')  
+  }
+
   return (
     <SafeAreaProvider>
       <Provider store={store}>
