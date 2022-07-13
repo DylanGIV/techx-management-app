@@ -1,6 +1,7 @@
 import { Alert } from 'react-native';
 import { deleteProject, getProjectsByAccount, postCreateProject, PutUpdateProjectStatus } from '../../api';
-import { PROJECT_FETCH_SUCCESS, PROJECT_FETCH_STARTED, PROJECT_FETCH_FAIL, PROJECT_CREATE_STARTED, PROJECT_CREATE_SUCCESS, PROJECT_CREATE_FAIL, REFRESH_PROJECT, PROJECT_DELETE_FAILED, PROJECT_DELETE_SUCCESS, PROJECT_DELETE_STARTED, PROJECT_UPDATE_STARTED, PROJECT_UPDATE_SUCCESS, PROJECT_UPDATE_FAILED } from './types';
+import { Project } from '../../models/response/ProjectResponse';
+import { PROJECT_FETCH_SUCCESS, PROJECT_FETCH_STARTED, PROJECT_FETCH_FAIL, PROJECT_CREATE_STARTED, PROJECT_CREATE_SUCCESS, PROJECT_CREATE_FAIL, REFRESH_PROJECT, PROJECT_DELETE_FAILED, PROJECT_DELETE_SUCCESS, PROJECT_DELETE_STARTED, PROJECT_UPDATE_STARTED, PROJECT_UPDATE_SUCCESS, PROJECT_UPDATE_FAILED, PROJECT_SET_CURRENT } from './types';
 
 export const projectsFetchSuccess = (projects: any) => {
   return {
@@ -8,6 +9,12 @@ export const projectsFetchSuccess = (projects: any) => {
     payload: projects
   };
 };
+export const updateProjectGlobalAction = (project : Project) => {
+  return {
+    type: PROJECT_SET_CURRENT,
+    payload: project
+  }
+}
 
 export const fetchProjectsByAccount = () => {
   return (dispatch: any) => {

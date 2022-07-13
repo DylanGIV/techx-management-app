@@ -18,6 +18,10 @@ import EmployeeProjectDetailsScreen from './EmployeeProjectDetailsScreen';
 import { deleteCompany } from '../../api';
 import { FadeInView } from '../../components/FadeInView';
 import BouncingIcon from '../../components/BouncingIcon';
+import { Project } from '../../models/response/ProjectResponse';
+import { deleteProjectAction, updateProjectStatus } from '../../redux/actions/ProjectActions';
+import { Task } from '../../models/response/TaskResponse';
+import { deleteTaskAction, updateTaskStatus } from '../../redux/actions/TaskActions';
 
 const Stack = createStackNavigator();
 let companiesSelect : Item[];
@@ -28,7 +32,19 @@ function EmployeeHomeStack(props : LoginProps) {
         dispatch(updateCompanyIdGlobalAction(company) as any);
     }
     const deleteCurrentCompany = () => {
-        dispatch(deleteCompanyAction(currentCompany.id) as any)
+        dispatch(deleteCompanyAction(currentCompany.id) as any);
+    }
+    const deleteCurrentProject = (projectId : number) => {
+        dispatch(deleteProjectAction(projectId, props) as any);
+    }
+    const deleteCurrentTask = (taskId : number) => {
+        dispatch(deleteTaskAction(taskId, props) as any);
+    }
+    const updateCurrentProjectStatus = (projectId : number, projectStatus : boolean) => {
+        dispatch(updateProjectStatus(projectId, projectStatus, props) as any);
+    }
+    const updateCurrentTaskStatus = (task : Task, updateStatus : boolean) => {
+        dispatch(updateTaskStatus(task.id, updateStatus, props) as any);
     }
 
     const { colors } = useTheme();
@@ -37,7 +53,8 @@ function EmployeeHomeStack(props : LoginProps) {
     const createCompanySuccess = useSelector((state: any) => state.company.createCompanySuccess);
     const refreshCompany = useSelector((state : any) => state.refresh.refreshCompany);
     const currentCompany = useSelector((state: any) => state.company.currentCompany);
-
+    const currentProject : Project = useSelector((state: any) => state.project.currentProject);
+    const currentTask : Task = useSelector((state: any) => state.task.currentTask);
 
     useEffect( () => {
         dispatch(fetchCompanies() as any);
@@ -166,8 +183,117 @@ function EmployeeHomeStack(props : LoginProps) {
             <Stack.Screen name="CreateProject" component={CreateProjectScreen} options={{ headerShown: true }}/>
             <Stack.Screen name="CreateTask" component={CreateTaskScreen} options={{ headerShown: true }}/>
 
-            <Stack.Screen name="TaskDetails" component={EmployeeTaskDetailsScreen} options={{ headerShown: true }}/>
-            <Stack.Screen name="ProjectDetails" component={EmployeeProjectDetailsScreen} options={{ headerShown: true }}/>
+            <Stack.Screen 
+                name="TaskDetails" 
+                component={EmployeeTaskDetailsScreen} 
+                options={{ 
+                    headerShown: true, 
+                    headerTitle: '',
+                    headerRight: () => (
+                        <View style={{ flexDirection: 'row' }}>
+                            <IconButton
+                                icon={currentTask?.completed ? ('refresh') : ('check') }
+                                color={colors.text}
+                                size={28}
+                                onPress={() => {
+                                Alert.alert((!currentTask.completed ? ("Mark task as complete?") : ("Mark task as incomplete")), "", [
+                                    {
+                                    text: "Yes",
+                                    onPress: () => { 
+                                        updateCurrentTaskStatus(currentTask, !currentTask.completed)
+                                    },
+                                    },
+                                    {
+                                    text: "No",
+                                    }
+                                ])
+                                }}
+                            />
+                            <IconButton
+                                icon='delete-outline'
+                                color={colors.text}
+                                size={28}
+                                onPress={() => {
+                                Alert.alert("Would you like to delete this task?", "", [
+                                    {
+                                    text: "Yes",
+                                    onPress: () => { 
+                                        deleteCurrentTask(currentTask.id);
+                                    },
+                                    },
+                                    {
+                                    text: "No",
+                                    }
+                                ])
+                                }}
+                            />
+                        </View>
+                    )
+                }}
+            />
+            <Stack.Screen 
+                name="ProjectDetails" 
+                component={EmployeeProjectDetailsScreen} 
+                options={{ 
+                    headerTitle: '',
+                    headerShown: true,
+                    headerRight: () => (
+                        <View style={{ flexDirection: 'row' }}>
+                            <IconButton
+                                icon={currentProject.completed ? ('refresh') : ('check') }
+                                color={colors.text}
+                                size={28}
+                                onPress={() => {
+                                    (currentProject.completed) ?
+                                    Alert.alert("Mark this project as incomplete?", "", [
+                                        {
+                                            text: "Yes",
+                                            onPress: () => { 
+                                                updateCurrentProjectStatus(currentProject.id, false);
+                                            },
+                                        },
+                                        {
+                                            text: "No",
+                                        }
+                                    ])
+                                    :
+                                    Alert.alert("Mark this project as complete?", "", [
+                                        {
+                                            text: "Yes",
+                                            onPress: () => { 
+                                                updateCurrentProjectStatus(currentProject.id, true);
+                                            },
+                                        },
+                                        {
+                                            text: "No",
+                                        }
+                                    ])
+                                }}
+                            />
+                            <IconButton
+                                icon='delete-outline'
+                                color={colors.text}
+                                size={28}
+                                onPress={() => {
+                                Alert.alert("Would you like to delete this project and all of its tasks?", "", [
+                                    {
+                                    text: "Yes",
+                                    onPress: () => { 
+                                        deleteCurrentProject(currentProject.id);
+                                    },
+                                    },
+                                    {
+                                    text: "No",
+                                    }
+                                ])
+                                }}
+                            />
+                        </View>
+                    )
+                }}
+
+
+            />
             
             <Stack.Screen 
                 name="CreateCompany" 

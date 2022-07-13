@@ -47,6 +47,7 @@ export const PROJECT_DELETE_FAILED = 'project/create_failed';
 export const PROJECT_UPDATE_STARTED = 'project/update_started';
 export const PROJECT_UPDATE_SUCCESS = 'project/update_success';
 export const PROJECT_UPDATE_FAILED = 'project/update_failed';
+export const PROJECT_SET_CURRENT = 'project/set_current';
 
 export const TASK_FETCH_STARTED = 'task/fetch_started';
 export const TASK_FETCH_SUCCESS = 'task/fetch_success';
@@ -55,9 +56,13 @@ export const TASK_FETCH_FAIL = 'task/fetch_fail';
 export const TASK_CREATE_STARTED = 'task/create_started';
 export const TASK_CREATE_SUCCESS = 'task/create_success';
 export const TASK_CREATE_FAIL = 'task/create_fail';
+export const TASK_DELETE_STARTED = 'task/delete_started';
+export const TASK_DELETE_SUCCESS = 'task/delete_success';
+export const TASK_DELETE_FAIL = 'task/delete_fail';
 export const TASK_UPDATE_STATUS_STARTED = 'task/update_status_started'
 export const TASK_UPDATE_STATUS_SUCCESS = 'task/update_status_success'
 export const TASK_UPDATE_STATUS_FAIL = 'task/update_status_fail'
+export const TASK_SET_CURRENT = 'task/set_current'
 
 export const REFRESH_COMPANY = 'refresh/company'
 export const REFRESH_PROJECT = 'refresh/project'

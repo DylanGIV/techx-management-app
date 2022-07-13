@@ -180,6 +180,19 @@ export const deleteProject = async (projectId: number) => {
   });
 };
 
+export const deleteTask = async (taskId: number) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .delete('AccountTask/delete', {
+        params: {
+          id: taskId
+        }
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
+  });
+};
+
 export const getProjectsByAccount = async () => {
   return new Promise((resolve, reject) => {
     axios

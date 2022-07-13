@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Text, Button, Card, Title, Paragraph, ActivityIndicator } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch } from 'react-redux';
 import { Task } from '../../models/response/TaskResponse';
-import { updateTaskStatus } from '../../redux/actions/TaskActions';
+import { updateTaskGlobalAction, updateTaskStatus } from '../../redux/actions/TaskActions';
 
 const EmployeeTaskDetailsScreen = (props : any) => {
   const dispatch = useDispatch();
@@ -12,13 +12,18 @@ const EmployeeTaskDetailsScreen = (props : any) => {
   const params = props.route.params;
   var task : Task = params.task;
 
+
   var dueDate = new Date(task.dueDate);
 
   const updateStatus = (task.completed) ? false : true;
 
-  const markAsComplete = () => {
-    dispatch(updateTaskStatus(task.id, updateStatus, props) as any)
+  const updateCurrentTask = (currentTask : Task) => {
+    dispatch(updateTaskGlobalAction(currentTask) as any);
   }
+
+  useEffect(() => {
+    updateCurrentTask(task);
+  }, [])
 
 
     return (
@@ -77,9 +82,6 @@ const EmployeeTaskDetailsScreen = (props : any) => {
               </Paragraph>
             </Card.Content>
           </Card>
-          <Button onPress={markAsComplete} >
-            {(task.completed) ? "Mark as incomplete" : "Mark as complete."}
-          </Button>
         </View>
         
       )}
